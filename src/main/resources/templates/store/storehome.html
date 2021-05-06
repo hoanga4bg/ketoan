@@ -198,6 +198,53 @@
                         <!-- /.col-lg-12 -->
                     </div>
                     <!-- /.row -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Danh sách mặt hàng trong kho
+                                </div>
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                            <thead>
+                                                <tr>
+                                                    <th>STT</th>
+                                                    <th>Tên sản phẩm</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Giá nhập</th>
+                                                    <th>Giá bán</th>
+                                                    <th>Mặt hàng</th>
+                                                    <th>Nhà cung cấp</th>
+                                                    <th>Ngày cập nhật</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody th:each="store,state : ${listStore}">
+                                                
+                                                <tr class="gradeU">
+                                                    <td th:text="${state.index}+1"></td>
+                                                    <td th:text="${store.product.name}"></td>
+                                                    <td th:text="${store.amount}"></td>
+                                                    <td th:text="${#numbers.formatDecimal(store.product.importPrice, 0, 'COMMA', 0, 'POINT')}"></td>
+                                                    <td th:text="${#numbers.formatDecimal(store.product.salePrice, 0, 'COMMA', 0, 'POINT')}"></td>
+                                                    <td th:text="${store.product.category.name}"></td>
+                                                    <td th:text="${store.product.supplier.name}"></td>
+                                                    <td th:text="${#dates.format(store.createDate, 'dd-MM-yyyy')}"></td>
+                                                    <td ></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                </div>
+                                <!-- /.panel-body -->
+                            </div>
+                            <!-- /.panel -->
+                        </div>
+                        <!-- /.col-lg-12 -->
+                    </div>
                 </div>
                 
             </div>
