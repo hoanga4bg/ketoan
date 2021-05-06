@@ -16,11 +16,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.htttql.entity.Account;
 import com.htttql.entity.Accountant;
 import com.htttql.repository.AccountRepository;
 import com.htttql.repository.AccountantRepository;
+import com.mysql.cj.protocol.Message;
 import com.htttql.config.MyUserDetails;
 
 
@@ -79,7 +81,7 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
-	public String infoPage(Model model) {
+	public String infoPage(Model model,@RequestParam("message") String message) {
 		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Accountant accountant=null;
@@ -89,6 +91,12 @@ public class AccountController {
 		Accountant acc=accountantRepository.findOneById(accountant.getId());
 		model.addAttribute("accountant", acc);
 		model.addAttribute("username", username);
+		if(message.equals("success")) {
+			model.addAttribute("message", "Cập nhật mật khẩu thành công");
+		}
+		else {
+			model.addAttribute("message", "");
+		}
 		//System.out.print(accountant.toString());
 		return "account/info";
 	}
@@ -99,7 +107,44 @@ public class AccountController {
 		
 		accountantRepository.save(accountant);
 		
-		return "redirect:/info";
+		return "redirect:/info?message";
+	}
+	
+	@RequestMapping(value = "/change", method = RequestMethod.GET)
+	public String changepassPage(Model model, @RequestParam("message") String message) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Accountant accountant=null;
+		accountant = ((MyUserDetails) principal).getAccountant();
+		String username=((MyUserDetails) principal).getUsername();
+		Accountant acc=accountantRepository.findOneById(accountant.getId());
+		model.addAttribute("accountant", acc);
+		model.addAttribute("username", username);
+		if(message.equals("false")==true) {
+			model.addAttribute("message", "Mật khẩu cũ không đúng");
+		}
+		else {
+			model.addAttribute("message", "");
+		}
+		return "account/changepass";
+	}
+	
+	
+	@RequestMapping(value = "/change", method = RequestMethod.POST)
+	public String infoPage(@RequestParam("old") String oldPass,
+						   @RequestParam("new") String newPass) {
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String password=((MyUserDetails) principal).getPassword();
+		String username=((MyUserDetails) principal).getUsername();
+		Account account=accountRepository.findOneByUserName(username);
+		if(oldPass.equals(password)==true) {
+			account.setPassword(newPass);
+			accountRepository.save(account);
+			return "redirect:/info?message=success";
+		}
+		else {
+			return "redirect:/change?message=false";
+		}
 	}
 	
 }
