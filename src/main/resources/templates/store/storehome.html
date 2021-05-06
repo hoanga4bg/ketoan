@@ -221,20 +221,27 @@
                                                     <th></th>
                                                 </tr>
                                             </thead>
-                                            <tbody th:each="store,state : ${listStore}">
-                                                
-                                                <tr class="gradeU">
-                                                    <td th:text="${state.index}+1"></td>
-                                                    <td th:text="${store.product.name}"></td>
-                                                    <td th:text="${store.amount}"></td>
-                                                    <td th:text="${#numbers.formatDecimal(store.product.importPrice, 0, 'COMMA', 0, 'POINT')}"></td>
-                                                    <td th:text="${#numbers.formatDecimal(store.product.salePrice, 0, 'COMMA', 0, 'POINT')}"></td>
-                                                    <td th:text="${store.product.category.name}"></td>
-                                                    <td th:text="${store.product.supplier.name}"></td>
-                                                    <td th:text="${#dates.format(store.createDate, 'dd-MM-yyyy')}"></td>
-                                                    <td ></td>
-                                                </tr>
-                                            </tbody>
+                                            <div th:if="${listStore}">
+	                                            <tbody th:each="store,state : ${listStore}">
+	                                                
+	                                                <tr class="gradeU">
+	                                                    <td th:text="${state.index}+1"></td>
+	                                                    <td th:text="${store.product.name}"></td>
+	                                                    <td th:text="${store.amount}"></td>
+	                                                    <td th:text="${#numbers.formatDecimal(store.product.importPrice, 0, 'COMMA', 0, 'POINT')}"></td>
+	                                                    <td th:text="${#numbers.formatDecimal(store.product.salePrice, 0, 'COMMA', 0, 'POINT')}"></td>
+	                                                    <td th:text="${store.product.category.name}"></td>
+	                                                    <td th:text="${store.product.supplier.name}"></td>
+	                                                    <td th:text="${#dates.format(store.createDate, 'dd-MM-yyyy')}"></td>
+														<td>
+															<a th:href=@{/}>
+																<button class="btn btn-primary pull-center">Sửa</button>
+															</a>
+														</td>
+											</tr>
+	                                            </tbody>
+                                            </div>
+                                            
                                         </table>
                                     </div>
                                     
