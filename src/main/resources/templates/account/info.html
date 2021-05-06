@@ -263,7 +263,7 @@
 							</div>
 						</div>
 					</div>
-					<button type="submit" class="btn btn-primary pull-right">Thay đổi</button>
+					<button type="submit" class="btn btn-primary pull-right" onclick="alertSuccess()">Thay đổi</button>
 					<div class="clearfix"></div>
 				</form>
 			</div>
@@ -272,7 +272,13 @@
 
         </div>
         <!-- /#wrapper -->
-
+	
+		<script>
+			function alertSuccess() {
+			  alert("Cập nhật thông tin thành công");
+			}
+		</script>
+		
         <!-- jQuery -->
         <script th:src="@{/js/jquery.min.js}"></script>
 
