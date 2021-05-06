@@ -20,7 +20,15 @@
 
         <!-- Custom Fonts -->
         <link th:href="@{/css/font-awesome.min.css}" href="../../css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+		
+		<style type="text/css">
+ 			.logo{
+ 				margin:70px;
+ 				margin-left: 35%;
+ 				height: 300px;
+ 				width: 300px;
+ 			}
+		</style>
     </head>
     <body>
 
@@ -40,7 +48,7 @@
                 </button>
 
                 <ul class="nav navbar-nav navbar-left navbar-top-links">
-                    <li><a th:href="@{/}"><i class="fa fa-home fa-fw"></i>Trang chủ</a></li>
+                    <li><a th:href="@{/}"><i class="fa fa-home fa-fw"></i> Trang chủ</a></li>
                 </ul>
 
                 <ul class="nav navbar-right navbar-top-links">
@@ -181,95 +189,23 @@
             </nav>
 
             <!-- Page Content -->
-            <div id="page-wrapper">
-            	
+            <div id="page-wrapper" >
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1 class="page-header">Thông tin cá nhân</h1>
+                            <h1 class="page-header" >Kho hàng</h1>
                         </div>
                         <!-- /.col-lg-12 -->
                     </div>
                     <!-- /.row -->
                 </div>
-                <!-- /.container-fluid -->
-                <div class="card-body" >
-				<i th:text="${message}" style="color:red;"></i>
-				<div class="row">
-					
-					<div class="col-md-3">
-						<div class="form-group">
-							<label class="bmd-label-floating">Tên tài khoản</label> <input
-								type="text" th:value="${username}" class="form-control" disabled>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="form-group">
-							<label class="bmd-label-floating">Mật khẩu</label> <input
-								type="email" class="form-control" value="***********" disabled>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-md-3">
-						<label class="bmd-label-floating"></label> <a th:href="@{/change?message}"><button
-								type="submit" class="btn btn-primary pull-center">Đổi
-								mật khẩu</button></a>
-					</div>
-				</div>
-				<br />
-				<br />
-				<br />
-				<br />
-				<form th:action="@{/info}" th:object="${accountant}" method="POST">
-					<input type="hidden" name="id" th:field="*{id}">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class="bmd-label-floating">Họ và tên</label> 
-								<input type="text" class="form-control" th:field="*{name}">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class="bmd-label-floating">Ngày sinh</label> <input
-									type="date" class="form-control" th:field="*{birthday}">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label class="bmd-label-floating">Địa chỉ</label> <input
-									type="text" class="form-control" th:field="*{address}">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label class="bmd-label-floating">Số điện thoại</label> <input
-									type="text" class="form-control" th:field="*{phoneNumber}">
-							</div>
-						</div>
-					</div>
-					<button type="submit" class="btn btn-primary pull-right" onclick="alertSuccess()">Thay đổi</button>
-					<div class="clearfix"></div>
-				</form>
-			</div>
+                
             </div>
             <!-- /#page-wrapper -->
 
         </div>
         <!-- /#wrapper -->
-	
-		<script>
-			function alertSuccess() {
-			  alert("Cập nhật thông tin thành công");
-			}
-		</script>
-		
+
         <!-- jQuery -->
         <script th:src="@{/js/jquery.min.js}"></script>
 
