@@ -30,12 +30,15 @@
 				<div class="login100-pic js-tilt" data-tilt>
 					<img th:src="@{/img/img-01.png}" alt="IMG">
 				</div>
-
+				
 				<form class="login100-form validate-form"  th:action="@{/j_spring_security_check}" th:method="post" th:object="${account}" id="form-login">
 					<span class="login100-form-title">
 						Member Login
 					</span>
-
+					<div th:if="${#httpServletRequest.getParameter('error')}">
+						<i style="color:red;">Tài khoản mật khẩu không chính xác</i>
+					</div>
+					<br/>
 					<div class="wrap-input100 validate-input" >
 						<input class="input100" type="text" name="userName" placeholder="username" th:field="*{userName}">
 						<span class="focus-input100"></span>
