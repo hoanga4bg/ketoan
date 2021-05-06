@@ -131,11 +131,12 @@ public class AccountController {
 	
 	@RequestMapping(value = "/change", method = RequestMethod.POST)
 	public String infoPage(@RequestParam("old") String oldPass,
-						   @RequestParam("new") String newPass) {
+						   @RequestParam("newpass") String newPass) {
 		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String password=((MyUserDetails) principal).getPassword();
 		String username=((MyUserDetails) principal).getUsername();
+		System.out.println(newPass);
 		Account account=accountRepository.findOneByUserName(username);
 		if(oldPass.equals(password)==true) {
 			account.setPassword(newPass);
