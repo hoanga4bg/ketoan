@@ -6,4 +6,6 @@ import com.htttql.entity.Accountant;
 
 public interface AccountantRepository extends JpaRepository<Accountant, Integer>{
 
+	Accountant findOneById(Integer id);
+
 }

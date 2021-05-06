@@ -33,6 +33,8 @@ public class AccountController {
 	@Autowired
 	private AccountRepository accountRepository;
 	
+	@Autowired
+	private AccountantRepository accountantRepository;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
@@ -64,6 +66,9 @@ public class AccountController {
 		
 	}
 	
+	
+	
+	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -73,6 +78,28 @@ public class AccountController {
 	    return "redirect:/login";
 	}
 	
+	@RequestMapping(value = "/info", method = RequestMethod.GET)
+	public String infoPage(Model model) {
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Accountant accountant=null;
+		accountant = ((MyUserDetails) principal).getAccountant();
+		String username=((MyUserDetails) principal).getUsername();
+		
+		Accountant acc=accountantRepository.findOneById(accountant.getId());
+		model.addAttribute("accountant", acc);
+		model.addAttribute("username", username);
+		//System.out.print(accountant.toString());
+		return "account/info";
+	}
 	
+	
+	@RequestMapping(value = "/info", method = RequestMethod.POST)
+	public String infoPage(Accountant accountant) {
+		
+		accountantRepository.save(accountant);
+		
+		return "redirect:/info";
+	}
 	
 }

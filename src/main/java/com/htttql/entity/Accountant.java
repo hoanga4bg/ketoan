@@ -1,5 +1,6 @@
 package com.htttql.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 
 import javax.persistence.OneToMany;
 
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -22,6 +24,10 @@ public class Accountant {
 	private String name;
 	private String phoneNumber;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date birthday;
+	
+	private String address;
 	
 	@OneToMany(mappedBy = "createBy")
 	private List<ExpenseStatistic> listExpense;
@@ -37,4 +43,10 @@ public class Accountant {
 	
 	@OneToMany(mappedBy = "accountant")
 	private List<IncurredBill> incurredBills;
+
+	@Override
+	public String toString() {
+		return "Accountant [id=" + id + ", name=" + name + ", phoneNumber=" + phoneNumber + ", birthday=" + birthday
+				+ ", address=" + address + ", incurredBills=" + incurredBills + "]";
+	}
 }
