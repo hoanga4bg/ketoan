@@ -60,7 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 					.antMatchers("/css/*",
 								"/js/*",
-								"/image/*",
+								"/img/*",
 								"/vendor/*",
 								"/fonts/*",
 								"/login"	
@@ -68,7 +68,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 					.antMatchers("/admin/*").hasRole("ADMIN")
 					.antMatchers("/*").hasRole("USER")
 					.and()
-					.exceptionHandling().accessDeniedPage("/logout")
+					
+					.exceptionHandling().accessDeniedPage("/logout")	
 					.and()
 				.formLogin()
 					.loginPage("/login")
