@@ -34,4 +34,10 @@ public class ReceiptDAOImpl implements ReceiptDAO{
 		return receiptRepo.findOneById(id);
 	}
 
+	@Override
+	public void deleteById(Integer id) {
+		receiptRepo.deleteById(id);
+		
+	}
+
 }

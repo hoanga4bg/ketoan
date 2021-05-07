@@ -56,6 +56,7 @@ public class ReceiptController {
 		products=productDAO.findAll();
 		model.addAttribute("receipt", receipt);
 		model.addAttribute("products", products);
+		model.addAttribute("mode", 1);
 		return "receipt/editReceipt";
 	}
 	
@@ -74,14 +75,25 @@ public class ReceiptController {
 	
 	
 	@GetMapping("/add")
-	private String editReceipt(Model model) {
+	private String addReceipt(Model model) {
 		
 		
 		List<Product> products=new ArrayList<>();
 		products=productDAO.findAll();
+		
 		model.addAttribute("receipt", new Receipt());
 		model.addAttribute("products", products);
+		model.addAttribute("mode", 0);
 		return "receipt/editReceipt";
+	}
+	
+	
+	@GetMapping("/delete")
+	private String deleteReceipt(Model model,@RequestParam("id") String id) {
+		
+		receiptDAO.deleteById(Integer.parseInt(id));
+		
+		return "redirect:/receipt";
 	}
 }
 
