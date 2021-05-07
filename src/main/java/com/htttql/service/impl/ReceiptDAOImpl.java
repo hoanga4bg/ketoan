@@ -1,13 +1,16 @@
 package com.htttql.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.htttql.entity.Receipt;
 import com.htttql.repository.ReceiptRepository;
 import com.htttql.service.ReceiptDAO;
 
+@Service
 public class ReceiptDAOImpl implements ReceiptDAO{
 	
 	@Autowired
@@ -15,8 +18,9 @@ public class ReceiptDAOImpl implements ReceiptDAO{
 	
 	@Override
 	public List<Receipt> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Receipt> list=new ArrayList<Receipt>();
+		list = receiptRepo.findAll();
+		return list;
 	}
 
 }
