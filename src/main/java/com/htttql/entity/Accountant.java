@@ -44,9 +44,5 @@ public class Accountant {
 	@OneToMany(mappedBy = "accountant")
 	private List<IncurredBill> incurredBills;
 
-	@Override
-	public String toString() {
-		return "Accountant [id=" + id + ", name=" + name + ", phoneNumber=" + phoneNumber + ", birthday=" + birthday
-				+ ", address=" + address + ", incurredBills=" + incurredBills + "]";
-	}
+
 }

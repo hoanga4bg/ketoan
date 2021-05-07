@@ -6,4 +6,6 @@ import com.htttql.entity.Receipt;
 
 public interface ReceiptRepository extends JpaRepository<Receipt, Integer>{
 
+	public Receipt findOneById(Integer id);
+
 }

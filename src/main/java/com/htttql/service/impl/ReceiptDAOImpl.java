@@ -23,4 +23,15 @@ public class ReceiptDAOImpl implements ReceiptDAO{
 		return list;
 	}
 
+	@Override
+	public void save(Receipt receipt) {
+		receiptRepo.save(receipt);
+		
+	}
+
+	@Override
+	public Receipt findById(Integer id) {
+		return receiptRepo.findOneById(id);
+	}
+
 }
