@@ -9,5 +9,6 @@ import com.htttql.entity.Bill;
 
 public interface BillRepository extends JpaRepository<Bill, Integer>{
 	List<Bill> findByCreateBy(Accountant createBy);
+	Bill findOneById(int id);
 
 }

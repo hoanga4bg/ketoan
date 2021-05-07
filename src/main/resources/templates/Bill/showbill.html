@@ -193,9 +193,12 @@
 													<td
 														th:text="${#dates.format(bill.createDate, 'dd-MM-yyyy')}"></td>
 													<td th:text="${bill.createBy.name}"></td>
-													<td><a>
-															<button class="btn btn-primary pull-center">Chi
-																tiết</button>
+													
+													<td>
+													<a th:href=@{/bill/delete(id=${bill.id})}>
+															<button class="btn btn-danger pull-center">Xóa
+															
+																</button>
 													</a></td>
 												</tr>
 											</tbody>

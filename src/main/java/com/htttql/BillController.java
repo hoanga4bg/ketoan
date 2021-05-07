@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.htttql.entity.Accountant;
 import com.htttql.entity.Bill;
+import com.htttql.entity.Orders;
 import com.htttql.repository.AccountantRepository;
 import com.htttql.repository.BillRepository;
+import com.htttql.repository.OrdersRepository;
 
 @Controller
 public class BillController {
@@ -29,6 +31,9 @@ public class BillController {
 	
 	@Autowired
 	private AccountantRepository accountantRepository;
+	
+	@Autowired
+	private OrdersRepository ordersRepository;
 	
 	@RequestMapping(value = "/showbill",method = RequestMethod.GET)
 	public String getAllBill(Model model) {
@@ -104,4 +109,15 @@ public class BillController {
 		
 		
 	}
+	
+	@RequestMapping(value = "/bill/delete",method = RequestMethod.GET)
+	public String deleteBill(@RequestParam("id") String id) {
+		billRepository.deleteById(Integer.parseInt(id));
+		
+		return "redirect:/showbill";
+	}
+	
+	
+	
+	
 }
