@@ -32,12 +32,13 @@
 	height: 300px;
 	width: 300px;
 }
-.search{
-display: flex;
 
+.search {
+	display: flex;
 }
-.search1{
-margin-right: 40%;
+
+.search1 {
+	margin-right: 40%;
 }
 </style>
 </head>
@@ -131,38 +132,38 @@ margin-right: 40%;
 						<div class="panel panel-default">
 							<div class="panel-heading">Danh Sách Hóa Đơn Bán Hàng</div>
 							<div class="panel-heading">
-							
-							<div class="search">
-							<div class="search1">
-									<form th:action="@{/search/bill}" method="GET">
-										<tr>
-											<td><input type="submit" value="Tìm kiếm"></td>
-											<td><input type="text" value="" name="usercreate"
-												placeholder="Tên người tạo" title="nhập tên người tạo"
-												maxlength="200"></td>
 
-										</tr>
-									</form>
+								<div class="search">
+									<div class="search1">
+										<form th:action="@{/search/bill}" method="GET">
+											<tr>
+												<td><input type="submit" value="Tìm kiếm"></td>
+												<td><input type="text" value="" name="usercreate"
+													placeholder="Tên người tạo" title="nhập tên người tạo"
+													maxlength="200"></td>
+
+											</tr>
+										</form>
+
+									</div>
+
+									<div class="search2">
+										<form th:action="@{/search/bill/by/date}" method="GET">
+											<tr>
+												<td><input type="submit" value="Tìm kiếm"></td>
+												<td><input type="date" value="" name="datestart"
+													title="chọn ngày bắt đầu muốn tìm" maxlength="200">
+												</td>
+												<td><input type="date" value="" name="dateend"
+													title="chọn ngày kết thúc tìm kiếm" maxlength="200">
+												</td>
+											</tr>
+										</form>
+									</div>
 
 								</div>
 
-								<div class="search2">
-									<form th:action="@{/search/bill/by/date}" method="GET">
-										<tr>
-											<td><input type="submit" value="Tìm kiếm"></td>
-											<td><input type="date" value="" name="datestart"
-												title="chọn ngày bắt đầu muốn tìm" maxlength="200">
-											</td>
-											<td><input type="date" value="" name="datestart"
-												title="chọn ngày kết thúc tìm kiếm" maxlength="200">
-											</td>
-										</tr>
-									</form>
-								</div>
-							
-							</div>
 
-								
 							</div>
 							<!-- /.panel-heading -->
 							<div class="panel-body">
