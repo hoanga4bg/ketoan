@@ -80,8 +80,9 @@ public class ReceiptController {
 		
 		List<Product> products=new ArrayList<>();
 		products=productDAO.findAll();
-		
-		model.addAttribute("receipt", new Receipt());
+		Receipt r=new Receipt();
+		r.setAmount(1);
+		model.addAttribute("receipt", r);
 		model.addAttribute("products", products);
 		model.addAttribute("mode", 0);
 		return "receipt/editReceipt";
