@@ -52,58 +52,7 @@
                 </ul>
 
                 <ul class="nav navbar-right navbar-top-links">
-                    <li class="dropdown navbar-inverse">
-                        
-                        <ul class="dropdown-menu dropdown-alerts">
-                            <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-comment fa-fw"></i> New Comment
-                                        <span class="pull-right text-muted small">4 minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                        <span class="pull-right text-muted small">12 minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                        <span class="pull-right text-muted small">4 minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-tasks fa-fw"></i> New Task
-                                        <span class="pull-right text-muted small">4 minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                        <span class="pull-right text-muted small">4 minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a class="text-center" href="#">
-                                    <strong>See All Alerts</strong>
-                                    <i class="fa fa-angle-right"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                   
                     <li th:insert="part/loginInfo"></li>
                 </ul>
                 <!-- /.navbar-top-links -->
@@ -163,7 +112,7 @@
 	                                                    <td th:text="${store.product.supplier.name}"></td>
 	                                                    <td th:text="${#dates.format(store.createDate, 'dd-MM-yyyy')}"></td>
 														<td>
-															<a th:href=@{/}>
+															<a th:href=@{/store/edit(id=${store.id})}>
 																<button class="btn btn-primary pull-center">Sửa</button>
 															</a>
 														</td>

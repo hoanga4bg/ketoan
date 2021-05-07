@@ -44,7 +44,6 @@
                 </ul>
 
                 <ul class="nav navbar-right navbar-top-links">
-                    
                     <li th:insert="part/loginInfo"></li>
                 </ul>
                 <!-- /.navbar-top-links -->
@@ -60,10 +59,11 @@
 
             <!-- Page Content -->
             <div id="page-wrapper">
+            	
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1 class="page-header">Đổi mật khẩu</h1>
+                            <h1 class="page-header">Sửa thông tin hàng hóa</h1>
                         </div>
                         <!-- /.col-lg-12 -->
                     </div>
@@ -71,60 +71,54 @@
                 </div>
                 <!-- /.container-fluid -->
                 <div class="card-body" >
-				<i th:text="${message}" style="color:red;"></i>
-				<form th:action="@{/change}" th:object="${account}" method="POST">
+				<form th:action="@{/store/edit}" th:object="${store}" method="POST">
+					<input type="hidden" name="id" th:field="*{id}">
+					<input type="hidden" name="id" th:field="*{product.id}">
 					<div class="row">
-						<div class="col-md-3">
+						<div class="col-md-6">
 							<div class="form-group">
-								<label class="bmd-label-floating">Tên tài khoản</label> 
-								<input type="text" th:value="${username}" class="form-control" disabled>
+								<label class="bmd-label-floating">Tên sản phẩm</label> 
+								<input type="text" class="form-control" th:field="*{product.name}" disabled>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="bmd-label-floating">Số lượng</label> <input
+									type="text" class="form-control" th:field="*{amount}">
 							</div>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-6">
 							<div class="form-group">
-								<label class="bmd-label-floating">Mật khẩu cũ</label> <input
-									type="text" name="old" class="form-control" value="" >
+								<label class="bmd-label-floating">Giá nhập</label> <input
+									type="text" class="form-control" th:field="*{product.importPrice}">
 							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-6">
 							<div class="form-group">
-								<label class="bmd-label-floating">Mật khẩu mới</label> <input
-									type="text" name="newpass" class="form-control" value="" >
+								<label class="bmd-label-floating">Giá bán</label> <input
+									type="text" class="form-control" th:field="*{product.salePrice}">
 							</div>
-						</div>
-					</div>
-	
-					<div class="row">
-						<div class="col-md-3">
-							<label class="bmd-label-floating"></label> 
-							<button type="submit" name="new" class="btn btn-primary pull-center">Đổi mật khẩu</button>
-						</div>
-					</div>
-				</form>
-				
-				<br />
-				<br />
-					<div class="row">
-						<div class="col-md-3">
-							<label class="bmd-label-floating"></label> 
-							<a th:href="@{/info?message}"><button
-								 class="btn btn-primary pull-center">Hủy bỏ</button></a>
 						</div>
 					</div>
 					
+					<button type="submit" class="btn btn-primary pull-right" onclick="alertSuccess()">Thay đổi</button>
 					<div class="clearfix"></div>
-				
+				</form>
 			</div>
             </div>
             <!-- /#page-wrapper -->
 
         </div>
         <!-- /#wrapper -->
-
+	
+		<script>
+			function alertSuccess() {
+			  alert("Cập nhật thông tin thành công");
+			}
+		</script>
+		
         <!-- jQuery -->
         <script th:src="@{/js/jquery.min.js}"></script>
 
