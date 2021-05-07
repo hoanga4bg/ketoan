@@ -5,6 +5,9 @@ import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.slf4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -31,7 +34,7 @@ import com.htttql.config.MyUserDetails;
 
 public class AccountController {
 	
-	
+	private static final Logger LOGGER=org.slf4j.LoggerFactory.getLogger(AccountController.class);
 	@Autowired
 	private AccountRepository accountRepository;
 	
