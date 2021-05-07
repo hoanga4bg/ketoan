@@ -18,6 +18,7 @@ public class Orders {
 	private Integer id;
 	private String customer;
 	private int amount;
+	private boolean status;
 	@ManyToOne
 	@JoinColumn(name = "product_id")
 	private Product product;
