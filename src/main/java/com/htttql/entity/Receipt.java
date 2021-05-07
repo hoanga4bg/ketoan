@@ -24,6 +24,8 @@ public class Receipt {
 	
 	private Date createdDate;
 	private Double totalPrice;
+	
+	private int amount;
 	@ManyToOne
 	@JoinColumn(name = "accountant_id")
 	private Accountant accountant;

@@ -17,7 +17,7 @@ public class Orders {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String customer;
-	
+	private int amount;
 	@ManyToOne
 	@JoinColumn(name = "product_id")
 	private Product product;
