@@ -91,32 +91,31 @@
                                                     <th>STT</th>
                                                     <th>Tên sản phẩm</th>
                                                     <th>Số lượng</th>
-                                                    <th>Giá nhập</th>
-                                                    <th>Giá bán</th>
-                                                    <th>Mặt hàng</th>
-                                                    <th>Nhà cung cấp</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Người tạo</th>
                                                     <th>Ngày cập nhật</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
-                                            <div th:if="${listStore}">
-	                                            <tbody th:each="store,state : ${listStore}">
+                                            <div th:if="${list}">
+	                                            <tbody th:each="receipt,state : ${list}">
 	                                                
 	                                                <tr class="gradeU">
 	                                                    <td th:text="${state.index}+1"></td>
-	                                                    <td th:text="${store.product.name}"></td>
-	                                                    <td th:text="${store.amount}"></td>
-	                                                    <td th:text="${#numbers.formatDecimal(store.product.importPrice, 0, 'COMMA', 0, 'POINT')}"></td>
-	                                                    <td th:text="${#numbers.formatDecimal(store.product.salePrice, 0, 'COMMA', 0, 'POINT')}"></td>
-	                                                    <td th:text="${store.product.category.name}"></td>
-	                                                    <td th:text="${store.product.supplier.name}"></td>
-	                                                    <td th:text="${#dates.format(store.createDate, 'dd-MM-yyyy')}"></td>
+	                                                    <td th:text="${receipt.product.name}"></td>
+	                                                    <td th:text="${receipt.amount}"></td>
+	                                                    <td th:text="${#numbers.formatDecimal(receipt.totalPrice, 0, 'COMMA', 0, 'POINT')}"></td>
+	                         							<td th:text="${receipt.accountant.name}"></td>
+	                                                    <td th:text="${#dates.format(receipt.createdDate, 'dd-MM-yyyy')}"></td>
 														<td>
-															<a th:href=@{/store/edit(id=${store.id})}>
+															<a th:href=@{/receipt/edit(id=${receipt.id})}>
 																<button class="btn btn-primary pull-center">Sửa</button>
 															</a>
+															<a th:href=@{/receipt/delete(id=${receipt.id})}>
+																<button class="btn btn-primary pull-center">Xóa</button>
+															</a>
 														</td>
-											</tr>
+													</tr>
 	                                            </tbody>
                                             </div>
                                             

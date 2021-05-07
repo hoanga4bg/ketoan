@@ -24,9 +24,10 @@ public class ReceiptController {
 	@GetMapping
 	private String showReceipt(Model model) {
 		List<Receipt> list=new ArrayList<Receipt>();
-		receiptDAO.findAll();
+		list=receiptDAO.findAll();
+	
 		Collections.reverse(list);
-		
+		model.addAttribute("list", list);
 		return "receipt/showReceipt";
 	}
 	

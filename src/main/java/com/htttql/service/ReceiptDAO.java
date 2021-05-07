@@ -9,6 +9,5 @@ import com.htttql.entity.Receipt;
 
 
 public interface ReceiptDAO {
-	
 	public List<Receipt> findAll();
 }
