@@ -25,6 +25,7 @@ import com.htttql.entity.Account;
 import com.htttql.entity.Accountant;
 import com.htttql.repository.AccountRepository;
 import com.htttql.repository.AccountantRepository;
+import com.htttql.service.AbstractDAO;
 import com.mysql.cj.protocol.Message;
 import com.htttql.config.MyUserDetails;
 
@@ -41,13 +42,12 @@ public class AccountController {
 	@Autowired
 	private AccountantRepository accountantRepository;
 	
+	
+	@Autowired
+	private AbstractDAO abstractDAO;
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Accountant accountant=null;
-		
-		accountant = ((MyUserDetails) principal).getAccountant();
-		System.out.println(accountant.getName());
 		return "home";
 	}
 	
@@ -86,10 +86,9 @@ public class AccountController {
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
 	public String infoPage(Model model,@RequestParam("message") String message) {
 		
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Accountant accountant=null;
-		accountant = ((MyUserDetails) principal).getAccountant();
-		String username=((MyUserDetails) principal).getUsername();
+		
+		Accountant accountant=abstractDAO.getAccountant();
+		String username=abstractDAO.getUsername();
 		
 		Accountant acc=accountantRepository.findOneById(accountant.getId());
 		model.addAttribute("accountant", acc);
@@ -115,10 +114,8 @@ public class AccountController {
 	
 	@RequestMapping(value = "/change", method = RequestMethod.GET)
 	public String changepassPage(Model model, @RequestParam("message") String message) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Accountant accountant=null;
-		accountant = ((MyUserDetails) principal).getAccountant();
-		String username=((MyUserDetails) principal).getUsername();
+		Accountant accountant=abstractDAO.getAccountant();
+		String username=abstractDAO.getUsername();
 		Accountant acc=accountantRepository.findOneById(accountant.getId());
 		model.addAttribute("accountant", acc);
 		model.addAttribute("username", username);

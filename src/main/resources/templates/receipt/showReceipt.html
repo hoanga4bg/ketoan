@@ -71,10 +71,26 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1 class="page-header" >Kho hàng</h1>
+                            <h1 class="page-header" >Hóa đơn nhập kho</h1>
+                       
                         </div>
+                        
                         <!-- /.col-lg-12 -->
                     </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            
+                            <br/>
+                           
+                            	<a th:href=@{/receipt/add}>
+								<button class="btn btn-primary pull-center">Thêm hóa đơn</button>
+								</a>
+                        	
+                        </div>
+                        
+                        <!-- /.col-lg-12 -->
+                    </div>
+                    <br/>
                     <!-- /.row -->
                     <div class="row">
                         <div class="col-lg-12">
@@ -112,7 +128,7 @@
 																<button class="btn btn-primary pull-center">Sửa</button>
 															</a>
 															<a th:href=@{/receipt/delete(id=${receipt.id})}>
-																<button class="btn btn-primary pull-center">Xóa</button>
+																<button class="btn btn-danger pull-center">Xóa</button>
 															</a>
 														</td>
 													</tr>

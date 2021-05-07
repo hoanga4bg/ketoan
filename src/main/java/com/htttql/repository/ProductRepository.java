@@ -6,4 +6,6 @@ import com.htttql.entity.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Integer>{
 
+	public Product findOneById(Integer id);
+
 }

@@ -10,4 +10,6 @@ import com.htttql.entity.Receipt;
 
 public interface ReceiptDAO {
 	public List<Receipt> findAll();
+	public Receipt findById(Integer id);
+	public void save(Receipt receipt);
 }
