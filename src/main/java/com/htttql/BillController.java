@@ -23,6 +23,7 @@ import com.htttql.entity.Orders;
 import com.htttql.repository.AccountantRepository;
 import com.htttql.repository.BillRepository;
 import com.htttql.repository.OrdersRepository;
+import com.htttql.service.BillDAO;
 
 @Controller
 public class BillController {
@@ -34,6 +35,9 @@ public class BillController {
 	
 	@Autowired
 	private OrdersRepository ordersRepository;
+	
+	@Autowired
+	private BillDAO billDAO;
 	
 	@RequestMapping(value = "/showbill",method = RequestMethod.GET)
 	public String getAllBill(Model model) {
@@ -115,6 +119,21 @@ public class BillController {
 		billRepository.deleteById(Integer.parseInt(id));
 		
 		return "redirect:/showbill";
+	}
+	
+	@RequestMapping(value = "/bill/detail",method = RequestMethod.GET)
+	public String detailBill(@RequestParam("id") String id,Model model) {
+		Bill bill = billRepository.findOneById(Integer.parseInt(id));
+		String totalprice = String.valueOf((int)Math.round(bill.getTotalPrice()));
+		ArrayList<String> kq = billDAO.readNum(totalprice);
+		String money = "";
+        for (int i = 0; i < kq.size(); i++) {
+        	money += kq.get(i) + " ";
+            System.out.print(kq.get(i)+ " ");
+        }
+		model.addAttribute("bill", bill);
+		model.addAttribute("totalprice", money);
+		return "Bill/detail";
 	}
 	
 	
