@@ -137,11 +137,12 @@
 									<div class="search1">
 										<form th:action="@{/search/bill}" method="GET">
 											<tr>
-												<td><input type="submit" value="Tìm kiếm"></td>
-												<td><input type="text" value="" name="usercreate"
+											
+												<td style="display:inline-block;"><input type="text" class="form-control" value="" name="usercreate"
 													placeholder="Tên người tạo" title="nhập tên người tạo"
-													maxlength="200"></td>
-
+													maxlength="200" ></td>
+												<br/>
+												<td style="display:inline-block;"><input type="submit" value="Tìm kiếm" class="btn btn-primary"></td>
 											</tr>
 										</form>
 
@@ -150,7 +151,7 @@
 									<div class="search2">
 										<form th:action="@{/search/bill/by/date}" method="GET">
 											<tr>
-												<td><input type="submit" value="Tìm kiếm"></td>
+												<td><input type="submit" value="Tìm kiếm" class="btn btn-primary"></td>
 												<td><input type="date" value="" name="datestart"
 													title="chọn ngày bắt đầu muốn tìm" maxlength="200">
 												</td>
