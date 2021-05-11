@@ -25,7 +25,7 @@ public class MyUserDetailsService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		System.out.println(username);
+		//System.out.println(username);
 		
 		Account account=accountRepo.findOneByUserName(username);
 //		System.out.print(user.getPassWord());
