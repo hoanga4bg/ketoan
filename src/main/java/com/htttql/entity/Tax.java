@@ -22,6 +22,5 @@ public class Tax {
 	private String name;
 	private Double coefficient;
 	
-	@OneToMany(mappedBy = "tax")
-	private List<Orders> listOrder;
+
 }

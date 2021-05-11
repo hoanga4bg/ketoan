@@ -43,6 +43,7 @@ public class Accountant {
 	
 	@OneToMany(mappedBy = "accountant")
 	private List<IncurredBill> incurredBills;
-
-
+	
+	@OneToMany(mappedBy = "accountant")
+	private List<HistorySalary> historySalarys;
 }

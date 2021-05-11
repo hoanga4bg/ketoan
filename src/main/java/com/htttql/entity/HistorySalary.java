@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import lombok.Data;
@@ -19,7 +20,12 @@ public class HistorySalary {
 	private Integer id;
 	private Date receiveDate;
 	
-	@OneToOne
+	
+	@ManyToOne
 	@JoinColumn(name = "salary_id")
 	private Salary salary;
+	
+	@ManyToOne
+	@JoinColumn(name = "accountant_id")
+	private Accountant accountant;
 }

@@ -1,10 +1,13 @@
 package com.htttql.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.Data;
@@ -20,10 +23,9 @@ public class Salary {
 	private Double basicSalary;
 	private int dayWork;
 	
-	@OneToOne
-	@JoinColumn(name = "tax_id")
-	private Tax tax;
+	@OneToMany(mappedBy = "salary")
+	private List<HistorySalary> historySalary;
 	
-
+	
 	
 }

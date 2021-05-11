@@ -22,10 +22,5 @@ public class Orders {
 	@ManyToOne
 	@JoinColumn(name = "product_id")
 	private Product product;
-	
-	@ManyToOne
-	@JoinColumn(name="tax_id")
-	private Tax tax;
-	
 
 }
