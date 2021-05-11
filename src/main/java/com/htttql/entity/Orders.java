@@ -22,5 +22,9 @@ public class Orders {
 	@ManyToOne
 	@JoinColumn(name = "product_id")
 	private Product product;
+	public boolean getStatus() {
+		return this.status;
+	}
+	
 
 }

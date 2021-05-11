@@ -23,6 +23,7 @@ import com.htttql.entity.Orders;
 import com.htttql.repository.AccountantRepository;
 import com.htttql.repository.BillRepository;
 import com.htttql.repository.OrdersRepository;
+import com.htttql.service.AbstractDAO;
 import com.htttql.service.BillDAO;
 
 @Controller
@@ -38,6 +39,9 @@ public class BillController {
 	
 	@Autowired
 	private BillDAO billDAO;
+	
+	@Autowired
+	private AbstractDAO abstractService;
 	
 	@RequestMapping(value = "/showbill",method = RequestMethod.GET)
 	public String getAllBill(Model model) {
@@ -136,6 +140,27 @@ public class BillController {
 		return "Bill/detail";
 	}
 	
+	@RequestMapping(value = "/bill/create",method = RequestMethod.GET)
+	public String createNewBill(@RequestParam("id") String id) {
+		Orders orders = new Orders();
+		orders = ordersRepository.findOneById(Integer.parseInt(id));
+		orders.setStatus(false);
+		long millis=System.currentTimeMillis();
+		java.sql.Date dateNow = new java.sql.Date(millis);
+		double totalPrice = orders.getAmount() * orders.getProduct().getSalePrice();
+		Accountant accountant = new Accountant();
+		accountant = abstractService.getAccountant();
+		Bill bill = new Bill();
+		bill.setCreateDate(dateNow);
+		bill.setCreateBy(accountant);
+		bill.setTotalPrice(totalPrice);
+		bill.setOrders(orders);
+		billRepository.save(bill);
+		ordersRepository.save(orders);
+		return "redirect:/orders";
+	}
+	
+
 	
 	
 	

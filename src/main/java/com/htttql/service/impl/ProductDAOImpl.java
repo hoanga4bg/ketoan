@@ -30,5 +30,11 @@ public class ProductDAOImpl implements ProductDAO{
 		
 		return productRepo.findOneById(id);
 	}
+
+	@Override
+	public List<Product> findByName(String name) {
+		// TODO Auto-generated method stub
+		return productRepo.findByName(name);
+	}
 	
 }
