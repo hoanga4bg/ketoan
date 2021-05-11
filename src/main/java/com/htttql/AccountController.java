@@ -2,6 +2,7 @@ package com.htttql;
 
 import java.security.Principal;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -77,17 +78,48 @@ public class AccountController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginForm(Model model) {
+		int size=accountRepository.findAll().size();
+		if(size==0) {
+			Accountant accountant=new Accountant();
+			accountant.setAddress("A");
+			accountant.setName("Hoàng");
+			accountant.setPhoneNumber("0123456789");
+			accountantRepository.save(accountant);
+			
+			Accountant accountantAd=new Accountant();
+			accountantAd.setAddress("A");
+			accountantAd.setName("admin");
+			accountantAd.setPhoneNumber("0122455669");
+			accountantRepository.save(accountantAd);
+			
+			Account account=new Account();
+			account.setAccountant(accountant);
+			account.setRole("ROLE_USER");
+			account.setPassword("123456");
+			account.setUserName("user");
+			account.setStatus(true);
+			accountRepository.save(account);
+			
+			Account accountAd=new Account();
+			accountAd.setUserName("admin");
+			accountAd.setPassword("admin");
+			accountAd.setAccountant(accountantAd);
+			accountAd.setRole("ROLE_ADMIN");
+			accountAd.setStatus(true);
+			accountRepository.save(accountAd);
+			
+		}
 		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			if (auth instanceof AnonymousAuthenticationToken) {
+				model.addAttribute("account",new Account());
+				return "login";	
+			}
+			else {
+				return "redirect:/";	
+			}
+		
 
-		if (auth instanceof AnonymousAuthenticationToken) {
-			model.addAttribute("account",new Account());
-			return "login";	
-		}
-		else {
-			return "redirect:/";	
-		}
-		
 	}
 	
 	
