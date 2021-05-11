@@ -20,7 +20,7 @@ public class HistorySalary {
 	private Integer id;
 	private Date receiveDate;
 	
-	
+	private Double money;
 	@ManyToOne
 	@JoinColumn(name = "salary_id")
 	private Salary salary;

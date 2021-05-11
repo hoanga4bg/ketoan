@@ -6,4 +6,6 @@ import com.htttql.entity.Salary;
 
 public interface SalaryRepository extends JpaRepository<Salary, Integer>{
 
+	public Salary findOneById(Integer id);
+
 }

@@ -52,14 +52,13 @@
                 </ul>
 
                 <ul class="nav navbar-right navbar-top-links">
-                   
                     <li th:insert="part/loginInfo"></li>
                 </ul>
                 <!-- /.navbar-top-links -->
 
                 <div class="navbar-default sidebar" role="navigation">
-                    <div class="sidebar-nav navbar-collapse" th:insert="part/sidebar">
-                        
+                    <div class="sidebar-nav navbar-collapse">
+                        <div th:insert="part/sidebar"></div>
                     </div>
                     <!-- /.sidebar-collapse -->
                 </div>
@@ -71,7 +70,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1 class="page-header" >Kho hàng</h1>
+                            <h1 class="page-header" >Lương</h1>
                         </div>
                         <!-- /.col-lg-12 -->
                     </div>
@@ -80,7 +79,7 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    Danh sách mặt hàng trong kho
+                                    Danh sách nhân viên
                                 </div>
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
@@ -89,31 +88,31 @@
                                             <thead>
                                                 <tr>
                                                     <th>STT</th>
-                                                    <th>Tên sản phẩm</th>
-                                                    <th>Số lượng</th>
-                                                    <th>Giá nhập</th>
-                                                    <th>Giá bán</th>
-                                                    <th>Mặt hàng</th>
-                                                    <th>Nhà cung cấp</th>
-                                                    <th>Ngày cập nhật</th>
+                                                    <th>Tên nhân viên</th>
+                                                    <th>Vị trí</th>
+                                                    <th>Lương (VNĐ)</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
-                                            <div th:if="${listStore}">
-	                                            <tbody th:each="store,state : ${listStore}">
+                                            <div th:if="${list}">
+	                                            <tbody th:each="salary,state : ${list}">
 	                                                
 	                                                <tr class="gradeU">
 	                                                    <td th:text="${state.index}+1"></td>
-	                                                    <td th:text="${store.product.name}"></td>
-	                                                    <td th:text="${store.amount}"></td>
-	                                                    <td th:text="${#numbers.formatDecimal(store.product.importPrice, 0, 'COMMA', 0, 'POINT')}"></td>
-	                                                    <td th:text="${#numbers.formatDecimal(store.product.salePrice, 0, 'COMMA', 0, 'POINT')}"></td>
-	                                                    <td th:text="${store.product.category.name}"></td>
-	                                                    <td th:text="${store.product.supplier.name}"></td>
-	                                                    <td th:text="${#dates.format(store.createDate, 'dd-MM-yyyy')}"></td>
-														<td>
-															<a th:href=@{/store/edit(id=${store.id})}>
-																<button class="btn btn-primary pull-center">Sửa</button>
+	                                                    <td th:text="${salary.nameStaff}"></td>
+	                                                    <td th:text="${salary.position}"></td>
+	                                                    <td th:text="${#numbers.formatDecimal(salary.basicSalary, 0, 'COMMA', 0, 'POINT')} "></td>
+
+														<td th:if="${salary.status}">
+															<a th:href=@{/salary/create(id=${salary.id})}>
+																<button class="btn btn-primary pull-center">Thanh toán</button>
+															</a>
+															<button class="btn btn-danger pull-center" disabled>Hoàn tác</button>
+														</td>
+														<td th:unless="${salary.status}">
+															<button class="btn btn-primary pull-center" disabled>Thanh toán</button>
+															<a th:href=@{/salary/undo(id=${salary.id})}>
+																<button class="btn btn-danger pull-center">Hoàn tác</button>
 															</a>
 														</td>
 											</tr>
