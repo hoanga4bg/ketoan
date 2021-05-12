@@ -19,6 +19,8 @@ public class ExpenseStatistic {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private Double total;
+	private Double salaryTotal;
+	private Double importTotal;
 	private Date createDate;
 	
 	@ManyToOne
