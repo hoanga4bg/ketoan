@@ -22,7 +22,8 @@ public class ExpenseStatistic {
 	private Double salaryTotal;
 	private Double importTotal;
 	private Date createDate;
-	
+	private int month;
+	private int year;
 	@ManyToOne
 	@JoinColumn(name="accountant_id")
 	private Accountant createBy;

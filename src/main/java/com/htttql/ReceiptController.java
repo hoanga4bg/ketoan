@@ -16,13 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.htttql.config.MyUserDetails;
 import com.htttql.entity.Accountant;
 import com.htttql.entity.Product;
 import com.htttql.entity.Receipt;
 import com.htttql.entity.Store;
-import com.htttql.repository.ReceiptRepository;
-import com.htttql.repository.StoreRepository;
+
 import com.htttql.service.AbstractDAO;
 import com.htttql.service.ProductDAO;
 import com.htttql.service.ReceiptDAO;

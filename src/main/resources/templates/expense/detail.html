@@ -71,24 +71,23 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1 class="page-header" >Chi phí phát sinh</h1>
+                            <h1 class="page-header" th:text="${title}"></h1>
                        
                         </div>
                         
                         <!-- /.col-lg-12 -->
                     </div>
                     <div class="row">
-                        <div class="col-lg-12" th:if="${mode}">
-                    	<br/>
-                    			<a th:href=@{/expense/add}>
-								<button class="btn btn-primary pull-center">Tính chi phí</button>
+                        <div class="col-lg-12">
+                            
+                            <br/>
+                           
+                            	<a th:href=@{/expense}>
+								<button class="btn btn-primary pull-center">Trở lại</button>
 								</a>
+                        	
                         </div>
-                        <div class="col-lg-12" th:unless="${mode}">
-                    	<br/>
-								<button class="btn btn-primary pull-center" disabled>Tính chi phí</button>
-
-                        </div>
+                        
                         <!-- /.col-lg-12 -->
                     </div>
                     <br/>
@@ -97,7 +96,7 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                   	Chi phí phát sinh theo các tháng
+                                   	Chi tiết chi phí
                                 </div>
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
@@ -106,38 +105,25 @@
                                             <thead>
                                                 <tr>
                                                     <th>STT</th>
-                                                    <th>Tổng chi phí</th>
-                                                    <th>Tháng</th>
-                                                    <th>Năm</th>
-                                                    <th>Người tạo</th>
-                                                    <th>Thời gian tạo</th>
-                                                    <th></th>
+                                                    <th>Loại chi phí</th>
+                                                    <th>Số tiền</th>
                                                 </tr>
                                             </thead>
-                                            <div th:if="${list}">
-	                                            <tbody th:each="expense,state : ${list}">
+                                           
+	                                            <tbody >
 	                                                
 	                                                <tr class="gradeU">
-	                                                    <td th:text="${state.index}+1"></td>
-	                                                    <td th:text="${#numbers.formatDecimal(expense.total, 0, 'COMMA', 0, 'POINT')}"></td>
-	                                                    <td th:text="${expense.month}"></td>
-	                                                    <td th:text="${expense.year}"></td>
-	                         							<td th:text="${expense.createBy.name}"></td>
-	                                                    <td th:text="${#dates.format(expense.createDate, 'dd-MM-yyyy')}"></td>
-														<td>
-															<a th:href="@{/expense/detail(id=${expense.id})}">
-																<button class="btn btn-primary pull-center">Xem chi tiết</button>
-															</a>
-															<form th:action="@{/expense/edit}" method="GET"  style="display:inline-block;">
-																	<input type="hidden" name="id" th:value="${expense.id}">
-																	<button onclick="return confirm('Are you sure?') ? true : false;" type="submit" class="btn btn-danger pull-center" >Tính lại</button>
-															</form>
-																
-															
-														</td>
+	                                                    <td>1</td>
+	                                                    <td>Nhập hàng</td>
+	                                                    <td th:text="${#numbers.formatDecimal(expense.importTotal, 0, 'COMMA', 0, 'POINT')}"></td>
+													</tr>
+													<tr class="gradeU">
+	                                                    <td>2</td>
+	                                                    <td>Tiền lương nhân viên</td>
+	                                                    <td th:text="${#numbers.formatDecimal(expense.salaryTotal, 0, 'COMMA', 0, 'POINT')}"></td>
 													</tr>
 	                                            </tbody>
-                                            </div>
+                                           
                                             
                                         </table>
                                     </div>

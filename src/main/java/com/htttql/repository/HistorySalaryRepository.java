@@ -11,5 +11,5 @@ import com.htttql.entity.Salary;
 
 public interface HistorySalaryRepository extends JpaRepository<HistorySalary, Integer>{
 	public HistorySalary findOneBySalaryAndReceiveDateBetween(Salary salary,Date startDate, Date endDate);
-	List<HistorySalary> findByReceiveDateBetween(Date startDate,Date endDate);
+	public List<HistorySalary> findByReceiveDateBetween(Date startDate,Date endDate);
 }

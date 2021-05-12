@@ -6,4 +6,6 @@ import com.htttql.entity.ExpenseStatistic;
 
 public interface ExpenseStatisticRepository extends JpaRepository<ExpenseStatistic, Integer>{
 
+	public ExpenseStatistic findOneById(int id);
+	public ExpenseStatistic findOneByMonthAndYear(int month,int year);
 }
