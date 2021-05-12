@@ -12,9 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.htttql.entity.Category;
+import com.htttql.entity.Product;
 import com.htttql.entity.Store;
+import com.htttql.entity.Supplier;
+import com.htttql.repository.CategoryRepository;
 import com.htttql.repository.ProductRepository;
 import com.htttql.repository.StoreRepository;
+import com.htttql.repository.SupplierRepository;
+import com.htttql.service.ProductDAO;
 
 @Controller
 
@@ -27,9 +33,62 @@ public class StoreController {
 	
 	@Autowired
 	private StoreRepository storeRepo;
+	@Autowired
+	private ProductDAO productDAO;
+	
+	@Autowired
+	private CategoryRepository cateRepo;
+	
+	@Autowired
+	private SupplierRepository supRepo;
 	
 	@GetMapping
 	private String storeHome(Model model) {
+		Category c=new Category();
+		c.setId(1);
+		c.setName("Tai nghe");
+		Supplier s=new Supplier();
+		s.setId(1);
+		s.setName("Sony");
+		if(cateRepo.findAll().size()==0) {
+			cateRepo.save(c);
+		}
+		
+		if(supRepo.findAll().size()==0) {
+			supRepo.save(s);
+		}
+		
+		if(productDAO.findAll().size()==0) {
+			
+			Product p=new Product();
+			p.setId(1);
+			p.setCategory(cateRepo.findAll().get(0));
+			p.setName("Tai nghe MDR-Z7M2");
+			p.setImportPrice(100000.0);
+			p.setSalePrice(200000.0);
+			p.setSupplier(supRepo.findAll().get(0));
+			productRepo.save(p);
+			Store st=new Store();
+			st.setId(1);
+			st.setCreateDate(new Date());
+			st.setAmount(500);
+			st.setProduct(productDAO.findAll().get(0));
+			storeRepo.save(st);
+			
+			
+			p.setId(2);
+			p.setCategory(cateRepo.findAll().get(0));
+			p.setName("Tai nghe không dây có công nghệ chống ồn WH-1000XM4");
+			p.setImportPrice(200000.0);
+			p.setSalePrice(400000.0);
+			p.setSupplier(supRepo.findAll().get(0));
+			productRepo.save(p);
+			st.setId(2);
+			st.setCreateDate(new Date());
+			st.setAmount(400);
+			st.setProduct(productDAO.findAll().get(1));
+			storeRepo.save(st);
+		}
 		List<Store> listStore=new ArrayList<Store>();
 		listStore=storeRepo.findAll();
 		model.addAttribute("listStore", listStore);

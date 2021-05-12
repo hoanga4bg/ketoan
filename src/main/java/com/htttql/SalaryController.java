@@ -19,6 +19,7 @@ import com.htttql.dto.SalaryDTO;
 import com.htttql.dto.convert.SalaryConvert;
 import com.htttql.entity.*;
 import com.htttql.repository.HistorySalaryRepository;
+import com.htttql.repository.SalaryRepository;
 @Controller
 @RequestMapping("/salary")
 public class SalaryController {
@@ -27,7 +28,8 @@ public class SalaryController {
 	private SalaryDAO salaryDAO;
 	@Autowired
 	private HistorySalaryRepository histRepo;
-	
+	@Autowired
+	private SalaryRepository salaryRepo;
 	private SalaryConvert sc = new SalaryConvert(); 
 	
 	@GetMapping
@@ -35,6 +37,17 @@ public class SalaryController {
 		List<Salary> list=new ArrayList<Salary>();
 		
 		list=salaryDAO.findAll();
+		if(list.size()==0) {
+			Salary s=new Salary();
+			s.setBasicSalary(10000000.0);
+			s.setPosition("Nhân viên");
+			s.setNameStaff("Nguyễn Văn A");
+			salaryRepo.save(s);
+			s.setBasicSalary(15000000.0);
+			s.setPosition("Nhân viên");
+			s.setNameStaff("Nguyễn Văn B");
+			salaryRepo.save(s);
+		}
 		
 		List<SalaryDTO> listDTO=new ArrayList<SalaryDTO>();
 		
