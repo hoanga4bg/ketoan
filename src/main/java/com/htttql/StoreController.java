@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.htttql.entity.Store;
 import com.htttql.repository.ProductRepository;
 import com.htttql.repository.StoreRepository;
+import com.htttql.service.ProductDAO;
 
 @Controller
 
@@ -27,9 +28,11 @@ public class StoreController {
 	
 	@Autowired
 	private StoreRepository storeRepo;
-	
+	@Autowired
+	private ProductDAO productDAO;
 	@GetMapping
 	private String storeHome(Model model) {
+		
 		List<Store> listStore=new ArrayList<Store>();
 		listStore=storeRepo.findAll();
 		model.addAttribute("listStore", listStore);

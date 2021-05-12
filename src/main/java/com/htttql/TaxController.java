@@ -16,6 +16,7 @@ import com.htttql.entity.Tax;
 import com.htttql.entity.TaxStatistic;
 import com.htttql.repository.TaxRepository;
 import com.htttql.service.AbstractDAO;
+import com.htttql.service.ProductDAO;
 import com.htttql.service.TaxStatisticDAO;
 
 @Controller
@@ -31,9 +32,10 @@ public class TaxController {
 	@Autowired
 	private AbstractDAO abstractDAO;
 	
-	
+
 	@GetMapping("/vat")
 	public String vatHome(Model model) {
+		
 		Date d=new Date();
 		int month=d.getMonth()+1;
 		int year=d.getYear()+1900;
