@@ -68,7 +68,7 @@ public class TaxStatisticDAOImpl implements TaxStatisticDAO{
 
 	@Override
 	public Double vatCal(int month, int year) {
-		Tax t=taxRepo.findOneByName("VAT");
+		Tax t=taxRepo.findByName("VAT").get(0);
 		Double salePrice=billDAO.salePriceByMonth(month, year);
 	
 		Double total=t.getCoefficient()*salePrice;
@@ -80,7 +80,7 @@ public class TaxStatisticDAOImpl implements TaxStatisticDAO{
 	public Double tncnCal(int month, int year) {
 		
 		ExpenseStatistic e=expenseRepo.findOneByMonthAndYear(month, year);
-		Tax t=taxRepo.findOneByName("TNCN");
+		Tax t=taxRepo.findByName("TNCN").get(0);
 	
 		Double total=t.getCoefficient()*e.getSalaryTotal();
 		System.out.println(total);
