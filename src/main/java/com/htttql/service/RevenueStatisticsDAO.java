@@ -7,7 +7,7 @@ import com.htttql.entity.Accountant;
 import com.htttql.entity.RevenueStatistics;
 
 public interface RevenueStatisticsDAO extends GeneralService<RevenueStatistics> {
-	public int countByDate();
 	List<RevenueStatistics> findByCreateBy(Accountant acc);
+	List<RevenueStatistics> findByCreateDateBetween(Date startDate, Date endDate);
 
 }

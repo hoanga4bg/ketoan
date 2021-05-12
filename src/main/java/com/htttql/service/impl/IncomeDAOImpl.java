@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.htttql.entity.Accountant;
 import com.htttql.entity.Income;
 import com.htttql.repository.IncomeRepository;
 import com.htttql.service.IncomeDAO;
@@ -48,6 +49,12 @@ public class IncomeDAOImpl implements IncomeDAO {
 	public List<Income> findByCreateDateBetween(Date startDate, Date endDate) {
 		// TODO Auto-generated method stub
 		return incomeRepository.findByCreateDateBetween(startDate, endDate);
+	}
+
+	@Override
+	public List<Income> findByCreateBy(Accountant acc) {
+		// TODO Auto-generated method stub
+		return incomeRepository.findByCreateBy(acc);
 	}
 
 }

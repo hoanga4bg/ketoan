@@ -53,23 +53,17 @@ public class RevenueStatisticsDAOImpl implements RevenueStatisticsDAO {
 		return null;
 	}
 
-	@Override
-	public int countByDate() {
-		LocalDate todayDate = LocalDate.now();
-		LocalDate startDate = todayDate.withDayOfMonth(1);
-		LocalDate endDate = todayDate.withDayOfMonth(todayDate.lengthOfMonth());
-		Date enddate = Date.from(endDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-		Date startdate = Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-		
-		int count = 0;
-		count = reve.countByDate(startdate, enddate);
-		return count;
-	}
 
 	@Override
 	public List<RevenueStatistics> findByCreateBy(Accountant acc) {
 		// TODO Auto-generated method stub
 		return reve.findByCreateBy(acc);
+	}
+
+	@Override
+	public List<RevenueStatistics> findByCreateDateBetween(Date startDate, Date endDate) {
+		// TODO Auto-generated method stub
+		return reve.findByCreateDateBetween(startDate, endDate);
 	}
 
 }

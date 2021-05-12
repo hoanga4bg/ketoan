@@ -63,8 +63,6 @@ public class RevenueStatisticsController {
 	
 	@RequestMapping(value = "/reve/revenow",method = RequestMethod.GET)
 	public String createNewReve(Model model) {
-		List<RevenueStatistics> reves = new ArrayList<RevenueStatistics>();
-		reves = reveDAO.findAll();
 		LocalDate todaydate = LocalDate.now();
 		LocalDate fisrtdate = todaydate.withDayOfMonth(1);
 		LocalDate endDate = todaydate.withDayOfMonth(todaydate.lengthOfMonth());
@@ -74,8 +72,10 @@ public class RevenueStatisticsController {
 		double saleprice = 0;
 		double salary = 0;
 		double importprice = 0;
+		List<RevenueStatistics> reves = new ArrayList<RevenueStatistics>();
+		reves = reveDAO.findByCreateDateBetween(startdate, enddate);
 		
-		if(reveDAO.countByDate() != 0) {
+		if(reves.size() != 0) {
 			for (RevenueStatistics reve : reves) {
 				if(((reve.getCreateDate().compareTo(startdate) == 1) && (reve.getCreateDate().compareTo(enddate) == -1)) || (reve.getCreateDate().compareTo(startdate) == 0) || (reve.getCreateDate().compareTo(enddate) == 0)) {
 					saleprice = billDAO.revenueByMonthNow();

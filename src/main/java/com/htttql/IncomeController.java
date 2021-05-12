@@ -11,9 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.htttql.entity.Accountant;
 import com.htttql.entity.Income;
 import com.htttql.entity.RevenueStatistics;
+import com.htttql.repository.AccountantRepository;
 import com.htttql.service.AbstractDAO;
 import com.htttql.service.BillDAO;
 import com.htttql.service.DateDAO;
@@ -29,6 +32,8 @@ public class IncomeController {
 	private BillDAO billDAO;
 	@Autowired
 	private AbstractDAO abDAO;
+	@Autowired 
+	private AccountantRepository accountantRepository;
 	
 	@RequestMapping(value = "/income",method = RequestMethod.GET)
 	public String findAll(Model model) {
@@ -73,5 +78,74 @@ public class IncomeController {
 		}
 		return "redirect:/income";
 	}
+	
+	@RequestMapping(value = "/incomes/delete",method = RequestMethod.GET)
+	public String deleteReve(@RequestParam("id") String id) {
+		incomeDAO.delete(Integer.parseInt(id));
+		return "redirect:/income";
+	}
+	
+	@RequestMapping(value = "/search/incomes",method = RequestMethod.GET)
+	public String searchIncome(@RequestParam("name") String name,Model model) {
+		if(name == "") {
+			return "redirect:/income";
+		}
+		List<Accountant> accountants = new ArrayList<Accountant>();
+		accountants = accountantRepository.findByName(name);
+		List<Income> incomes = new ArrayList<Income>();
+		for (Accountant acc : accountants) {
+			List<Income> incomes1 = new ArrayList<Income>();
+			incomes1 = incomeDAO.findByCreateBy(acc);
+			for (Income income : incomes1) {
+				incomes.add(income);
+			}
+		}
+		
+		model.addAttribute("incomes", incomes);
+		
+		return "income/display";
+	}
+	
+	@RequestMapping(value = "/income/month",method = RequestMethod.GET)
+	public String createIncomeByMonthAndYear(@RequestParam("month") String month,@RequestParam("year") String year) {
+		if(month =="" || year == "") {
+			return "redirect:/reve";
+		}
+		List<Income> incomes = new ArrayList<Income>();
+		incomes = incomeDAO.findAll();
+		int dem = 0;
+		double saleprice = 0;
+		for (Income income : incomes) {
+			if(income.getCreateDate().getYear() + 1900 == Integer.parseInt(year)) {
+				if(income.getCreateDate().getMonth()+1 == Integer.parseInt(month)) {
+					dem ++;
+				}
+			}	
+		}
+		if(dem != 0) {
+			return "redirect:/income";
+		}
+		else {
+			Income income = new Income();
+			
+						saleprice = billDAO.salePriceByMonth(Integer.parseInt(month), Integer.parseInt(year));
+						
+						
+						income.setTotal(saleprice);
+						LocalDate initial = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), 15);
+						LocalDate end = initial.withDayOfMonth(initial.lengthOfMonth());
+						Date enddate = Date.from(end.atStartOfDay(ZoneId.systemDefault()).toInstant());
+						income.setCreateDate(enddate);
+						income.setMonth(Integer.parseInt(month));
+						income.setYear(Integer.parseInt(year));
+						income.setCreateBy(abDAO.getAccountant());
+						incomeDAO.save(income);
+						
+	
+			}
+		return "redirect:/income";
+	}
 
 }
+
+	
