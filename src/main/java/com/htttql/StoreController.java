@@ -59,33 +59,34 @@ public class StoreController {
 		}
 		
 		if(productDAO.findAll().size()==0) {
+			
 			Product p=new Product();
 			p.setId(1);
-			p.setCategory(c);
+			p.setCategory(cateRepo.findAll().get(0));
 			p.setName("Tai nghe MDR-Z7M2");
 			p.setImportPrice(100000.0);
 			p.setSalePrice(200000.0);
-			p.setSupplier(s);
+			p.setSupplier(supRepo.findAll().get(0));
 			productRepo.save(p);
 			Store st=new Store();
 			st.setId(1);
 			st.setCreateDate(new Date());
 			st.setAmount(500);
-			st.setProduct(p);
+			st.setProduct(productDAO.findAll().get(0));
 			storeRepo.save(st);
 			
 			
 			p.setId(2);
-			p.setCategory(c);
+			p.setCategory(cateRepo.findAll().get(0));
 			p.setName("Tai nghe không dây có công nghệ chống ồn WH-1000XM4");
 			p.setImportPrice(200000.0);
 			p.setSalePrice(400000.0);
-			p.setSupplier(s);
+			p.setSupplier(supRepo.findAll().get(0));
 			productRepo.save(p);
 			st.setId(2);
 			st.setCreateDate(new Date());
 			st.setAmount(400);
-			st.setProduct(p);
+			st.setProduct(productDAO.findAll().get(1));
 			storeRepo.save(st);
 		}
 		List<Store> listStore=new ArrayList<Store>();
