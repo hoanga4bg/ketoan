@@ -20,7 +20,9 @@ import com.htttql.config.MyUserDetails;
 import com.htttql.entity.Accountant;
 import com.htttql.entity.Product;
 import com.htttql.entity.Receipt;
+import com.htttql.entity.Store;
 import com.htttql.repository.ReceiptRepository;
+import com.htttql.repository.StoreRepository;
 import com.htttql.service.AbstractDAO;
 import com.htttql.service.ProductDAO;
 import com.htttql.service.ReceiptDAO;
@@ -37,6 +39,9 @@ public class ReceiptController {
 	
 	@Autowired
 	private AbstractDAO abstractDAO;
+	@Autowired
+	private StoreRepository storeRepo;
+	
 	@GetMapping
 	private String showReceipt(Model model) {
 		List<Receipt> list=new ArrayList<Receipt>();
@@ -69,6 +74,24 @@ public class ReceiptController {
 		receipt.setCreatedDate(new Date());
 		receipt.setProduct(p);
 		receipt.setAccountant(accountant);
+		
+		if(receipt.getId()==null) {
+			Store store=storeRepo.findOneByProduct(p);
+			System.out.println(store.getAmount());
+			int amount = store.getAmount();
+			amount+=receipt.getAmount();
+			store.setAmount(amount);
+			System.out.println(amount);
+			storeRepo.save(store);
+		}
+		else {
+			Receipt re=receiptDAO.findById(receipt.getId());
+			Store store=storeRepo.findOneByProduct(p);
+			int amount = store.getAmount();
+			amount=amount-re.getAmount()+receipt.getAmount();
+			store.setAmount(amount);
+			storeRepo.save(store);
+		}
 		receiptDAO.save(receipt);
 		return "redirect:/receipt";
 	}

@@ -10,4 +10,6 @@ public interface StoreRepository extends JpaRepository<Store, Integer>{
 	public Store findOneById(int parseInt);
 	public Store findOneByProduct(Product product);
 
+	public Store findOneByProduct(Product p);
+
 }
