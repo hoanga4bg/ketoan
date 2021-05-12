@@ -27,8 +27,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.htttql.entity.Account;
 import com.htttql.entity.Accountant;
+import com.htttql.entity.Tax;
 import com.htttql.repository.AccountRepository;
 import com.htttql.repository.AccountantRepository;
+import com.htttql.repository.TaxRepository;
 import com.htttql.service.AbstractDAO;
 import com.mysql.cj.protocol.Message;
 import com.htttql.config.MyUserDetails;
@@ -48,7 +50,8 @@ public class AccountController {
 	
 	@Autowired
 	private AbstractDAO abstractDAO;
-	
+	@Autowired
+	private TaxRepository taxRepo;
 	
 	@RequestMapping(value = "/default", method = RequestMethod.GET)
 	public String defaultHome() {
@@ -110,6 +113,7 @@ public class AccountController {
 			
 		}
 		
+		
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			if (auth instanceof AnonymousAuthenticationToken) {
 				model.addAttribute("account",new Account());
@@ -137,7 +141,15 @@ public class AccountController {
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
 	public String infoPage(Model model,@RequestParam("message") String message) {
 		
-		
+		if(taxRepo.findAll().size()==0) {
+			Tax t=new Tax();
+			t.setCoefficient(0.15);
+			t.setName("TNCN");
+			taxRepo.save(t);
+			t.setCoefficient(0.1);
+			t.setName("VAT");
+			taxRepo.save(t);
+		}
 		Accountant accountant=abstractDAO.getAccountant();
 		String username=abstractDAO.getUsername();
 		
