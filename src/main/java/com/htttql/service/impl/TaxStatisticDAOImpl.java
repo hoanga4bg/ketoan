@@ -14,6 +14,7 @@ import com.htttql.repository.ExpenseStatisticRepository;
 import com.htttql.repository.TaxRepository;
 import com.htttql.repository.TaxStatisticRepository;
 import com.htttql.service.BillDAO;
+import com.htttql.service.ExpenseDAO;
 import com.htttql.service.TaxStatisticDAO;
 
 
@@ -28,6 +29,8 @@ public class TaxStatisticDAOImpl implements TaxStatisticDAO{
 	private TaxRepository taxRepo;
 	@Autowired
 	private BillDAO billDAO;
+	@Autowired
+	private ExpenseDAO eDAO;
 	@Override
 	public List<TaxStatistic> findAll() {
 		// TODO Auto-generated method stub
@@ -79,10 +82,10 @@ public class TaxStatisticDAOImpl implements TaxStatisticDAO{
 	@Override
 	public Double tncnCal(int month, int year) {
 		
-		ExpenseStatistic e=expenseRepo.findOneByMonthAndYear(month, year);
+		
 		Tax t=taxRepo.findByName("TNCN").get(0);
 	
-		Double total=t.getCoefficient()*e.getSalaryTotal();
+		Double total=eDAO.getTotalSalaryHistoryByMonthAndYear(month, year)*t.getCoefficient();
 		System.out.println(total);
 		return total;
 	}

@@ -144,6 +144,7 @@ public class AccountController {
 //		t.setCoefficient(0.15);
 //		t.setName("TNCN");
 //		taxRepo.save(t);
+//		System.out.print(taxRepo.findAll().size());
 //		if(taxRepo.findAll().size()==0) {
 //			Tax t=new Tax();
 //			t.setCoefficient(0.15);
