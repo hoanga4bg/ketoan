@@ -37,7 +37,11 @@ public class Accountant {
 	
 	@OneToMany(mappedBy = "createBy")
 	private List<Bill> bills;
+	@OneToMany(mappedBy = "createBy")
+	private List<Income> listIncome;
 	
+	@OneToMany(mappedBy = "createBy")
+	private List<Tax> listTax;
 	@OneToMany(mappedBy = "accountant")
 	private List<Receipt> receipts;
 	
@@ -46,4 +50,6 @@ public class Accountant {
 	
 	@OneToMany(mappedBy = "accountant")
 	private List<HistorySalary> historySalarys;
+	
+	
 }
