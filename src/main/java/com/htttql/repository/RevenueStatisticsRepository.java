@@ -16,4 +16,5 @@ public interface RevenueStatisticsRepository extends JpaRepository<RevenueStatis
 	@Query(value = "SELECT count(create_date) FROM ketoan.revenue_statistics where create_date >= ?1 and create_date <= ?2 ",nativeQuery = true)
 	int countByDate(Date date1,Date date2);
 
+
 }
