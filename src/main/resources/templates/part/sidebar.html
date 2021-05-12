@@ -5,22 +5,18 @@
                             <li>
                                 <a th:href="@{/store}"><i class="fa fa-home fa-fw"></i>Kho hàng</a>
                             </li>
-                            
                             <li>
-                                <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
-                            </li>
-                            <li>
-                            	<a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Kết quả kinh doanh<span class="fa arrow"></span></a>
+                                <a><i class="fa fa-files-o fa-fw"></i>Hóa đơn<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a th:href="@{/reve}">Lợi nhuận</a>
+                                        <a th:href="@{/receipt}">Hóa đơn nhập</a>
                                     </li>
                                     <li>
-                                        <a th:href="@{/expense}">Chi phí phát sinh</a>
+                                        <a th:href="@{/showbill}">Hóa đơn xuất</a>
                                     </li>
                                 </ul>
+                                <!-- /.nav-second-level -->
                             </li>
-                            
                             <li>
                             	<a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Yêu cầu mua hàng<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
@@ -33,7 +29,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-wrench fa-fw"></i> Lương<span class="fa arrow"></span></a>
+                                <a href="#"><i class="fa fa-money fa-fw"></i> Lương<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
                                         <a th:href="@{/salary}">Trả lương</a>
@@ -45,16 +41,16 @@
                                 <!-- /.nav-second-level -->
                             </li>
                             
-                            <li class="active">
-                                <a><i class="fa fa-files-o fa-fw"></i>Hóa đơn<span class="fa arrow"></span></a>
+                           
+                             <li>
+                            	<a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Kết quả kinh doanh<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a th:href="@{/receipt}">Hóa đơn nhập</a>
+                                        <a th:href="@{/reve}">Lợi nhuận</a>
                                     </li>
                                     <li>
-                                        <a th:href="@{/showbill}">Hóa đơn xuất</a>
+                                        <a th:href="@{/expense}">Chi phí phát sinh</a>
                                     </li>
                                 </ul>
-                                <!-- /.nav-second-level -->
                             </li>
 </ul>
