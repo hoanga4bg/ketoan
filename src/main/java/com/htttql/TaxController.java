@@ -39,7 +39,7 @@ public class TaxController {
 		Date d=new Date();
 		int month=d.getMonth()+1;
 		int year=d.getYear()+1900;
-		Tax t=taxRepo.findOneByName("VAT");
+		Tax t=taxRepo.findByName("VAT").get(0);
 		List<TaxStatistic> list=taxDAO.findByTax(t);
 		TaxStatistic ts=taxDAO.findOneByTaxAndMonthAndYear(t, month, year);
 		Collections.reverse(list);
@@ -58,7 +58,7 @@ public class TaxController {
 		Date d=new Date();
 		int month=d.getMonth()+1;
 		int year=d.getYear()+1900;
-		Tax t=taxRepo.findOneByName("TNCN");
+		Tax t=taxRepo.findByName("TNCN").get(0);
 		List<TaxStatistic> list=taxDAO.findByTax(t);
 		TaxStatistic ts=taxDAO.findOneByTaxAndMonthAndYear(t, month, year);
 		Collections.reverse(list);
@@ -83,7 +83,7 @@ public class TaxController {
 		tax.setMonth(month);
 		tax.setYear(year);
 		tax.setTotal(taxDAO.vatCal(month, year));
-		tax.setTax(taxRepo.findOneByName("VAT"));
+		tax.setTax(taxRepo.findByName("VAT").get(0));
 		taxDAO.save(tax);
 		return "redirect:/tax/vat";
 	}
@@ -101,7 +101,7 @@ public class TaxController {
 		Double total=taxDAO.tncnCal(month, year);
 		System.out.println(total);
 		tax.setTotal(total);
-		tax.setTax(taxRepo.findOneByName("TNCN"));
+		tax.setTax(taxRepo.findByName("TNCN").get(0));
 		taxDAO.save(tax);
 		return "redirect:/tax/tncn";
 	}
