@@ -1,5 +1,7 @@
 package com.htttql.service.impl;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,10 +54,14 @@ public class RevenueStatisticsDAOImpl implements RevenueStatisticsDAO {
 
 	@Override
 	public int countByDate() {
-		Date startDate = dateDAO.getFirstDayOfMonthNow();
-		Date endDate = dateDAO.getEndDayOfMonthNow();
+		LocalDate todayDate = LocalDate.now();
+		LocalDate startDate = todayDate.withDayOfMonth(1);
+		LocalDate endDate = todayDate.withDayOfMonth(todayDate.lengthOfMonth());
+		Date enddate = Date.from(endDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Date startdate = Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		
 		int count = 0;
-		count = reve.countByDate(startDate, endDate);
+		count = reve.countByDate(startdate, enddate);
 		return count;
 	}
 
