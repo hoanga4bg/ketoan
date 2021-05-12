@@ -28,6 +28,7 @@ public class SalaryController {
 	private SalaryDAO salaryDAO;
 	@Autowired
 	private HistorySalaryRepository histRepo;
+	@Autowired
 	private SalaryRepository salaryRepo;
 	private SalaryConvert sc = new SalaryConvert(); 
 	
