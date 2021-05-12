@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.htttql.entity.RevenueStatistics;
 import com.htttql.service.AbstractDAO;
 import com.htttql.service.BillDAO;
+import com.htttql.service.DateDAO;
+import com.htttql.service.ExpenseDAO;
 import com.htttql.service.ReceiptDAO;
 import com.htttql.service.RevenueStatisticsDAO;
 import com.htttql.service.SalaryDAO;
@@ -40,6 +42,10 @@ public class RevenueStatisticsController {
 	private AbstractDAO abDao;
 	@Autowired
 	private ReceiptDAO receiptDAO;
+	@Autowired
+	private ExpenseDAO exDAO;
+	@Autowired
+	private DateDAO dateDAO;
 	
 	@RequestMapping(value = "/reve",method = RequestMethod.GET)
 	public String findAll(Model model) {
@@ -55,8 +61,10 @@ public class RevenueStatisticsController {
 		reves = reveDAO.findAll();
 		LocalDate todaydate = LocalDate.now();
 		LocalDate fisrtdate = todaydate.withDayOfMonth(1);
-		Date enddate = Date.from(todaydate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		LocalDate endDate = todaydate.withDayOfMonth(todaydate.lengthOfMonth());
+		Date enddate = Date.from(endDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		Date startdate = Date.from(fisrtdate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Date todate = Date.from(todaydate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		double saleprice = 0;
 		double salary = 0;
 		double importprice = 0;
@@ -70,7 +78,7 @@ public class RevenueStatisticsController {
 					double totalPrice = 0;
 					totalPrice = saleprice - salary - importprice;
 					reve.setTotal(totalPrice);
-					reve.setCreateDate(enddate);
+					reve.setCreateDate(todate);
 					reveDAO.save(reve);
 				}
 				
@@ -84,7 +92,7 @@ public class RevenueStatisticsController {
 			double totalPrice = 0;
 			totalPrice = saleprice - salary - importprice;
 			reve1.setTotal(totalPrice);
-			reve1.setCreateDate(enddate);
+			reve1.setCreateDate(todate);
 			reve1.setCreateBy(abDao.getAccountant());
 			reveDAO.save(reve1);
 		}
@@ -93,6 +101,9 @@ public class RevenueStatisticsController {
 
 	@RequestMapping(value = "/reve/month",method = RequestMethod.GET)
 	public String createReveByMonthAndYear(@RequestParam("month") String month,@RequestParam("year") String year) {
+		if(month =="" || year == "") {
+			return "redirect:/reve";
+		}
 		List<RevenueStatistics> reves = new ArrayList<RevenueStatistics>();
 		reves = reveDAO.findAll();
 		int dem = 0;
@@ -110,19 +121,23 @@ public class RevenueStatisticsController {
 			return "redirect:/reve";
 		}
 		else {
-			for (RevenueStatistics reve : reves) {
-				if(reve.getCreateDate().getYear() + 1900 == Integer.parseInt(year)) {
-					if(reve.getCreateDate().getMonth()+1 == Integer.parseInt(month)) {
+			RevenueStatistics reve = new RevenueStatistics();
+			
 						saleprice = billDAO.salePriceByMonth(Integer.parseInt(month), Integer.parseInt(year));
+						salary = exDAO.getTotalSalaryHistoryByMonthAndYear(Integer.parseInt(month), Integer.parseInt(year));
+						importprice = exDAO.getTotalReceiptByMonthAndYear(Integer.parseInt(month), Integer.parseInt(year));
 						double totalPrice = 0;
 						totalPrice = saleprice - salary - importprice;
-					}
-				}	
-			}
-			
-		}
+						reve.setTotal(totalPrice);
+						LocalDate initial = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), 15);
+						LocalDate end = initial.withDayOfMonth(initial.lengthOfMonth());
+						Date enddate = Date.from(end.atStartOfDay(ZoneId.systemDefault()).toInstant());
+						reve.setCreateDate(enddate);
+						reve.setCreateBy(abDao.getAccountant());
+						reveDAO.save(reve);
+						
 	
-		
+			}
 		return "redirect:/reve";
 	}
 }

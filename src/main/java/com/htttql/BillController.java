@@ -88,6 +88,9 @@ public class BillController {
 	
 	@RequestMapping(value = "/search/bill/by/date", method = RequestMethod.GET)
 	public String searchBillByDate(@RequestParam("datestart") String datestart, @RequestParam("dateend") String dateend,Model model) {
+		if(datestart == "" || dateend == "") {
+			return "redirect:/showbill";
+		}
 		SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
 		Date startdate;
 		Date enddate;

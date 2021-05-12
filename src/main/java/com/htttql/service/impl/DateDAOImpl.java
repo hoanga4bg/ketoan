@@ -59,4 +59,24 @@ public class DateDAOImpl implements DateDAO {
 		
 	}
 
+	@Override
+	public Date getEndDayOfMonth(int month, int year) {
+		String endDate="";
+		if(month<10) {
+			endDate+=(year+"-0"+month+"-30");
+		}
+		else {
+			endDate+=(year+"-"+month+"-30");
+		}
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		HistorySalary h=new HistorySalary();
+		try {
+			Date eDate=sdf.parse(endDate);
+			return eDate;
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }
