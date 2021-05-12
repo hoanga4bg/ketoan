@@ -41,7 +41,7 @@ public class Accountant {
 	private List<Income> listIncome;
 	
 	@OneToMany(mappedBy = "createBy")
-	private List<Tax> listTax;
+	private List<TaxStatistic> listTaxStatistic;
 	@OneToMany(mappedBy = "accountant")
 	private List<Receipt> receipts;
 	
