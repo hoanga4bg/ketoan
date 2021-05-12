@@ -21,7 +21,7 @@ public class TaxStatistic {
 	private int month;
 	private int year;
 	
-	
+	private Date createDate;
 	@ManyToOne
 	@JoinColumn(name="accountant_id")
 	private Accountant createBy;

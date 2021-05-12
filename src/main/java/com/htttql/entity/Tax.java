@@ -15,7 +15,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Tax {
+public class Tax{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
