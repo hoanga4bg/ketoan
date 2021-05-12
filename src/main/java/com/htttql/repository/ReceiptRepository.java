@@ -12,8 +12,8 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Integer>{
 
 	public Receipt findOneById(Integer id);
 	
-	@Query(value = "SELECT * FROM ketoan.receipt where created_date >= ?1 and created_date <= ?2",nativeQuery = true)
-	List<Receipt> findByCreateDateBetween(Date startDate,Date endDate);
+	
+	List<Receipt> findByCreatedDateBetween(Date startDate,Date endDate);
 	
 
 }

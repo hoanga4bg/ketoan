@@ -13,4 +13,5 @@ public interface SalaryDAO {
 	public void pay(Salary salary);
 	public HistorySalary getInMonth(Salary salary);
 	public double getTotalSalaryOfMonthNow();
+	
 }

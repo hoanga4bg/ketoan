@@ -74,7 +74,7 @@ public class ExpenseDAOImpl implements ExpenseDAO{
 		try {
 			Date sDate=sdf.parse(startDate);
 			Date eDate=sdf.parse(endDate);
-			relist=receiptRepo.findByCreateDateBetween(sDate, eDate);
+			relist=receiptRepo.findByCreatedDateBetween(sDate, eDate);
 			for(Receipt r:relist) {
 				total+=r.getTotalPrice();
 			}

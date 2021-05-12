@@ -15,7 +15,7 @@ public interface BillRepository extends JpaRepository<Bill, Integer>{
 	Bill findOneById(int id);
 	Bill findOneByOrders(Orders orders);
 	
-	@Query(value = "SELECT * FROM ketoan.bill where create_date >= ?1 and create_date<= ?2",nativeQuery = true)
-	List<Bill> findByDate(Date date1,Date date2);
+	
+	List<Bill> findByCreateDateBetween(Date date1,Date date2);
 
 }

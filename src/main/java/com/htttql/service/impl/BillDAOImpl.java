@@ -197,7 +197,7 @@ public class BillDAOImpl implements BillDAO {
 		Date firstdate = dateDAO.getFirstDayOfMonthNow();
 		Date enddate = dateDAO.getEndDayOfMonthNow();
 		List<Bill> bills = new ArrayList<Bill>();
-		bills = billRepository.findByDate(firstdate, enddate);
+		bills = billRepository.findByCreateDateBetween(firstdate, enddate);
 		double totalprice = 0;
 		for (Bill bill : bills) {
 			totalprice += bill.getTotalPrice();
@@ -205,4 +205,20 @@ public class BillDAOImpl implements BillDAO {
 		return totalprice;
 	}
 
+
+	@Override
+	public double salePriceByMonth(int month, int year) {
+		double salePrice = 0;
+		List<Bill> bills = new ArrayList<Bill>();
+		bills = billRepository.findAll();
+		for (Bill bill : bills) {
+			if(bill.getCreateDate().getYear() + 1900 == year) {
+				if(bill.getCreateDate().getMonth()+1 == month) {
+					salePrice += bill.getTotalPrice();
+				}
+		}
+		
+	}
+		return salePrice;
+}
 }

@@ -149,14 +149,14 @@
 									</div>
 
 									<div class="search2">
-										<form th:action="@{/search/bill/by/date}" method="GET">
+										<form th:action="@{/reve/month}" method="GET">
 											<tr>
-												<td><input type="submit" value="Tìm kiếm" class="btn btn-primary"></td>
-												<td><input type="date" value="" name="datestart"
-													title="chọn ngày bắt đầu muốn tìm" maxlength="200">
+												<td><input type="submit" value="Tính Doanh Thu" class="btn btn-primary"></td>
+												<td><input type="text" value="" name="month"
+													title="chọn tháng muốn tính" maxlength="200">
 												</td>
-												<td><input type="date" value="" name="dateend"
-													title="chọn ngày kết thúc tìm kiếm" maxlength="200">
+												<td><input type="text" value="" name="year"
+													title="năm cần tính" maxlength="200">
 												</td>
 											</tr>
 										</form>

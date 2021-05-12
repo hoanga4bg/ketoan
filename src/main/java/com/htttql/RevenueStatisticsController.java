@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.htttql.entity.RevenueStatistics;
 import com.htttql.service.AbstractDAO;
@@ -90,4 +91,38 @@ public class RevenueStatisticsController {
 		return "redirect:/reve";
 	}
 
+	@RequestMapping(value = "/reve/month",method = RequestMethod.GET)
+	public String createReveByMonthAndYear(@RequestParam("month") String month,@RequestParam("year") String year) {
+		List<RevenueStatistics> reves = new ArrayList<RevenueStatistics>();
+		reves = reveDAO.findAll();
+		int dem = 0;
+		double saleprice = 0;
+		double salary = 0;
+		double importprice = 0;
+		for (RevenueStatistics reve : reves) {
+			if(reve.getCreateDate().getYear() + 1900 == Integer.parseInt(year)) {
+				if(reve.getCreateDate().getMonth()+1 == Integer.parseInt(month)) {
+					dem ++;
+				}
+			}	
+		}
+		if(dem != 0) {
+			return "redirect:/reve";
+		}
+		else {
+			for (RevenueStatistics reve : reves) {
+				if(reve.getCreateDate().getYear() + 1900 == Integer.parseInt(year)) {
+					if(reve.getCreateDate().getMonth()+1 == Integer.parseInt(month)) {
+						saleprice = billDAO.salePriceByMonth(Integer.parseInt(month), Integer.parseInt(year));
+						double totalPrice = 0;
+						totalPrice = saleprice - salary - importprice;
+					}
+				}	
+			}
+			
+		}
+	
+		
+		return "redirect:/reve";
+	}
 }

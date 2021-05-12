@@ -49,7 +49,7 @@ public class ReceiptDAOImpl implements ReceiptDAO{
 		Date startDate = dateDAO.getFirstDayOfMonthNow();
 		Date endDate = dateDAO.getEndDayOfMonthNow();
 		List<Receipt> receipts = new ArrayList<Receipt>();
-		receipts = receiptRepo.findByCreateDateBetween(startDate, endDate);
+		receipts = receiptRepo.findByCreatedDateBetween(startDate, endDate);
 		double totalPriceImport = 0;
 		for (Receipt receipt : receipts) {
 			totalPriceImport += receipt.getTotalPrice();
