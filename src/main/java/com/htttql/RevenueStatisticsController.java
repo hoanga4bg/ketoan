@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.htttql.entity.Accountant;
 import com.htttql.entity.RevenueStatistics;
+import com.htttql.repository.AccountRepository;
+import com.htttql.repository.AccountantRepository;
 import com.htttql.service.AbstractDAO;
 import com.htttql.service.BillDAO;
 import com.htttql.service.DateDAO;
@@ -46,6 +49,9 @@ public class RevenueStatisticsController {
 	private ExpenseDAO exDAO;
 	@Autowired
 	private DateDAO dateDAO;
+	
+	@Autowired
+	private AccountantRepository accountantRepository;
 	
 	@RequestMapping(value = "/reve",method = RequestMethod.GET)
 	public String findAll(Model model) {
@@ -139,5 +145,32 @@ public class RevenueStatisticsController {
 	
 			}
 		return "redirect:/reve";
+	}
+	
+	@RequestMapping(value = "/reve/delete",method = RequestMethod.GET)
+	public String deleteReve(@RequestParam("id") String id) {
+		reveDAO.delete(Integer.parseInt(id));
+		return "redirect:/reve";
+	}
+	
+	@RequestMapping(value = "/search/reve",method = RequestMethod.GET)
+	public String searchReve(@RequestParam("name") String name,Model model) {
+		if(name == "") {
+			return "redirect:/reve";
+		}
+		List<Accountant> accountants = new ArrayList<Accountant>();
+		accountants = accountantRepository.findByName(name);
+		List<RevenueStatistics> reves = new ArrayList<RevenueStatistics>();
+		for (Accountant acc : accountants) {
+			List<RevenueStatistics> reves1 = new ArrayList<RevenueStatistics>();
+			reves1 = reveDAO.findByCreateBy(acc);
+			for (RevenueStatistics reve : reves1) {
+				reves.add(reve);
+			}
+		}
+		
+		model.addAttribute("reves", reves);
+		
+		return "revenueStatistics/display";
 	}
 }

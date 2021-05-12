@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.htttql.entity.Accountant;
 import com.htttql.entity.RevenueStatistics;
 import com.htttql.repository.RevenueStatisticsRepository;
 import com.htttql.service.DateDAO;
@@ -63,6 +64,12 @@ public class RevenueStatisticsDAOImpl implements RevenueStatisticsDAO {
 		int count = 0;
 		count = reve.countByDate(startdate, enddate);
 		return count;
+	}
+
+	@Override
+	public List<RevenueStatistics> findByCreateBy(Accountant acc) {
+		// TODO Auto-generated method stub
+		return reve.findByCreateBy(acc);
 	}
 
 }

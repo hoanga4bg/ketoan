@@ -135,10 +135,10 @@
 
 								<div class="search">
 									<div class="search1">
-										<form th:action="@{/search/bill}" method="GET">
+										<form th:action="@{/search/reve}" method="GET">
 											<tr>
 											
-												<td style="display:inline-block;"><input type="text" class="form-control" value="" name="usercreate"
+												<td style="display:inline-block;"><input type="text" class="form-control" value="" name="name"
 													placeholder="Tên người tạo" title="nhập tên người tạo"
 													maxlength="200" ></td>
 												<br/>
@@ -151,7 +151,7 @@
 									<div class="search2">
 										<form th:action="@{/reve/month}" method="GET">
 											<tr>
-												<td><input type="submit" value="Tính Doanh Thu" class="btn btn-primary"></td>
+												<td><input type="submit" value="Tính lợi nhuận" class="btn btn-primary"></td>
 												<td><input type="text" value="" name="month"
 													title="chọn tháng muốn tính" placeholder="Tháng">
 												</td>
@@ -175,7 +175,7 @@
 											<tr>
 												<th>STT</th>
 												<th>Tổng thu nhập</th>
-												<th>Thời gian</th>
+												<th>Thời gian kết toán</th>
 												<th>Người tạo</th>
 												<th>Thao tác</th>
 
@@ -195,7 +195,8 @@
 													<td th:text="${reve.createBy.name}"></td>
 													
 													<td>
-													Chi tiết
+													<a  th:href=@{/reve/delete(id=${reve.id})}>
+															<button class="btn btn-danger pull-center">Xóa</button></a>
 													</td>
 													
 												</tr>
@@ -206,7 +207,7 @@
 										<tr>
 										<td>
 										<a th:href=@{/reve/revenow}>
-										<button class="btn btn-primary">Tính doanh thu tháng này</button>
+										<button class="btn btn-primary">Tính lợi nhuận tháng này</button>
 										</a>
 										
 										</td>
@@ -222,6 +223,9 @@
 					</div>
 					<!-- /.col-lg-12 -->
 				</div>
+				
+				
+				
 			</div>
 
 		</div>
