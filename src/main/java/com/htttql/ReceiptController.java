@@ -26,6 +26,7 @@ import com.htttql.repository.StoreRepository;
 import com.htttql.service.AbstractDAO;
 import com.htttql.service.ProductDAO;
 import com.htttql.service.ReceiptDAO;
+import com.htttql.service.StoreDAO;
 
 @Controller
 @RequestMapping(value = "/receipt")
@@ -40,7 +41,7 @@ public class ReceiptController {
 	@Autowired
 	private AbstractDAO abstractDAO;
 	@Autowired
-	private StoreRepository storeRepo;
+	private StoreDAO storeDAO;
 	
 	@GetMapping
 	private String showReceipt(Model model) {
@@ -76,21 +77,21 @@ public class ReceiptController {
 		receipt.setAccountant(accountant);
 		
 		if(receipt.getId()==null) {
-			Store store=storeRepo.findOneByProduct(p);
+			Store store=storeDAO.findOneByProduct(p);
 			System.out.println(store.getAmount());
 			int amount = store.getAmount();
 			amount+=receipt.getAmount();
 			store.setAmount(amount);
 			System.out.println(amount);
-			storeRepo.save(store);
+			storeDAO.save(store);
 		}
 		else {
 			Receipt re=receiptDAO.findById(receipt.getId());
-			Store store=storeRepo.findOneByProduct(p);
+			Store store=storeDAO.findOneByProduct(p);
 			int amount = store.getAmount();
 			amount=amount-re.getAmount()+receipt.getAmount();
 			store.setAmount(amount);
-			storeRepo.save(store);
+			storeDAO.save(store);
 		}
 		receiptDAO.save(receipt);
 		return "redirect:/receipt";
@@ -114,7 +115,13 @@ public class ReceiptController {
 	
 	@GetMapping("/delete")
 	private String deleteReceipt(Model model,@RequestParam("id") String id) {
+		Receipt r=receiptDAO.findById(Integer.parseInt(id));
+		Product p=r.getProduct();
+		Store s=storeDAO.findOneByProduct(p);
 		
+		int amount = s.getAmount()-r.getAmount();
+		s.setAmount(amount);
+		storeDAO.save(s);
 		receiptDAO.deleteById(Integer.parseInt(id));
 		
 		return "redirect:/receipt";
