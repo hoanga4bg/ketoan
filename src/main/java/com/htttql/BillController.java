@@ -20,11 +20,13 @@ import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.htttql.entity.Accountant;
 import com.htttql.entity.Bill;
 import com.htttql.entity.Orders;
+import com.htttql.entity.Store;
 import com.htttql.repository.AccountantRepository;
 import com.htttql.repository.BillRepository;
 import com.htttql.repository.OrdersRepository;
 import com.htttql.service.AbstractDAO;
 import com.htttql.service.BillDAO;
+import com.htttql.service.StoreDAO;
 
 @Controller
 public class BillController {
@@ -42,6 +44,9 @@ public class BillController {
 	
 	@Autowired
 	private AbstractDAO abstractService;
+	
+	@Autowired
+	private StoreDAO storeDAO;
 	
 	@RequestMapping(value = "/showbill",method = RequestMethod.GET)
 	public String getAllBill(Model model) {
@@ -145,6 +150,10 @@ public class BillController {
 		Orders orders = new Orders();
 		orders = ordersRepository.findOneById(Integer.parseInt(id));
 		orders.setStatus(false);
+		Store store = new Store();
+		store = storeDAO.findOneByProduct(orders.getProduct());
+		store.setAmount(store.getAmount()-orders.getAmount());
+		storeDAO.save(store);
 		long millis=System.currentTimeMillis();
 		java.sql.Date dateNow = new java.sql.Date(millis);
 		double totalPrice = orders.getAmount() * orders.getProduct().getSalePrice();

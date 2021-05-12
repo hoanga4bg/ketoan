@@ -2,13 +2,23 @@ package com.htttql.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.htttql.entity.Bill;
+import com.htttql.repository.BillRepository;
 import com.htttql.service.BillDAO;
+import com.htttql.service.DateDAO;
 @Service
 public class BillDAOImpl implements BillDAO {
+	@Autowired
+	private DateDAO dateDAO;
 	
+	@Autowired
+	private BillRepository billRepository;
 	public static final String KHONG = "không";    
     public static final String MOT = "một";
     public static final String HAI = "hai";
@@ -180,5 +190,19 @@ public class BillDAOImpl implements BillDAO {
         }
         return kq;
     }
+
+
+	@Override
+	public double revenueByMonthNow() {
+		Date firstdate = dateDAO.getFirstDayOfMonthNow();
+		Date enddate = dateDAO.getEndDayOfMonthNow();
+		List<Bill> bills = new ArrayList<Bill>();
+		bills = billRepository.findByDate(firstdate, enddate);
+		double totalprice = 0;
+		for (Bill bill : bills) {
+			totalprice += bill.getTotalPrice();
+		}
+		return totalprice;
+	}
 
 }

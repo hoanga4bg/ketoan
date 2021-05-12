@@ -2,6 +2,7 @@ package com.htttql.service.impl;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,11 +13,13 @@ import com.fasterxml.jackson.databind.deser.std.StringArrayDeserializer;
 import com.htttql.entity.Account;
 import com.htttql.entity.Accountant;
 import com.htttql.entity.HistorySalary;
+import com.htttql.entity.RevenueStatistics;
 import com.htttql.entity.Salary;
 import com.htttql.repository.AccountRepository;
 import com.htttql.repository.HistorySalaryRepository;
 import com.htttql.repository.SalaryRepository;
 import com.htttql.service.AbstractDAO;
+import com.htttql.service.DateDAO;
 import com.htttql.service.SalaryDAO;
 
 
@@ -34,6 +37,9 @@ public class SalaryDAOImpl implements SalaryDAO {
 	
 	@Autowired
 	private AccountRepository accountRepo;
+	
+	@Autowired
+	private DateDAO dateDAO;
 	
 	@Override
 	public void addSalary(Salary salary) {
@@ -94,6 +100,19 @@ public class SalaryDAOImpl implements SalaryDAO {
 		}
 		return h;
 	}
+	@Override
+	public double getTotalSalaryOfMonthNow() {
+		Date startDate = dateDAO.getFirstDayOfMonthNow();
+		Date endDate = dateDAO.getEndDayOfMonthNow();
+		List<HistorySalary> his = new ArrayList<HistorySalary>();
+		his = hisRepository.findByReceiveDateBetween(startDate, endDate);
+		double totalPrice = 0;
+		for (HistorySalary hi : his) {
+			totalPrice += hi.getMoney();
+		}
+		return totalPrice;
+	}
+	
 	
 	
 }

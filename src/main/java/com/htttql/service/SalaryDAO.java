@@ -12,4 +12,5 @@ public interface SalaryDAO {
 	public void deleteSalary(Integer id);
 	public void pay(Salary salary);
 	public HistorySalary getInMonth(Salary salary);
+	public double getTotalSalaryOfMonthNow();
 }

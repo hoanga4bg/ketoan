@@ -33,16 +33,12 @@
 	width: 300px;
 }
 
-.detail{
-width: 60%;
-height: 700px;
-margin: 0 auto;
-border: 1px solid ; 
-border-radius: 5px;
-background-color: #ccc;
-    -moz-box-shadow: 3px 3px #666;
-    -webkit-box-shadow: 3px 3px #666;
-    box-shadow: 3px 3px #666;
+.search {
+	display: flex;
+}
+
+.search1 {
+	margin-right: 40%;
 }
 </style>
 </head>
@@ -126,7 +122,7 @@ background-color: #ccc;
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">Thống Kê</h1>
+						<h1 class="page-header">Doanh Thu</h1>
 					</div>
 					<!-- /.col-lg-12 -->
 				</div>
@@ -134,48 +130,89 @@ background-color: #ccc;
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="panel panel-default">
-							<div class="panel-heading">Chi tiết hóa đơn bán hàng</div>
-							
+							<div class="panel-heading">Doanh Thu Bán Hàng Theo Tháng</div>
+							<div class="panel-heading">
+
+								<div class="search">
+									<div class="search1">
+										<form th:action="@{/search/bill}" method="GET">
+											<tr>
+											
+												<td style="display:inline-block;"><input type="text" class="form-control" value="" name="usercreate"
+													placeholder="Tên người tạo" title="nhập tên người tạo"
+													maxlength="200" ></td>
+												<br/>
+												<td style="display:inline-block;"><input type="submit" value="Tìm kiếm" class="btn btn-primary"></td>
+											</tr>
+										</form>
+
+									</div>
+
+									<div class="search2">
+										<form th:action="@{/search/bill/by/date}" method="GET">
+											<tr>
+												<td><input type="submit" value="Tìm kiếm" class="btn btn-primary"></td>
+												<td><input type="date" value="" name="datestart"
+													title="chọn ngày bắt đầu muốn tìm" maxlength="200">
+												</td>
+												<td><input type="date" value="" name="dateend"
+													title="chọn ngày kết thúc tìm kiếm" maxlength="200">
+												</td>
+											</tr>
+										</form>
+									</div>
+
+								</div>
 
 
-							
+							</div>
 							<!-- /.panel-heading -->
 							<div class="panel-body">
 								<div class="table-responsive">
-									<div class="detail">
-									<p class="text-center">Mã Hóa Đơn # <b th:text="${bill.id}"></b> </p>
-									<h2 class="text-center"><b>HÓA ĐƠN</b></h2>
-									<p style="margin-left: 70px">Ngày tạo hóa đơn : <b th:text="${#dates.format(bill.createDate, 'dd-MM-yyyy')}"></b></p>
-									<br>
-									<p style="margin-left: 70px">Sản phẩm được bán : <b th:text="${bill.orders.product.name}"></b></p>
-									<br>
-									<p style="margin-left: 70px">Số lượng sản phẩm : <b th:text="${bill.orders.amount}"></b></p>
-									<br>
-									<p style="margin-left: 70px">Giá sản phẩm : <b th:text="${#numbers.formatDecimal(bill.orders.product.salePrice, 0, 'COMMA', 0, 'POINT')}"></b></b></p>
-									<br>
-									<p style="margin-left: 70px">Điện thoại người tạo hóa đơn : <b th:text="${bill.createBy.phoneNumber}"></b> </p>
-									<br>
-									<p style="margin-left: 70px">Họ và tên người mua : <b th:text="${bill.orders.customer}"></b></p>
-									<br>
-									<p style="margin-left: 70px">Cộng tiền bán hàng hóa, dịch vụ : <b th:text="${#numbers.formatDecimal(bill.totalPrice, 0, 'COMMA', 0, 'POINT')}"></b> </p>
-									<br>
-									<p style="margin-left: 70px">Số tiền viết bằng chữ :<b th:text=${totalprice}></b></p>
-									<br>
-									<br>
-									<br>
-									<br>
-									<div style="display: flex;">
-									<p style="margin-left: 50px;margin-right: 40%">Người mua  <br/><b th:text="${bill.orders.customer}"></b></p>
-									<p>Người bán <br/> <b th:text="${bill.createBy.name}"></b> </p>
-									</div>
-									
-									
-									
-									
-									</div>
-									<div class="export">
-									<button>xuất hóa đơn</button>
-									</div>
+									<table class="table table-striped table-bordered table-hover"
+										id="dataTables-example">
+										<thead>
+											<tr>
+												<th>STT</th>
+												<th>tổng thu nhập</th>
+												<th>ngày tạo</th>
+												<th>người tạo</th>
+												<th>Thao tác</th>
+
+											</tr>
+										</thead>
+										<div th:if="${reves}">
+											<tbody th:each="reve,state : ${reves}">
+
+												<tr class="gradeU">
+													<td th:text="${state.index}+1"></td>
+													
+													<td
+														th:text="${#numbers.formatDecimal(reve.total, 0, 'COMMA', 0, 'POINT')}"></td>
+
+													<td
+														th:text="${#dates.format(reve.createDate, 'dd-MM-yyyy')}"></td>
+													<td th:text="${reve.createBy.name}"></td>
+													
+													<td>
+													Chi tiết
+													</td>
+													
+												</tr>
+											</tbody>
+										</div>
+										</table>
+										<table>
+										<tr>
+										<td>
+										<a th:href=@{/reve/revenow}>
+										<button class="btn btn-primary">Tính doanh thu tháng này</button>
+										</a>
+										
+										</td>
+										</tr>
+										</table>
+										
 								</div>
 
 							</div>
