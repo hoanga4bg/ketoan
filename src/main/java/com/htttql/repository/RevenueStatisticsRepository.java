@@ -14,5 +14,4 @@ public interface RevenueStatisticsRepository extends JpaRepository<RevenueStatis
 	List<RevenueStatistics> findByCreateBy(Accountant acc);
 	List<RevenueStatistics> findByCreateDateBetween(Date startDate, Date endDate);
 
-
 }

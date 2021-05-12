@@ -122,7 +122,7 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">Lợi nhuận kinh doanh</h1>
+						<h1 class="page-header">Doanh thu kinh doanh</h1>
 					</div>
 					<!-- /.col-lg-12 -->
 				</div>
@@ -130,12 +130,13 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="panel panel-default">
-							<div class="panel-heading">Lợi nhuận theo tháng</div>
+							<div class="panel-heading">Doanh thu theo tháng</div>
 							<div class="panel-heading">
 
 								<div class="search">
 									<div class="search1">
-										<form th:action="@{/search/reve}" method="GET">
+
+										<form th:action="@{/search/incomes}" method="GET">
 											<tr>
 											
 												<td style="display:inline-block;"><input type="text" class="form-control" value="" name="name"
@@ -149,9 +150,9 @@
 									</div>
 
 									<div class="search2">
-										<form th:action="@{/reve/month}" method="GET">
+										<form th:action="@{/income/month}" method="GET">
 											<tr>
-												<td><input type="submit" value="Tính lợi nhuận" class="btn btn-primary"></td>
+												<td><input type="submit" value="Tính doanh thu" class="btn btn-primary"></td>
 												<td><input type="text" value="" name="month"
 													title="chọn tháng muốn tính" placeholder="Tháng">
 												</td>
@@ -174,28 +175,33 @@
 										<thead>
 											<tr>
 												<th>STT</th>
-												<th>Tổng thu nhập</th>
+												<th>Doanh thu bán hàng</th>
 												<th>Thời gian kết toán</th>
+												<th>Tháng</th>
+												<th>Năm</th>
 												<th>Người tạo</th>
 												<th>Thao tác</th>
 
 											</tr>
 										</thead>
-										<div th:if="${reves}">
-											<tbody th:each="reve,state : ${reves}">
 
+										<div th:if="${incomes}">
+											<tbody th:each="income,state : ${incomes}">
 												<tr class="gradeU">
 													<td th:text="${state.index}+1"></td>
 													
 													<td
-														th:text="${#numbers.formatDecimal(reve.total, 0, 'COMMA', 0, 'POINT')}"></td>
-
+														th:text="${#numbers.formatDecimal(income.total, 0, 'COMMA', 0, 'POINT')}"></td>
+													
 													<td
-														th:text="${#dates.format(reve.createDate, 'dd-MM-yyyy')}"></td>
-													<td th:text="${reve.createBy.name}"></td>
+														th:text="${#dates.format(income.createDate, 'dd-MM-yyyy')}"></td>
+														<td th:text="${income.month}"></td>
+														<td th:text="${income.year}"></td>
+													<td th:text="${income.createBy.name}"></td>
 													
 													<td>
-													<a  th:href=@{/reve/delete(id=${reve.id})}>
+													<a  th:href=@{/incomes/delete(id=${income.id})}>
+
 															<button class="btn btn-danger pull-center">Xóa</button></a>
 													</td>
 													
@@ -206,8 +212,9 @@
 										<table>
 										<tr>
 										<td>
-										<a th:href=@{/reve/revenow}>
-										<button class="btn btn-primary">Tính lợi nhuận tháng này</button>
+										<a th:href=@{/income/incomenow}>
+										<button class="btn btn-primary">Tính doanh thu tháng này</button>
+
 										</a>
 										
 										</td>
@@ -248,5 +255,3 @@
 
 </body>
 </html>
-© 2021 GitHub, Inc. Terms Privacy Security Status Docs Contact GitHub
-Pricing API Training Blog About

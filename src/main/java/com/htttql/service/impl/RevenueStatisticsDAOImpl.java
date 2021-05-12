@@ -66,4 +66,5 @@ public class RevenueStatisticsDAOImpl implements RevenueStatisticsDAO {
 		return reve.findByCreateDateBetween(startDate, endDate);
 	}
 
+
 }
