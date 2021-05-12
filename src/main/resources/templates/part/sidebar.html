@@ -13,10 +13,22 @@
                             	<a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Kết quả kinh doanh<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a th:href="@{/}">Lợi nhuận</a>
+                                        <a th:href="@{/reve}">Lợi nhuận</a>
                                     </li>
                                     <li>
                                         <a th:href="@{/expense}">Chi phí phát sinh</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            
+                            <li>
+                            	<a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Yêu cầu mua hàng<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a th:href="@{/orders/create/form}">Thêm yêu cầu</a>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/orders}">Danh sách yêu cầu</a>
                                     </li>
                                 </ul>
                             </li>
@@ -34,7 +46,7 @@
                             </li>
                             
                             <li class="active">
-                                <a><i class="fa fa-files-o fa-fw"></i> Hóa đơn<span class="fa arrow"></span></a>
+                                <a><i class="fa fa-files-o fa-fw"></i>Hóa đơn<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
                                         <a th:href="@{/receipt}">Hóa đơn nhập</a>

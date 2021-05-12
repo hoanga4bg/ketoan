@@ -1,5 +1,6 @@
 package com.htttql.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.jvnet.hk2.annotations.Service;
@@ -15,4 +16,5 @@ public interface ReceiptDAO {
 	
 	
 	public void deleteById(Integer id);
+	public double findTotalPriceImportOfMonthNow();
 }

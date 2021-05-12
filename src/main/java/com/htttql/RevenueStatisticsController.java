@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.htttql.entity.RevenueStatistics;
 import com.htttql.service.AbstractDAO;
 import com.htttql.service.BillDAO;
+import com.htttql.service.ReceiptDAO;
 import com.htttql.service.RevenueStatisticsDAO;
 import com.htttql.service.SalaryDAO;
 
@@ -36,6 +37,8 @@ public class RevenueStatisticsController {
 	
 	@Autowired
 	private AbstractDAO abDao;
+	@Autowired
+	private ReceiptDAO receiptDAO;
 	
 	@RequestMapping(value = "/reve",method = RequestMethod.GET)
 	public String findAll(Model model) {
@@ -55,14 +58,16 @@ public class RevenueStatisticsController {
 		Date startdate = Date.from(fisrtdate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		double saleprice = 0;
 		double salary = 0;
+		double importprice = 0;
 		
 		if(reveDAO.countByDate() != 0) {
 			for (RevenueStatistics reve : reves) {
 				if(((reve.getCreateDate().compareTo(startdate) == 1) && (reve.getCreateDate().compareTo(enddate) == -1)) || (reve.getCreateDate().compareTo(startdate) == 0) || (reve.getCreateDate().compareTo(enddate) == 0)) {
 					saleprice = billDAO.revenueByMonthNow();
 					salary = salaryDAO.getTotalSalaryOfMonthNow();
+					importprice = receiptDAO.findTotalPriceImportOfMonthNow();
 					double totalPrice = 0;
-					totalPrice = saleprice - salary;
+					totalPrice = saleprice - salary - importprice;
 					reve.setTotal(totalPrice);
 					reve.setCreateDate(enddate);
 					reveDAO.save(reve);
@@ -74,8 +79,9 @@ public class RevenueStatisticsController {
 			RevenueStatistics reve1 = new RevenueStatistics();
 			saleprice = billDAO.revenueByMonthNow();
 			salary = salaryDAO.getTotalSalaryOfMonthNow();
+			importprice = receiptDAO.findTotalPriceImportOfMonthNow();
 			double totalPrice = 0;
-			totalPrice = saleprice - salary;
+			totalPrice = saleprice - salary - importprice;
 			reve1.setTotal(totalPrice);
 			reve1.setCreateDate(enddate);
 			reve1.setCreateBy(abDao.getAccountant());

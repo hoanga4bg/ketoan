@@ -14,6 +14,7 @@ import com.htttql.service.OrdersDAO;
 import com.htttql.entity.Bill;
 import com.htttql.entity.Orders;
 import com.htttql.entity.Product;
+import com.htttql.entity.Store;
 import com.htttql.entity.Tax;
 import com.htttql.repository.BillRepository;
 import com.htttql.repository.OrdersRepository;
@@ -41,6 +42,9 @@ public class OrderController {
 	
 	@Autowired
 	private BillRepository billRepository;
+	
+	@Autowired
+	private StoreDAO storeDAO;
 	
 	@RequestMapping(value = "/orders",method = RequestMethod.GET)
 	public String findAll(Model model) {
@@ -148,6 +152,10 @@ public class OrderController {
 		Orders orders = orderRepository.findOneById(Integer.parseInt(id));
 		orders.setStatus(true);
 		orderRepository.save(orders);
+		Store store = new Store();
+		store = storeDAO.findOneByProduct(orders.getProduct());
+		store.setAmount(store.getAmount() + orders.getAmount());
+		storeDAO.save(store);
 		Bill bill = billRepository.findOneByOrders(orders);
 		if(bill != null) {
 			billRepository.delete(bill);
