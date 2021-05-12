@@ -153,10 +153,10 @@ public class AccountController {
 //			t.setName("VAT");
 //			taxRepo.save(t);
 //		}
-		List<Tax> l=taxRepo.findAll();
-		for(int i=1;i<l.size()-1;i++) {
-			taxRepo.delete(l.get(i));
-		}
+//		List<Tax> l=taxRepo.findAll();
+//		for(int i=1;i<l.size()-1;i++) {
+//			taxRepo.delete(l.get(i));
+//		}
 		Accountant accountant=abstractDAO.getAccountant();
 		String username=abstractDAO.getUsername();
 		
