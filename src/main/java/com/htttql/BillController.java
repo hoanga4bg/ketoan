@@ -143,6 +143,12 @@ public class BillController {
         	money += kq.get(i) + " ";
             System.out.print(kq.get(i)+ " ");
         }
+        double vat = 0;
+        double saleprice = 0;
+        vat = bill.getOrders().getAmount()* bill.getOrders().getProduct().getSalePrice()*0.1;
+        saleprice = bill.getOrders().getProduct().getSalePrice();
+        model.addAttribute("vat", vat);
+        model.addAttribute("saleprice",saleprice);
 		model.addAttribute("bill", bill);
 		model.addAttribute("totalprice", money);
 		return "Bill/detail";
@@ -159,7 +165,7 @@ public class BillController {
 		storeDAO.save(store);
 		long millis=System.currentTimeMillis();
 		java.sql.Date dateNow = new java.sql.Date(millis);
-		double totalPrice = orders.getAmount() * orders.getProduct().getSalePrice();
+		double totalPrice = orders.getAmount() * orders.getProduct().getSalePrice() + (orders.getAmount() * orders.getProduct().getSalePrice())*0.1;
 		Accountant accountant = new Accountant();
 		accountant = abstractService.getAccountant();
 		Bill bill = new Bill();

@@ -151,7 +151,11 @@ background-color: #ccc;
 									<br>
 									<p style="margin-left: 70px">Số lượng sản phẩm : <b th:text="${bill.orders.amount}"></b></p>
 									<br>
-									<p style="margin-left: 70px">Giá sản phẩm : <b th:text="${#numbers.formatDecimal(bill.orders.product.salePrice, 0, 'COMMA', 0, 'POINT')}"></b></b></p>
+									<p style="margin-left: 70px">Giá sản phẩm : <b th:text="${#numbers.formatDecimal(saleprice, 0, 'COMMA', 0, 'POINT')}"></b></b></p>
+									<br>
+									<p style="margin-left: 70px">Thuế : <b th:text="VAT"></b> </p>
+									<br>
+									<p style="margin-left: 70px">Giá thuế : <b th:text="${#numbers.formatDecimal(vat, 0, 'COMMA', 0, 'POINT')}"></b></b></p>
 									<br>
 									<p style="margin-left: 70px">Điện thoại người tạo hóa đơn : <b th:text="${bill.createBy.phoneNumber}"></b> </p>
 									<br>
