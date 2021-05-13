@@ -24,7 +24,8 @@ public class ProductDAOImpl implements ProductDAO{
 
 		return list;
 	}
-
+	
+	
 	@Override
 	public Product findById(Integer id) {
 		

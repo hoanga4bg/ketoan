@@ -1,5 +1,6 @@
 package com.htttql.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,17 +8,26 @@ import org.springframework.stereotype.Service;
 
 import com.htttql.entity.Product;
 import com.htttql.entity.Store;
+import com.htttql.repository.ProductRepository;
 import com.htttql.repository.StoreRepository;
 import com.htttql.service.StoreDAO;
 @Service
 public class StoreDAOImpl implements StoreDAO {
 	@Autowired
 	private StoreRepository storeRepository;
-
+	@Autowired
+	private ProductRepository proRepo;
 	@Override
 	public List<Store> findAll() {
-		// TODO Auto-generated method stub
-		return storeRepository.findAll();
+		List<Product> list=proRepo.findByStatus(0);
+		
+		List<Store> listStore=new ArrayList<Store>();
+		
+		for(Product p:list) {
+			Store s=findOneByProduct(p);
+			listStore.add(s);
+		}
+		return listStore;
 	}
 
 	@Override
