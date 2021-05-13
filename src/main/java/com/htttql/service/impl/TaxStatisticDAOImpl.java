@@ -74,7 +74,8 @@ public class TaxStatisticDAOImpl implements TaxStatisticDAO{
 		Tax t=taxRepo.findByName("VAT").get(0);
 		Double salePrice=billDAO.salePriceByMonth(month, year);
 	
-		Double total=t.getCoefficient()*salePrice;
+		Double total=0.0;
+			total=	t.getCoefficient()*salePrice;
 	
 		return total;
 	}
@@ -85,7 +86,8 @@ public class TaxStatisticDAOImpl implements TaxStatisticDAO{
 		
 		Tax t=taxRepo.findByName("TNCN").get(0);
 	
-		Double total=eDAO.getTotalSalaryHistoryByMonthAndYear(month, year)*t.getCoefficient();
+		Double total=0.0;
+		total=eDAO.getTotalSalaryHistoryByMonthAndYear(month, year)*t.getCoefficient();
 		System.out.println(total);
 		return total;
 	}
