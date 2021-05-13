@@ -16,5 +16,6 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer>{
 	List<Orders> findByCustomer(String name);
 	
 	List<Orders> findByProduct(Product product);
+	List<Orders> findByStatus(Boolean status);
 
 }

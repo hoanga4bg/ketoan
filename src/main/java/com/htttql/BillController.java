@@ -63,26 +63,22 @@ public class BillController {
 	
 	@RequestMapping(value = "/search/bill",method = RequestMethod.GET)
 	public String searchBillByCreateBy(@RequestParam("usercreate") String name,Model model) {
-		List<Accountant> accountants = new ArrayList<Accountant>();
-		accountants = accountantRepository.findByName(name);
-		List<Bill> listbills = new ArrayList<Bill>();
-		for (Accountant accountant : accountants) {
-			List<Bill> bills = new ArrayList<Bill>();
-			bills = billRepository.findByCreateBy(accountant);
-			for (Bill bill : bills) {
-				listbills.add(bill);
+		List<Orders> orders = new ArrayList<Orders>();
+		orders = ordersRepository.findByStatus(false);
+		List<Bill> bills = new ArrayList<Bill>();
+		for (Orders order : orders) {
+			if(order.getCustomer().contains(name)) {
+				Bill bill = billRepository.findOneByOrders(order);
+				bills.add(bill);
 			}
-		}
-		double totalprice = 0;
-		
-		for (Bill bill : listbills) {
-			totalprice += bill.getTotalPrice();
 			
 		}
-		
-		model.addAttribute("bills", listbills);
+		double totalprice = 0;
+		for (Bill bill : bills) {
+			totalprice += bill.getTotalPrice();
+		}
+		model.addAttribute("bills", bills);
 		model.addAttribute("totalprice",totalprice);
-		
 		return "Bill/showbill";
 	}
 	
