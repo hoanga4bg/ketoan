@@ -142,19 +142,14 @@ public class AccountController {
 //		t.setName("TNCN");
 //		taxRepo.save(t);
 //		System.out.print(taxRepo.findAll().size());
-//		if(taxRepo.findAll().size()==0) {
+//	
 //			Tax t=new Tax();
 //			t.setCoefficient(0.15);
 //			t.setName("TNCN");
 //			taxRepo.save(t);
-//			t.setCoefficient(0.1);
-//			t.setName("VAT");
-//			taxRepo.save(t);
-//		}
-//		List<Tax> l=taxRepo.findAll();
-//		for(int i=1;i<l.size()-1;i++) {
-//			taxRepo.delete(l.get(i));
-//		}
+//			
+//		
+//		
 		Accountant accountant=abstractDAO.getAccountant();
 		String username=abstractDAO.getUsername();
 		

@@ -21,6 +21,8 @@ public class HistorySalary {
 	private Date receiveDate;
 	
 	private Double money;
+	
+	private Double tax;
 	@ManyToOne
 	@JoinColumn(name = "salary_id")
 	private Salary salary;

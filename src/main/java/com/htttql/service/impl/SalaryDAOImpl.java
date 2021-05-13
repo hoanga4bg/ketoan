@@ -15,9 +15,11 @@ import com.htttql.entity.Accountant;
 import com.htttql.entity.HistorySalary;
 import com.htttql.entity.RevenueStatistics;
 import com.htttql.entity.Salary;
+import com.htttql.entity.Tax;
 import com.htttql.repository.AccountRepository;
 import com.htttql.repository.HistorySalaryRepository;
 import com.htttql.repository.SalaryRepository;
+import com.htttql.repository.TaxRepository;
 import com.htttql.service.AbstractDAO;
 import com.htttql.service.DateDAO;
 import com.htttql.service.SalaryDAO;
@@ -40,7 +42,8 @@ public class SalaryDAOImpl implements SalaryDAO {
 	
 	@Autowired
 	private DateDAO dateDAO;
-	
+	@Autowired
+	private TaxRepository taxRepo;
 	@Override
 	public void addSalary(Salary salary) {
 		
@@ -56,10 +59,12 @@ public class SalaryDAOImpl implements SalaryDAO {
 		String username=abstractDAO.getUsername();
 		Accountant accountant=accountRepo.findOneByUserName(username).getAccountant();
 		HistorySalary hist=new HistorySalary();
+
 		hist.setAccountant(accountant);
 		hist.setReceiveDate(new Date());
 		hist.setSalary(salary);
 		hist.setMoney(salary.getBasicSalary());
+		hist.setTax(0.0);
 		hisRepository.save(hist);
 	}
 	@Override

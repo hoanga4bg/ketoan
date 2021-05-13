@@ -90,6 +90,7 @@
                                                     <th>STT</th>
                                                     <th>Tên nhân viên</th>
                                                     <th>Số tiền nhận (VNĐ)</th>
+                                                    <th>Tiền thuế (VNĐ)</th>
                                                     <th>Ngày nhận</th>
                                                     <th>Người trả lương</th> 
                                                 </tr>
@@ -100,7 +101,8 @@
 	                                                <tr class="gradeU">
 	                                                    <td th:text="${state.index}+1"></td>
 	                                                    <td th:text="${hist.salary.nameStaff}"></td>
-	                                                    <td th:text="${#numbers.formatDecimal(hist.money, 0, 'COMMA', 0, 'POINT')} "></td>
+	                                                    <td th:text="${#numbers.formatDecimal(hist.money*0.85, 0, 'COMMA', 0, 'POINT')} "></td>
+														<td th:text="${#numbers.formatDecimal(hist.money*0.15, 0, 'COMMA', 0, 'POINT')} "></td>
 														<td th:text="${#dates.format(hist.receiveDate, 'dd-MM-yyyy')}"></td>
 														<td th:text="${hist.accountant.name}"></td>
 													</tr>

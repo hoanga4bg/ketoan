@@ -114,7 +114,7 @@ public class ExpenseDAOImpl implements ExpenseDAO{
 		}
 		return total;
 	}
-
+	
 	@Override
 	public ExpenseStatistic getByMonthAndYear(int month, int year) {
 	
