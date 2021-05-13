@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Startmin - Bootstrap Admin Theme</title>
+        <title>Báo cáo tài chính</title>
 
         <!-- Bootstrap Core CSS -->
         <link th:href="@{/css/bootstrap.min.css}" href="../../css/bootstrap.min.css" rel="stylesheet">
@@ -20,7 +20,7 @@
 
         <!-- Custom Fonts -->
         <link th:href="@{/css/font-awesome.min.css}" href="../../css/font-awesome.min.css" rel="stylesheet" type="text/css">
-		
+		 <!--  script th:src="@{/ckeditor/ckeditor.js}"></script>-->
 		<style type="text/css">
  			.logo{
  				margin:70px;
@@ -52,13 +52,14 @@
                 </ul>
 
                 <ul class="nav navbar-right navbar-top-links">
+                   
                     <li th:insert="part/loginInfo"></li>
                 </ul>
                 <!-- /.navbar-top-links -->
 
                 <div class="navbar-default sidebar" role="navigation">
-                    <div class="sidebar-nav navbar-collapse">
-                        <div th:insert="part/sidebar"></div>
+                    <div class="sidebar-nav navbar-collapse" th:insert="part/sidebar">
+                        
                     </div>
                     <!-- /.sidebar-collapse -->
                 </div>
@@ -70,7 +71,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1 class="page-header" >Lịch sử trả lương</h1>
+                            <h1 class="page-header" >Báo cáo tài chính tháng</h1>
                         </div>
                         <!-- /.col-lg-12 -->
                     </div>
@@ -79,7 +80,7 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    Lịch sử trả lương
+                                    Danh sách báo cáo theo tháng
                                 </div>
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
@@ -88,24 +89,31 @@
                                             <thead>
                                                 <tr>
                                                     <th>STT</th>
-                                                    <th>Tên nhân viên</th>
-                                                    <th>Số tiền nhận (VNĐ)</th>
-                                                    <th>Tiền thuế (VNĐ)</th>
-                                                    <th>Ngày nhận</th>
-                                                    <th>Người trả lương</th> 
+                                                    <th>Tháng</th>
+                                                    <th>Năm</th>
+                                                   	<th>Thời gian tạo</th>
+                                                   	<th>Người tạo</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <div th:if="${list}">
-	                                            <tbody th:each="hist,state : ${list}">
+	                                            <tbody th:each="report,state : ${list}">
 	                                                
 	                                                <tr class="gradeU">
 	                                                    <td th:text="${state.index}+1"></td>
-	                                                    <td th:text="${hist.salary.nameStaff}"></td>
-	                                                    <td th:text="${#numbers.formatDecimal(hist.money, 0, 'COMMA', 0, 'POINT')} "></td>
-														<td th:text="${#numbers.formatDecimal(hist.money*0.15, 0, 'COMMA', 0, 'POINT')} "></td>
-														<td th:text="${#dates.format(hist.receiveDate, 'dd-MM-yyyy')}"></td>
-														<td th:text="${hist.accountant.name}"></td>
-													</tr>
+	                                                    <td th:text="${report.month}"></td>
+	                                                    <td th:text="${report.year}"></td>
+	                                               		<td th:text="${#dates.format(report.createDate, 'dd-MM-yyyy HH:mm')}"></td>
+	                                               		<td th:text="${report.createBy.name}"></td>
+														<td>
+															<a th:href=@{/report/finance/edit(id=${report.id})}>
+																<button class="btn btn-primary pull-center">Sửa</button>
+															</a>
+															<a th:href=@{/report/finance/detail(id=${report.id})}>
+																<button class="btn btn-success pull-center">Xem chi tiết</button>
+															</a>
+														</td>
+											</tr>
 	                                            </tbody>
                                             </div>
                                             
@@ -138,6 +146,6 @@
 
         <!-- Custom Theme JavaScript -->
         <script th:src="@{/js/startmin.js}"></script>
-
+		
     </body>
 </html>

@@ -51,5 +51,6 @@ public class Accountant {
 	@OneToMany(mappedBy = "accountant")
 	private List<HistorySalary> historySalarys;
 	
-	
+	@OneToMany(mappedBy="createBy")
+	private List<Report> listReports;
 }
