@@ -73,10 +73,7 @@ public class AccountController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public String adminHome() {
-		return "admin";
-	}
+
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginForm(Model model) {
