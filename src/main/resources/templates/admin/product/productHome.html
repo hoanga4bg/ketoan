@@ -129,7 +129,7 @@
 	                                                    <td th:text="${store.product.category.name}"></td>
 	                                                    <td th:text="${store.product.supplier.name}"></td>
 														<td th:if=${store.product.status}>
-															<a th:href=@{/admin/product/edit(id=${store.id})}>
+															<a th:href=@{/admin/product/edit(id=${store.product.id})}>
 																<button class="btn btn-primary pull-center">Sửa</button>
 															</a>
 															
@@ -140,7 +140,7 @@
 															</a>
 														</td>
 														<td th:unless=${store.product.status}>
-															<a th:href=@{/admin/product/edit(id=${store.id})}>
+															<a th:href=@{/admin/product/edit(id=${store.product.id})}>
 																<button class="btn btn-primary pull-center">Sửa</button>
 															</a>
 															<a th:href=@{/admin/product/stop(id=${store.product.id})}>
@@ -152,29 +152,7 @@
 														</td>
 														
 													</tr>
-													</div>
-													<div th:if="${listU}">
-	                                                <tr class="gradeU" th:each="store,state : ${listU}">
-	                                                 
-	                                                    <td th:text="${store.product.name}"></td>
-	                                                    <td th:text="${store.amount}"></td>
-	                                                    <td th:text="${#numbers.formatDecimal(store.product.importPrice, 0, 'COMMA', 0, 'POINT')}"></td>
-	                                                    <td th:text="${#numbers.formatDecimal(store.product.salePrice, 0, 'COMMA', 0, 'POINT')}"></td>
-	                                                    <td th:text="${store.product.category.name}"></td>
-	                                                    <td th:text="${store.product.supplier.name}"></td>
-														<td>
-															<a th:href=@{/admin/product/edit(id=${store.id})}>
-																<button class="btn btn-primary pull-center">Sửa</button>
-															</a>
-															
-																<button class="btn btn-danger pull-center" disabled>Ngưng bán</button>
-															
-															<a th:href=@{/admin/product/resume(id=${store.product.id})} style="display:inline-block;">
-																<button class="btn btn-primary pull-center">Bán lại</button>
-															</a>
-														</td>
-													</tr>
-													</div>
+													
 	                                            </tbody>
                                             
                                            

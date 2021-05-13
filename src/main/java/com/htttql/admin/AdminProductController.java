@@ -91,14 +91,17 @@ public class AdminProductController {
 	
 	@PostMapping("/addpro")
 	public String addPro(Product product) {
+		
 		product.setStatus(0);
 		productRepo.save(product);
-		List<Product> list=productDAO.findAll();
-		Store s=new Store();
-		s.setAmount(0);
-		s.setCreateDate(new Date());
-		s.setProduct(list.get(list.size()-1));
-		storeRepo.save(s);
+		
+			List<Product> list=productDAO.findAll();
+			Store s=new Store();
+			s.setAmount(0);
+			s.setCreateDate(new Date());
+			s.setProduct(list.get(list.size()-1));
+			storeRepo.save(s);
+		
 		return "redirect:/admin/product";
 		
 	}
@@ -128,6 +131,25 @@ public class AdminProductController {
 	public String addSup(Supplier supplier) {
 		supRepo.save(supplier);
 
+		return "redirect:/admin/product";
+		
+	}
+	
+	@GetMapping("/edit")
+	public String editProduct(Model model,@RequestParam("id") String id) {
+		Product p = productDAO.findById(Integer.parseInt(id));
+		List<Category> categories=cateRepo.findAll();
+		List<Supplier> suppliers=supRepo.findAll();
+		model.addAttribute("product", p);
+		model.addAttribute("category", categories);
+		model.addAttribute("supplier", suppliers);
+
+		return "admin/product/editProduct";
+		
+	}
+	@PostMapping("/edit")
+	public String editPro(Product product) {
+		productRepo.save(product);
 		return "redirect:/admin/product";
 		
 	}

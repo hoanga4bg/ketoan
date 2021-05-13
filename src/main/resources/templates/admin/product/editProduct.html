@@ -73,7 +73,7 @@
                 </div>
                 <!-- /.container-fluid -->
                 <div class="card-body" >
-				<form th:action="@{/admin/product/addpro}" th:object="${product}" method="POST">
+				<form th:action="@{/admin/product/edit}" th:object="${product}" method="POST">
 					<input type="hidden" id="amount" class="form-control" th:field="*{id}">
 					<div class="row">		
 						<div class="col-md-12">
