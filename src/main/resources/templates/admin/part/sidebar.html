@@ -3,7 +3,7 @@
                         		<a th:href="@{/admin/info?message}"><i class="fa fa-info-circle fa-fw"></i>Thông tin cá nhân</a>
                         	</li>
                         	 <li>
-                        		<a th:href="@{/info?message}"><i class="fa fa-user fa-fw"></i>Thêm tài khoản</a>
+                        		<a th:href="@{/admin/display/account}"><i class="fa fa-user fa-fw"></i>Thêm tài khoản</a>
                         	</li>
                             <li>
                                 <a><i class="fa fa-home fa-fw"></i>Hàng hóa<span class="fa arrow"></span></a>
@@ -25,13 +25,16 @@
                         	</li>
                  
                             <li>
-                                <a href="#"><i class="fa fa-money fa-fw"></i> Lương<span class="fa arrow"></span></a>
+                                <a href="#"><i class="fa fa-money fa-fw"></i>Lương<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a th:href="@{/salary}">Trả lương</a>
+                                        <a th:href="@{/salary}">Trả Lương</a>
                                     </li>
                                     <li>
                                         <a th:href="@{/salary/hispay}">Lịch sử trả lương</a>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/admin/create/salary}">Thêm Lương</a>
                                     </li>
                                 </ul>
                         

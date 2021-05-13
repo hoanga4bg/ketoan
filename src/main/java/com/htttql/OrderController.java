@@ -45,6 +45,8 @@ public class OrderController {
 	
 	@Autowired
 	private StoreDAO storeDAO;
+	@Autowired
+	private ProductDAO productDAO;
 	
 	@RequestMapping(value = "/orders",method = RequestMethod.GET)
 	public String findAll(Model model) {
@@ -81,7 +83,7 @@ public class OrderController {
 		Orders orders = new Orders();
 		List<Product> products = new ArrayList<Product>();
 		List<Tax> taxs = new ArrayList<Tax>();
-		products = productReposity.findAll();
+		products = productDAO.findAll();
 		taxs = taxRepository.findAll();
 		model.addAttribute("orders", orders);
 		model.addAttribute("products", products);
