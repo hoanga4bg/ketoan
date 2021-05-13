@@ -46,7 +46,7 @@ public class AdminAccountController {
 		else {
 			model.addAttribute("message", "");
 		}
-		return "admin";
+		return "account/info";
 	}
 	
 	
