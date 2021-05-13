@@ -150,15 +150,20 @@
 
 									<div class="search2">
 										<form th:action="@{/search/bill/by/date}" method="GET">
-											<tr>
-												<td><input type="submit" value="Tìm kiếm" class="btn btn-primary"></td>
-												<td><input type="date" value="" name="datestart"
+											
+												
+												<label class="bmd-label-floating">Ngày bắt đầu</label>
+												<input type="date" value="" name="datestart"
 													title="chọn ngày bắt đầu muốn tìm" maxlength="200">
-												</td>
+												<br/>
+												<label class="bmd-label-floating">Ngày kết thúc</label>
+												
 												<td><input type="date" value="" name="dateend"
 													title="chọn ngày kết thúc tìm kiếm" maxlength="200">
-												</td>
-											</tr>
+												
+												<br/>
+												<input type="submit" value="Tìm kiếm" class="btn btn-primary">
+											
 										</form>
 									</div>
 

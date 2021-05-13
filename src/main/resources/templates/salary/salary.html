@@ -108,14 +108,24 @@
 																<button class="btn btn-primary pull-center">Thanh toán</button>
 															</a>
 															<button class="btn btn-danger pull-center" disabled>Hoàn tác</button>
+															<a th:href=@{/salary/detail(id=${salary.id})}>
+																<button class="btn btn-success pull-center">Chi tiết</button>
+															</a>
 														</td>
 														<td th:unless="${salary.status}">
 															<button class="btn btn-primary pull-center" disabled>Thanh toán</button>
 															<a th:href=@{/salary/undo(id=${salary.id})}>
 																<button class="btn btn-danger pull-center">Hoàn tác</button>
 															</a>
+															<a th:href=@{/salary/detail(id=${salary.id})}>
+																<button class="btn btn-success pull-center">Chi tiết</button>
+															</a>
 														</td>
-											</tr>
+														
+														
+														
+														
+												</tr>
 	                                            </tbody>
                                             </div>
                                             

@@ -97,4 +97,14 @@ public class SalaryController {
 		model.addAttribute("list", list);
 		return "salary/paySalary";
 	}
+	
+	@GetMapping("/detail")
+	public String detail(Model model,@RequestParam("id") String id) {
+		Salary s=salaryDAO.findById(Integer.parseInt(id));
+		List<HistorySalary> list=new ArrayList<HistorySalary>();
+		list=histRepo.findBySalary(s);
+		Collections.reverse(list);
+		model.addAttribute("list", list);
+		return "salary/paySalary";
+	}
 }

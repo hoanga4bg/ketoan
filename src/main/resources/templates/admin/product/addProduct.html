@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Startmin - Bootstrap Admin Theme</title>
+
+        <!-- Bootstrap Core CSS -->
+        <link th:href="@{/css/bootstrap.min.css}" href="../../css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- MetisMenu CSS -->
+        <link th:href="@{/css/metisMenu.min.css}" href="../../css/metisMenu.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link th:href="@{/css/startmin.css}" href="../../css/startmin.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link th:href="@{/css/font-awesome.min.css}" href="../../css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+    </head>
+    <body>
+
+        <div id="wrapper">
+
+            <!-- Navigation -->
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <div class="navbar-header">
+                    <a class="navbar-brand" th:href="@{/}">Accounting</a>
+                </div>
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <ul class="nav navbar-nav navbar-left navbar-top-links">
+                    <li><a th:href="@{/}"><i class="fa fa-home fa-fw"></i>Trang chủ</a></li>
+                </ul>
+
+                <ul class="nav navbar-right navbar-top-links">
+                    <li th:insert="part/loginInfo"></li>
+                </ul>
+                <!-- /.navbar-top-links -->
+
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <div th:insert="part/sidebar"></div>
+                    </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
+                <!-- /.navbar-static-side -->
+            </nav>
+
+            <!-- Page Content -->
+            <div id="page-wrapper">
+            	
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                        
+                            <h1 class="page-header">Thêm hàng hóa</h1>
+                           
+                        </div>
+                        <!-- /.col-lg-12 -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+                <div class="card-body" >
+				<form th:action="@{/admin/product/addpro}" th:object="${product}" method="POST">
+					<input type="hidden" id="amount" class="form-control" th:field="*{id}">
+					<div class="row">		
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="bmd-label-floating">Tên sản phẩm</label>
+								<input type="text" id="amount" class="form-control" th:field="*{name}">
+							</div>
+						</div>
+					</div>
+					<div class="row">		
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="bmd-label-floating">Giá nhập</label> 
+								<input type="text" id="amount" class="form-control" th:field="*{importPrice}">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="bmd-label-floating">Giá bán</label> 
+								<input type="text" id="amount" class="form-control" th:field="*{salePrice}">
+							</div>
+						</div>
+					</div>
+					<div class="row">		
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="bmd-label-floating">Thể loại</label>
+						
+								<select class="form-control" th:field="*{category.id}">
+								    	<th:block th:each="c: ${category}">
+											<option th:value="${c.id}" th:text="${c.name}" th:selected="${c.id==product.category.id}" ></option>
+										</th:block>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row">		
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="bmd-label-floating">Nhà cung cấp</label>
+						
+								<select class="form-control" th:field="*{supplier.id}">
+								    	<th:block th:each="s: ${supplier}">
+											<option th:value="${s.id}" th:text="${s.name}" th:selected="${s.id==product.category.id}" ></option>
+										</th:block>
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<button type="submit" class="btn btn-primary pull-center" onclick="alertSuccess()">Xác nhận</button>
+					<div class="clearfix"></div>
+				</form>
+			</div>
+            </div>
+            <!-- /#page-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+	
+		<script>
+			function alertSuccess() {
+			  alert("Thành công");
+			}
+		</script>
+	
+        <!-- jQuery -->
+        <script th:src="@{/js/jquery.min.js}"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+
+        <!-- Metis Menu Plugin JavaScript -->
+        <script th:src="@{/js/metisMenu.min.js}"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script th:src="@{/js/startmin.js}"></script>
+
+    </body>
+</html>

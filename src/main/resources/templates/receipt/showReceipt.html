@@ -98,6 +98,27 @@
                                 <div class="panel-heading">
                                    	Danh sách nhập hàng
                                 </div>
+                                <div class="panel-heading">
+                                <div class="search">
+									<div class="search2">
+										<form th:action="@{/receipt/search}" method="GET">
+											<tr>
+												
+												<td><input type="submit" value="Tìm kiếm" class="btn btn-primary"></td>
+												<label class="bmd-label-floating">Ngày bắt đầu</label>
+												<td><input type="date" value="" name="startdate"
+													title="chọn ngày bắt đầu muốn tìm" maxlength="200">
+												</td>
+												<label class="bmd-label-floating">Ngày kết thúc</label>
+												<td><input type="date" value="" name="enddate"
+													title="chọn ngày kết thúc tìm kiếm" maxlength="200">
+												</td>
+											</tr>
+										</form>
+									</div>
+
+								</div>
+								</div>
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
                                     <div class="table-responsive">
