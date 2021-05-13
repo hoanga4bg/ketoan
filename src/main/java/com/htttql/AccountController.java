@@ -138,10 +138,10 @@ public class AccountController {
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
 	public String infoPage(Model model,@RequestParam("message") String message) {
 //		Tax t=new Tax();
-//		t.setCoefficient(0.15);
-//		t.setName("TNCN");
-//		taxRepo.save(t);
-
+////		t.setCoefficient(0.15);
+////		t.setName("TNCN");
+////		taxRepo.save(t);
+//
 //		t.setCoefficient(0.1);
 //		t.setName("VAT");
 //		taxRepo.save(t);
