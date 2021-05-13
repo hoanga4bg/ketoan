@@ -29,7 +29,7 @@ public class ProductDAOImpl implements ProductDAO{
 	@Override
 	public Product findById(Integer id) {
 		
-		return productRepo.findById(id);
+		return productRepo.findOneById(id);
 	}
 
 	@Override
