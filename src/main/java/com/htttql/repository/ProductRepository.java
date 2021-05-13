@@ -14,4 +14,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
 	@Query(value = "SELECT * FROM ketoan.product WHERE name LIKE %?1% ",nativeQuery = true)
 	List<Product> findByName(String name);
 
+	public List<Product> findByStatus(int i);
+
 }

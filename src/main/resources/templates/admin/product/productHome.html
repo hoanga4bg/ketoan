@@ -53,7 +53,7 @@
 
                 <ul class="nav navbar-right navbar-top-links">
                    
-                    <li th:insert="part/loginInfo"></li>
+                    <li th:insert="/admin/part/loginInfo"></li>
                 </ul>
                 <!-- /.navbar-top-links -->
 
@@ -80,7 +80,7 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    Danh sách mặt hàng trong kho
+                                    Danh sách hàng hóa
                                 </div>
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
@@ -90,27 +90,24 @@
                                                 <tr>
                                                     <th>STT</th>
                                                     <th>Tên sản phẩm</th>
-                                                    <th>Số lượng</th>
                                                     <th>Giá nhập</th>
                                                     <th>Giá bán</th>
                                                     <th>Mặt hàng</th>
                                                     <th>Nhà cung cấp</th>
-                                                    <th>Ngày cập nhật</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
-                                            <div th:if="${listStore}">
-	                                            <tbody th:each="store,state : ${listStore}">
+                                            <div th:if="${listA}">
+	                                            <tbody th:each="product,state : ${listA}">
 	                                                
 	                                                <tr class="gradeU">
 	                                                    <td th:text="${state.index}+1"></td>
-	                                                    <td th:text="${store.product.name}"></td>
-	                                                    <td th:text="${store.amount}"></td>
-	                                                    <td th:text="${#numbers.formatDecimal(store.product.importPrice, 0, 'COMMA', 0, 'POINT')}"></td>
-	                                                    <td th:text="${#numbers.formatDecimal(store.product.salePrice, 0, 'COMMA', 0, 'POINT')}"></td>
-	                                                    <td th:text="${store.product.category.name}"></td>
-	                                                    <td th:text="${store.product.supplier.name}"></td>
-	                                                    <td th:text="${#dates.format(store.createDate, 'dd-MM-yyyy')}"></td>
+	                                                    <td th:text="${product.name}"></td>
+	                                                  
+	                                                    <td th:text="${#numbers.formatDecimal(product.importPrice, 0, 'COMMA', 0, 'POINT')}"></td>
+	                                                    <td th:text="${#numbers.formatDecimal(product.salePrice, 0, 'COMMA', 0, 'POINT')}"></td>
+	                                                    <td th:text="${product.category.name}"></td>
+	                                                    <td th:text="${product.supplier.name}"></td>
 														<td>
 															<a th:href=@{/store/edit(id=${store.id})}>
 																<button class="btn btn-primary pull-center">Sửa</button>

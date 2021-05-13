@@ -20,8 +20,8 @@ public class ProductDAOImpl implements ProductDAO{
 	@Override
 	public List<Product> findAll() {
 		List<Product> list=new ArrayList<Product>();
-		list=productRepo.findAll();
-		System.out.println(list.size());
+		list=productRepo.findByStatus(0);
+
 		return list;
 	}
 
