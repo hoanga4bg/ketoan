@@ -57,4 +57,11 @@ public class ReceiptDAOImpl implements ReceiptDAO{
 		return totalPriceImport;
 	}
 
+	@Override
+	public List<Receipt> findByCreateDate(Date sDate, Date eDate) {
+		List<Receipt> list=new ArrayList<Receipt>();
+		list=receiptRepo.findByCreatedDateBetween(sDate, eDate);
+		return list;
+	}
+
 }

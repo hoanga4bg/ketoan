@@ -1,5 +1,6 @@
 package com.htttql;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -122,6 +123,28 @@ public class ReceiptController {
 		storeDAO.save(s);
 		receiptDAO.deleteById(Integer.parseInt(id));
 		
+		return "redirect:/receipt";
+	}
+	@GetMapping("/search")
+	private String search(Model model,@RequestParam("startdate") String sDate,
+			@RequestParam("enddate") String eDate) {
+		if(sDate.equals("")||eDate.equals("")) {
+			return "redirect:/receipt";
+		}
+		else {
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				Date startDate=sdf.parse(sDate);
+				Date endDate=sdf.parse(eDate);
+				List<Receipt> list=new ArrayList<Receipt>();
+				list=receiptDAO.findByCreateDate(startDate, endDate);
+				model.addAttribute("list", list);
+				return "receipt/showReceipt";
+			}
+			catch(Exception e){
+				
+			}
+		}
 		return "redirect:/receipt";
 	}
 }
