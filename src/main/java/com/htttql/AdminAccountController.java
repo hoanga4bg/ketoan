@@ -30,10 +30,7 @@ public class AdminAccountController {
 	@Autowired
 	private AbstractDAO abstractDAO;
 	
-	@GetMapping
-	public String adminHome() {
-		return "redirect:/admin/info&message";
-	}
+
 	
 	@GetMapping("/info")
 	public String adminInfo(Model model,@RequestParam("message") String message) {
