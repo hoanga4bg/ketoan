@@ -42,10 +42,12 @@ public class SalaryController {
 			s.setBasicSalary(10000000.0);
 			s.setPosition("Nhân viên");
 			s.setNameStaff("Nguyễn Văn A");
+			s.setStatus(false);
 			salaryRepo.save(s);
 			s.setBasicSalary(15000000.0);
 			s.setPosition("Nhân viên");
 			s.setNameStaff("Nguyễn Văn B");
+			s.setStatus(false);
 			salaryRepo.save(s);
 		}
 		

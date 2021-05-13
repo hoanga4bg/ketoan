@@ -86,6 +86,7 @@ public class AccountController {
 			accountant.setAddress("A");
 			accountant.setName("Hoàng");
 			accountant.setPhoneNumber("0123456789");
+			
 			accountantRepository.save(accountant);
 			
 			Accountant accountantAd=new Accountant();
