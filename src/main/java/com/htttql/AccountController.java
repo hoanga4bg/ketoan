@@ -75,7 +75,7 @@ public class AccountController {
 	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String adminHome() {
-		return "redirect:/admin/info?message";
+		return "admin";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
