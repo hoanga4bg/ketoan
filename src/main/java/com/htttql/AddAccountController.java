@@ -1,4 +1,4 @@
-package com.htttql.admin;
+package com.htttql;
 
 import java.util.ArrayList;
 import java.util.List;
