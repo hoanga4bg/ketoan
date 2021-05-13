@@ -102,8 +102,10 @@ public class RevenueStatisticsController {
 			saleprice = billDAO.revenueByMonthNow();
 			salary = salaryDAO.getTotalSalaryOfMonthNow();
 			importprice = receiptDAO.findTotalPriceImportOfMonthNow();
+			vat = taxDAO.vatCal(todate.getMonth()+1,todate.getYear()+1900);
+			tncn = taxDAO.tncnCal(todate.getMonth()+1,todate.getYear()+1900);
 			double totalPrice = 0;
-			totalPrice = saleprice - salary - importprice;
+			totalPrice = saleprice - salary - importprice - vat - tncn;
 			reve1.setTotal(totalPrice);
 			reve1.setCreateDate(todate);
 			reve1.setCreateBy(abDao.getAccountant());
