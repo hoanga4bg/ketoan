@@ -21,8 +21,8 @@ public class Salary {
 	private String nameStaff;
 	private String position;
 	private Double basicSalary;
-	private int dayWork;
-	
+	private boolean status;
+
 	@OneToMany(mappedBy = "salary")
 	private List<HistorySalary> historySalary;
 	

@@ -64,9 +64,9 @@ public class SalaryDAOImpl implements SalaryDAO {
 	}
 	@Override
 	public List<Salary> findAll() {
-		List<Salary> list=salaryRepo.findAll();
+		List<Salary> list=salaryRepo.findByStatus(false);
 		System.out.println(list.size());
-		return salaryRepo.findAll();
+		return list;
 	}
 	@Override
 	public Salary findById(Integer id) {
