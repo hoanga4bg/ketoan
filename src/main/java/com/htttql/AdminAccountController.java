@@ -1,5 +1,8 @@
 package com.htttql;
 
+import java.util.ArrayList;
+
+import org.apache.catalina.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,8 +18,10 @@ import com.htttql.entity.Account;
 import com.htttql.entity.Accountant;
 import com.htttql.repository.AccountRepository;
 import com.htttql.repository.AccountantRepository;
+import com.htttql.repository.StoreRepository;
 import com.htttql.service.AbstractDAO;
-
+import java.util.List;
+import com.htttql.entity.*;
 @Controller
 @RequestMapping("/admin")
 public class AdminAccountController {
@@ -29,11 +34,12 @@ public class AdminAccountController {
 	
 	@Autowired
 	private AbstractDAO abstractDAO;
-	
-
+	@Autowired
+	private StoreRepository storeRepo;
 	
 	@GetMapping("/info")
 	public String adminInfo(Model model,@RequestParam("message") String message) {
+		
 		Accountant accountant=abstractDAO.getAccountant();
 		String username=abstractDAO.getUsername();
 		
@@ -61,6 +67,7 @@ public class AdminAccountController {
 	
 	@GetMapping("/change")
 	public String changepassPage(Model model, @RequestParam("message") String message) {
+	
 		Accountant accountant=abstractDAO.getAccountant();
 		String username=abstractDAO.getUsername();
 		Accountant acc=accountantRepository.findOneById(accountant.getId());
