@@ -9,5 +9,6 @@ import com.htttql.entity.SampleReport;
 public interface SampleRepository extends JpaRepository<SampleReport, Integer>{
 
 	public List<SampleReport> findByName(String string);
+	public SampleReport findOneById(int id);
 
 }
