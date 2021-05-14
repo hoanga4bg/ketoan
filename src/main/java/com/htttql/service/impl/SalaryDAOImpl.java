@@ -117,6 +117,12 @@ public class SalaryDAOImpl implements SalaryDAO {
 		}
 		return totalPrice;
 	}
+	@Override
+	public List<Salary> findByPositionAndStatus(boolean status, String position) {
+		List<Salary> list=new ArrayList<Salary>();
+		list=salaryRepo.findByStatusAndPosition(status,position);
+		return list;
+	}
 	
 	
 	

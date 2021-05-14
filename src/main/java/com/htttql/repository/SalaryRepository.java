@@ -12,4 +12,6 @@ public interface SalaryRepository extends JpaRepository<Salary, Integer>{
 
 	public List<Salary> findByStatus(boolean b);
 
+	public List<Salary> findByStatusAndPosition(boolean status, String position);
+
 }
