@@ -37,20 +37,6 @@ public class SalaryController {
 		List<Salary> list=new ArrayList<Salary>();
 		
 		list=salaryDAO.findAll();
-		if(list.size()==0) {
-			Salary s=new Salary();
-			s.setBasicSalary(10000000.0);
-			s.setPosition("Nhân viên");
-			s.setNameStaff("Nguyễn Văn A");
-			s.setStatus(false);
-			salaryRepo.save(s);
-			s.setBasicSalary(15000000.0);
-			s.setPosition("Nhân viên");
-			s.setNameStaff("Nguyễn Văn B");
-			s.setStatus(false);
-			salaryRepo.save(s);
-		}
-		
 		List<SalaryDTO> listDTO=new ArrayList<SalaryDTO>();
 		
 		
@@ -108,5 +94,12 @@ public class SalaryController {
 		Collections.reverse(list);
 		model.addAttribute("list", list);
 		return "salary/paySalary";
+	}
+	@GetMapping("/search")
+	public String search(Model model, @RequestParam("position") String position) {
+		
+		List<Salary> list=salaryDAO.findByPositionAndStatus(false, position);
+		model.addAttribute("list", list);
+		return "salary/salary";
 	}
 }
