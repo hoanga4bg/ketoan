@@ -49,5 +49,9 @@ public class AdminTaxController {
 		return "admin/tax/form";
 	}
 	
-	
+	@RequestMapping(value = "/admin/createtax/delete",method = RequestMethod.GET)
+	public String deleteTax(@RequestParam("id") String id) {
+		taxRepository.delete(taxRepository.findOneById(Integer.parseInt(id)));
+		return "redirect:/admin/tax";
+	}
 }
