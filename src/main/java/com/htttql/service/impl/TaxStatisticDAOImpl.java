@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.htttql.entity.ExpenseStatistic;
+import com.htttql.entity.HistorySalary;
 import com.htttql.entity.Tax;
 import com.htttql.entity.TaxStatistic;
 import com.htttql.repository.BillRepository;
@@ -15,6 +16,7 @@ import com.htttql.repository.TaxRepository;
 import com.htttql.repository.TaxStatisticRepository;
 import com.htttql.service.BillDAO;
 import com.htttql.service.ExpenseDAO;
+import com.htttql.service.SalaryDAO;
 import com.htttql.service.TaxStatisticDAO;
 
 
@@ -31,6 +33,9 @@ public class TaxStatisticDAOImpl implements TaxStatisticDAO{
 	private BillDAO billDAO;
 	@Autowired
 	private ExpenseDAO eDAO;
+	
+	@Autowired
+	private SalaryDAO salaryDAO;
 	@Override
 	public List<TaxStatistic> findAll() {
 		// TODO Auto-generated method stub
@@ -85,9 +90,18 @@ public class TaxStatisticDAOImpl implements TaxStatisticDAO{
 		
 		
 		Tax t=taxRepo.findByName("TNCN").get(0);
-	
 		Double total=0.0;
-		total=eDAO.getTotalSalaryHistoryByMonthAndYear(month, year)*t.getCoefficient();
+		List<HistorySalary> list=salaryDAO.getAllInMonth();
+		for(HistorySalary h:list) {
+			if(h.getMoney()<=9000000) {
+				total+=0;
+			}
+			else {
+				total+=(h.getMoney()-9000000);
+			}
+		}
+		
+		total*=t.getCoefficient();
 		System.out.println(total);
 		return total;
 	}

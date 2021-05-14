@@ -123,6 +123,35 @@ public class SalaryDAOImpl implements SalaryDAO {
 		list=salaryRepo.findByStatusAndPosition(status,position);
 		return list;
 	}
+	@Override
+	public List<HistorySalary> getAllInMonth() {
+		Date date=new Date();
+		int month=date.getMonth()+1;
+		int year=date.getYear()+1900;
+		String startDate="";
+		String endDate="";
+		if(month<10) {
+			startDate+=(year+"-0"+month+"-01");
+			endDate+=(year+"-0"+month+"-30");
+		}
+		else {
+			startDate+=(year+"-"+month+"-01");
+			endDate+=(year+"-"+month+"-30");
+		}
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		List<HistorySalary> h=new ArrayList<HistorySalary>();
+		try {
+			Date sDate=sdf.parse(startDate);
+			Date eDate=sdf.parse(endDate);
+			h=hisRepository.findByReceiveDateBetween(sDate, eDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return h;
+	}
+	
+	
 	
 	
 	

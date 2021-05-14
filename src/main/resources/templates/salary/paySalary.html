@@ -104,7 +104,14 @@
 	                                                    <td th:text="${hist.salary.nameStaff}"></td>
 	                                                    <td th:text="${hist.salary.position}"></td>
 	                                                    <td th:text="${#numbers.formatDecimal(hist.money, 0, 'COMMA', 0, 'POINT')} "></td>
-														<td th:text="${#numbers.formatDecimal(hist.money*0.15, 0, 'COMMA', 0, 'POINT')} "></td>
+														
+														<block th:if="${hist.money<=9000000}">
+															<td>0</td>
+														</block>
+														<block th:unless="${hist.money<=9000000}">
+															<td th:text="${#numbers.formatDecimal((hist.money-9000000)*0.15, 0, 'COMMA', 0, 'POINT')} "></td>
+														</block>
+														
 														<td th:text="${#dates.format(hist.receiveDate, 'dd-MM-yyyy')}"></td>
 														<td th:text="${hist.accountant.name}"></td>
 													</tr>

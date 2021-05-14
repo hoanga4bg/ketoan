@@ -14,4 +14,5 @@ public interface SalaryDAO {
 	public HistorySalary getInMonth(Salary salary);
 	public double getTotalSalaryOfMonthNow();
 	public List<Salary> findByPositionAndStatus(boolean status, String position);
+	public List<HistorySalary> getAllInMonth();
 }
