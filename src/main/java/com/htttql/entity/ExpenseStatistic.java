@@ -21,6 +21,7 @@ public class ExpenseStatistic {
 	private Double total;
 	private Double salaryTotal;
 	private Double importTotal;
+	private Double otherTotal;
 	private Date createDate;
 	private int month;
 	private int year;

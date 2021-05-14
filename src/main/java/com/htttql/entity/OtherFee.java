@@ -11,18 +11,19 @@ import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
-@Data
 @Entity
-public class IncurredBill {
+@Data
+public class OtherFee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+	private Double total;
+	private String name;
 	private Date createDate;
-	private Double cost;
-	private String content;
+	private int month;
+	private int year;
 	
 	@ManyToOne
-	@JoinColumn(name = "accountant_id")
-	private Accountant accountant;
-	
+	@JoinColumn(name = "create_by")
+	private Accountant createBy;
 }

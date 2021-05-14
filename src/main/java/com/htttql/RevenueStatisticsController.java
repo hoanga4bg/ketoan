@@ -75,6 +75,7 @@ public class RevenueStatisticsController {
 		double saleprice = 0;
 		double salary = 0;
 		double importprice = 0;
+		double otherfee=0;
 		double vat = 0;
 		double tncn = 0;
 		List<RevenueStatistics> reves = new ArrayList<RevenueStatistics>();
@@ -86,10 +87,11 @@ public class RevenueStatisticsController {
 					saleprice = billDAO.revenueByMonthNow();
 					salary = salaryDAO.getTotalSalaryOfMonthNow();
 					importprice = receiptDAO.findTotalPriceImportOfMonthNow();
+					otherfee=exDAO.getTotalFeeByMonthAndYear(todate.getMonth()+1,todate.getYear()+1900);
 					vat = taxDAO.vatCal(todate.getMonth()+1,todate.getYear()+1900);
 					tncn = taxDAO.tncnCal(todate.getMonth()+1,todate.getYear()+1900);
 					double totalPrice = 0;
-					totalPrice = saleprice - salary - importprice - vat - tncn;
+					totalPrice = saleprice - salary - importprice - vat - tncn-otherfee;
 					reve.setTotal(totalPrice);
 					reve.setCreateDate(todate);
 					reveDAO.save(reve);
@@ -102,10 +104,11 @@ public class RevenueStatisticsController {
 			saleprice = billDAO.revenueByMonthNow();
 			salary = salaryDAO.getTotalSalaryOfMonthNow();
 			importprice = receiptDAO.findTotalPriceImportOfMonthNow();
+			otherfee=exDAO.getTotalFeeByMonthAndYear(todate.getMonth()+1,todate.getYear()+1900);
 			vat = taxDAO.vatCal(todate.getMonth()+1,todate.getYear()+1900);
 			tncn = taxDAO.tncnCal(todate.getMonth()+1,todate.getYear()+1900);
 			double totalPrice = 0;
-			totalPrice = saleprice - salary - importprice - vat - tncn;
+			totalPrice = saleprice - salary - importprice - vat - tncn - otherfee;
 			reve1.setTotal(totalPrice);
 			reve1.setCreateDate(todate);
 			reve1.setCreateBy(abDao.getAccountant());
@@ -125,6 +128,7 @@ public class RevenueStatisticsController {
 		double saleprice = 0;
 		double salary = 0;
 		double importprice = 0;
+		double otherfee=0;
 		double vat = 0;
 		double tncn = 0;
 		for (RevenueStatistics reve : reves) {
@@ -143,10 +147,11 @@ public class RevenueStatisticsController {
 						saleprice = billDAO.salePriceByMonth(Integer.parseInt(month), Integer.parseInt(year));
 						salary = exDAO.getTotalSalaryHistoryByMonthAndYear(Integer.parseInt(month), Integer.parseInt(year));
 						importprice = exDAO.getTotalReceiptByMonthAndYear(Integer.parseInt(month), Integer.parseInt(year));
+						otherfee=exDAO.getTotalFeeByMonthAndYear(Integer.parseInt(month), Integer.parseInt(year));
 						vat = taxDAO.vatCal(Integer.parseInt(month), Integer.parseInt(year));
 						tncn = taxDAO.tncnCal(Integer.parseInt(month), Integer.parseInt(year));
 						double totalPrice = 0;
-						totalPrice = saleprice - salary - importprice - vat - tncn;
+						totalPrice = saleprice - salary - importprice - vat - tncn-otherfee;
 						reve.setTotal(totalPrice);
 						LocalDate initial = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), 15);
 						LocalDate end = initial.withDayOfMonth(initial.lengthOfMonth());

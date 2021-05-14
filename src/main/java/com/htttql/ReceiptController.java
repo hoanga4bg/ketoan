@@ -1,6 +1,9 @@
 package com.htttql;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -133,9 +136,12 @@ public class ReceiptController {
 		}
 		else {
 			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			DateTimeFormatter dtf= DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			try {
+
+				LocalDate ed = LocalDate.parse(eDate, dtf).plusDays(1);
 				Date startDate=sdf.parse(sDate);
-				Date endDate=sdf.parse(eDate);
+				Date endDate=Date.from(ed.atStartOfDay(ZoneId.systemDefault()).toInstant());
 				List<Receipt> list=new ArrayList<Receipt>();
 				list=receiptDAO.findByCreateDate(startDate, endDate);
 				model.addAttribute("list", list);

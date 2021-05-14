@@ -51,7 +51,7 @@ public class ExpenseController {
 	public String expenseDetail(Model model, @RequestParam("id") String id) {
 		ExpenseStatistic e=expenseDAO.findOneById(Integer.parseInt(id));
 		model.addAttribute("expense", e);
-		String title="Chi phí phát sinh tháng "+e.getMonth()+" năm "+e.getYear();
+		String title="Chi phí tháng "+e.getMonth()+" năm "+e.getYear();
 		model.addAttribute("title", title);
 		return "expense/detail";
 	}
@@ -63,6 +63,7 @@ public class ExpenseController {
 		int year=date.getYear()+1900;
 		Double totalSalary=expenseDAO.getTotalSalaryHistoryByMonthAndYear(month, year);
 		Double importTotal=expenseDAO.getTotalReceiptByMonthAndYear(month, year);
+		Double otherTotal=expenseDAO.getTotalFeeByMonthAndYear(month, year);
 		ExpenseStatistic expense=new ExpenseStatistic();
 		expense.setCreateBy(abstractDAO.getAccountant());
 		expense.setCreateDate(date);
@@ -70,7 +71,8 @@ public class ExpenseController {
 		expense.setYear(year);
 		expense.setImportTotal(importTotal);
 		expense.setSalaryTotal(totalSalary);
-		expense.setTotal(totalSalary+importTotal);
+		expense.setOtherTotal(otherTotal);
+		expense.setTotal(totalSalary+importTotal+otherTotal);
 		expenseDAO.save(expense);
 		return "redirect:/expense";
 	}
@@ -82,9 +84,11 @@ public class ExpenseController {
 		int year=e.getYear();
 		Double totalSalary=expenseDAO.getTotalSalaryHistoryByMonthAndYear(month, year);
 		Double importTotal=expenseDAO.getTotalReceiptByMonthAndYear(month, year);
+		Double otherTotal=expenseDAO.getTotalFeeByMonthAndYear(month, year);
 		e.setImportTotal(importTotal);
 		e.setSalaryTotal(totalSalary);
-		e.setTotal(totalSalary+importTotal);
+		e.setOtherTotal(otherTotal);
+		e.setTotal(totalSalary+importTotal+otherTotal);
 		expenseDAO.save(e);
 		return "redirect:/expense";
 			

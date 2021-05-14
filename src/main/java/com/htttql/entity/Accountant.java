@@ -44,13 +44,13 @@ public class Accountant {
 	private List<TaxStatistic> listTaxStatistic;
 	@OneToMany(mappedBy = "accountant")
 	private List<Receipt> receipts;
-	
-	@OneToMany(mappedBy = "accountant")
-	private List<IncurredBill> incurredBills;
+
 	
 	@OneToMany(mappedBy = "accountant")
 	private List<HistorySalary> historySalarys;
 	
 	@OneToMany(mappedBy="createBy")
 	private List<Report> listReports;
+	@OneToMany(mappedBy="createBy")
+	private List<OtherFee> listOtherFees;
 }

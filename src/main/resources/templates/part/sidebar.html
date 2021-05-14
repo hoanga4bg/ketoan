@@ -6,13 +6,13 @@
                                 <a th:href="@{/store}"><i class="fa fa-home fa-fw"></i>Kho hàng</a>
                             </li>
                             <li>
-                                <a><i class="fa fa-files-o fa-fw"></i>Hóa đơn<span class="fa arrow"></span></a>
+                                <a><i class="fa fa-files-o fa-fw"></i>Quản lý nhập xuất kho<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a th:href="@{/receipt}">Hóa đơn nhập</a>
+                                        <a th:href="@{/receipt}">Nhập kho</a>
                                     </li>
                                     <li>
-                                        <a th:href="@{/showbill}">Hóa đơn xuất</a>
+                                        <a th:href="@{/showbill}">Xuất kho</a>
                                     </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
@@ -53,6 +53,9 @@
                                 </ul>
                             </li>
                              <li>
+                            	<a th:href="@{/other}"><i class="fa fa-usd fa-fw"></i>Chi phí phát sinh</a>
+                            </li>
+                             <li>
                             	<a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Kết quả kinh doanh<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
@@ -62,8 +65,9 @@
                                         <a th:href="@{/income}">Doanh thu</a>
                                     </li>
                                     <li>
-                                        <a th:href="@{/expense}">Chi phí phát sinh</a>
+                                        <a th:href="@{/expense}">Chi phí</a>
                                     </li>
+                                    
                                 </ul>
                             </li>
                             <li>

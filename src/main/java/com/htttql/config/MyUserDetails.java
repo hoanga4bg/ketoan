@@ -20,13 +20,13 @@ public class MyUserDetails implements UserDetails{
 	
 	private String username;
 	private String password;
-//	private Boolean status;
+	private boolean status;
 	private Accountant accountant;
 	private List<GrantedAuthority> authorities;
 	public MyUserDetails(Account account) {
 		this.username=account.getUserName();
 		this.password=account.getPassword();
-//		this.status=account.getStatus();
+		this.status=account.getStatus();
 		this.authorities=Arrays.stream(account.getRole().split(","))
 				.map(SimpleGrantedAuthority::new)
 				.collect(Collectors.toList());
@@ -73,7 +73,7 @@ public class MyUserDetails implements UserDetails{
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return true;
+		return this.status;
 	}
 	
 	public Accountant getAccountant() {

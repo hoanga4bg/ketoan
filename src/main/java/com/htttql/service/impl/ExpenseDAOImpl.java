@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.htttql.entity.ExpenseStatistic;
 import com.htttql.entity.HistorySalary;
+import com.htttql.entity.OtherFee;
 import com.htttql.entity.Receipt;
 import com.htttql.repository.ExpenseStatisticRepository;
 import com.htttql.repository.HistorySalaryRepository;
+import com.htttql.repository.OtherFeeRepository;
 import com.htttql.repository.ReceiptRepository;
 import com.htttql.service.ExpenseDAO;
 @Service
@@ -25,6 +27,8 @@ public class ExpenseDAOImpl implements ExpenseDAO{
 	private HistorySalaryRepository hisRepository;
 	@Autowired
 	private ReceiptRepository receiptRepo;
+	@Autowired
+	private OtherFeeRepository otherDAO;
 	@Override
 	public List<ExpenseStatistic> findAll() {
 		List<ExpenseStatistic> list=expenseRepo.findAll();
@@ -119,6 +123,17 @@ public class ExpenseDAOImpl implements ExpenseDAO{
 	public ExpenseStatistic getByMonthAndYear(int month, int year) {
 	
 		return expenseRepo.findOneByMonthAndYear(month, year);
+	}
+
+	@Override
+	public Double getTotalFeeByMonthAndYear(int month, int year) {
+		List<OtherFee> list=otherDAO.findByMonthAndYear(month, year);
+		Double total=0.0;
+		for(OtherFee o:list) {
+			total+=o.getTotal();
+		}
+		return total;
+		
 	}
 
 }
