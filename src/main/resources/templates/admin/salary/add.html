@@ -83,15 +83,26 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<br>
+					<div class="row">		
 						<div class="col-md-6">
 							<div class="form-group">
-								<label class="bmd-label-floating">Vị trí</label> <input
-									type="text" class="form-control" th:field="*{position}"> 
+								<label class="bmd-label-floating">Vị trí</label>
+						
+								<select class="form-control" th:field="*{position}">
+								    	<option th:value="KETOAN"  >Kế toán</option>
+								    	<option th:value="BANHANG"  >Bán hàng</option>
+								    	<option th:value="NHAPKHO"  >Nhập kho</option>
+								    	<option th:value="QUANLY"  >Quản lý</option>
+											
+											
+										
+								</select>
+								
 							</div>
 						</div>
 					</div>
-					
+					<br>
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
