@@ -3,6 +3,8 @@ package com.htttql;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -89,16 +91,21 @@ public class BillController {
 		}
 		SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
 		Date startdate;
-		Date enddate;
+		Date enddate1;
 		try {
 			startdate = sim.parse(datestart);
-			enddate = sim.parse(dateend);
+			enddate1 = sim.parse(dateend);
+			LocalDate day = enddate1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			LocalDate day1 = day.plusDays(1);
+			Date enddate = Date.from(day1.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			
 			List<Bill> bills = new ArrayList<Bill>();
 			bills = billRepository.findAll();
 			List<Bill> listbills = new ArrayList<Bill>();
 			for (Bill bill : bills) {
-				if(((bill.getCreateDate().compareTo(startdate) == 1) && (bill.getCreateDate().compareTo(enddate) == -1)) || (bill.getCreateDate().compareTo(startdate) == 0) || (bill.getCreateDate().compareTo(enddate) == 0)) {
+				if(((bill.getCreateDate().compareTo(startdate) == 1) && (bill.getCreateDate().compareTo(enddate) == -1)) || (bill.getCreateDate().compareTo(startdate) == 0)) {
 					listbills.add(bill);
+					
 				}
 			}
 			
