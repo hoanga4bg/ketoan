@@ -16,7 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.thymeleaf.templateparser.markup.decoupled.DecoupledInjectedAttribute;
 
+import com.htttql.dto.DetailReveDTO;
 import com.htttql.entity.Accountant;
 import com.htttql.entity.RevenueStatistics;
 import com.htttql.repository.AccountRepository;
@@ -50,6 +52,7 @@ public class RevenueStatisticsController {
 	private ExpenseDAO exDAO;
 	@Autowired
 	private DateDAO dateDAO;
+	
 	
 	@Autowired
 	private AccountantRepository accountantRepository;
@@ -190,5 +193,52 @@ public class RevenueStatisticsController {
 		model.addAttribute("reves", reves);
 		
 		return "revenueStatistics/display";
+	}
+	
+	@RequestMapping(value = "/reve/detail",method = RequestMethod.GET)
+	public String detailReve(@RequestParam("id") String id,Model model) {
+		RevenueStatistics reve = reveDAO.findOneById(Integer.parseInt(id));
+		Date date = reve.getCreateDate();
+		double salePrice = 0;
+		double importPrice = 0;
+		double salaryPrice = 0;
+		double vat = 0;
+		double tncn = 0;
+		double psPrice = 0;
+		double total = 0;
+		salePrice = billDAO.salePriceByMonth(date.getMonth()+1, date.getYear()+1900);
+		importPrice = exDAO.getTotalReceiptByMonthAndYear(date.getMonth()+1, date.getYear()+1900);
+		salaryPrice = exDAO.getTotalSalaryHistoryByMonthAndYear(date.getMonth()+1, date.getYear()+1900);
+		vat = taxDAO.vatCal(date.getMonth()+1, date.getYear()+1900);
+		tncn = taxDAO.tncnCal(date.getMonth()+1, date.getYear()+1900);
+		psPrice = exDAO.getTotalFeeByMonthAndYear(date.getMonth()+1, date.getYear()+1900);
+		total = reve.getTotal();
+		String createBy = reve.getCreateBy().getName();
+		int month = date.getMonth()+1;
+		int year = date.getYear()+1900;
+		DetailReveDTO detail = new DetailReveDTO();
+		detail.setId(Integer.parseInt(id));
+		detail.setCreateBy(reve.getCreateBy().getName());
+		detail.setCreateDate(date);
+		detail.setSalePrice(salePrice);
+		detail.setImportPrice(importPrice);
+		detail.setSalaryPrice(salaryPrice);
+		detail.setVat(vat);
+		detail.setTncn(tncn);
+		detail.setPsPrice(psPrice);
+		detail.setTotalPrice(total);
+		detail.setMonth(month);
+		detail.setYear(year);
+		String totalprice = String.valueOf((int)Math.round(total));
+		ArrayList<String> kq = billDAO.readNum(totalprice);
+		String money = "";
+        for (int i = 0; i < kq.size(); i++) {
+        	money += kq.get(i) + " ";
+            System.out.print(kq.get(i)+ " ");
+        }
+        System.out.print(total);
+        model.addAttribute("totalprice", money);
+		model.addAttribute("detail", detail);
+		return "revenueStatistics/detail";
 	}
 }

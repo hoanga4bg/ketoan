@@ -33,12 +33,16 @@
 	width: 300px;
 }
 
-.search {
-	display: flex;
-}
-
-.search1 {
-	margin-right: 40%;
+.detail{
+width: 60%;
+height: 700px;
+margin: 0 auto;
+border: 1px solid ; 
+border-radius: 5px;
+background-color: #ccc;
+    -moz-box-shadow: 3px 3px #666;
+    -webkit-box-shadow: 3px 3px #666;
+    box-shadow: 3px 3px #666;
 }
 </style>
 </head>
@@ -122,7 +126,7 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">Lợi nhuận kinh doanh</h1>
+						<h1 class="page-header">Lợi nhuận</h1>
 					</div>
 					<!-- /.col-lg-12 -->
 				</div>
@@ -130,92 +134,40 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="panel panel-default">
-							<div class="panel-heading">Lợi nhuận theo tháng</div>
-							<div class="panel-heading">
-
-								<div class="search">
-									<div class="search1">
-										<form th:action="@{/search/reve}" method="GET">
-											<tr>
-											
-												<td style="display:inline-block;"><input type="text" class="form-control" value="" name="name"
-													placeholder="Tên người tạo" title="nhập tên người tạo"
-													maxlength="200" ></td>
-												<br/>
-												<td style="display:inline-block;"><input type="submit" value="Tìm kiếm" class="btn btn-primary"></td>
-											</tr>
-										</form>
-
-									</div>
-
-									<div class="search2">
-										<form th:action="@{/reve/month}" method="GET">
-											<tr>
-												<td><input type="submit" value="Tính lợi nhuận" class="btn btn-primary"></td>
-												<td><input type="text" value="" name="month"
-													title="chọn tháng muốn tính" placeholder="Tháng">
-												</td>
-												<td><input type="text" value="" name="year"
-													title="năm cần tính" placeholder="Năm">
-												</td>
-											</tr>
-										</form>
-									</div>
-
-								</div>
+							<div class="panel-heading">Chi tiết Lợi nhuận</div>
+							
 
 
-							</div>
+							
 							<!-- /.panel-heading -->
 							<div class="panel-body">
 								<div class="table-responsive">
-									<table class="table table-striped table-bordered table-hover"
-										id="dataTables-example">
-										<thead>
-											<tr>
-												<th>STT</th>
-												<th>Tổng thu nhập</th>
-												<th>Thời gian kết toán</th>
-												<th>Người tạo</th>
-												<th>Thao tác</th>
+									<div class="detail">
+									<h2 class="text-center">Lợi nhuận tháng <b th:text="${detail.month}"></b></h2>
+									<p style="margin-left: 70px">Ngày kết toán : <b th:text="${#dates.format(detail.createDate, 'dd-MM-yyyy')}"></b></p>
+									<br>
+									<p style="margin-left: 70px">Người tính lợi nhuận : <b th:text="${detail.createBy}"></b></p>
+									<br>
+									<p style="margin-left: 70px">Doanh thu bán hàng : <b th:text="${#numbers.formatDecimal(detail.salePrice, 0, 'COMMA', 0, 'POINT')}"></b></p>
+									<br>
+									<p style="margin-left: 70px">Chi phí nhập hàng : <b th:text="${#numbers.formatDecimal(detail.importPrice, 0, 'COMMA', 0, 'POINT')}"></b></p>
+									<br>
+									<p style="margin-left: 70px">Chi phí lương: <b th:text="${#numbers.formatDecimal(detail.salaryPrice, 0, 'COMMA', 0, 'POINT')}"></b></p>
+									<br>
+									<p style="margin-left: 70px">Chi phí thuế giá trị gia tăng : <b th:text="${#numbers.formatDecimal(detail.vat, 0, 'COMMA', 0, 'POINT')}"></b></p>
+									<br>
+									<p style="margin-left: 70px">Chi phí thuế thu nhập cá nhân : <b th:text="${#numbers.formatDecimal(detail.tncn, 0, 'COMMA', 0, 'POINT')}"></b></p>
+									<br>
+									<p style="margin-left: 70px">Chi phí phát sinh : <b th:text="${#numbers.formatDecimal(detail.psPrice, 0, 'COMMA', 0, 'POINT')}"></b></p>
+									<br>
+									<p style="margin-left: 70px">Chi phí tổng : <b th:text="${#numbers.formatDecimal(detail.totalPrice, 0, 'COMMA', 0, 'POINT')}"></b> </p>
+									<br>
+									<p style="margin-left: 70px">Số tiền viết bằng chữ :<b th:text=${totalprice}></b></p>
+									<br>
 
-											</tr>
-										</thead>
-										<div th:if="${reves}">
-											<tbody th:each="reve,state : ${reves}">
+									
+									</div>
 
-												<tr class="gradeU">
-													<td th:text="${state.index}+1"></td>
-													
-													<td
-														th:text="${#numbers.formatDecimal(reve.total, 0, 'COMMA', 0, 'POINT')}"></td>
-
-													<td
-														th:text="${#dates.format(reve.createDate, 'dd-MM-yyyy')}"></td>
-													<td th:text="${reve.createBy.name}"></td>
-													
-													<td>
-													<a  th:href=@{/reve/delete(id=${reve.id})}>
-															<button class="btn btn-danger pull-center">Xóa</button></a>
-															<a  th:href=@{/reve/detail(id=${reve.id})}>
-															<button class="btn btn-primary pull-center">Chi tiết</button></a>
-													</td>
-													
-												</tr>
-											</tbody>
-										</div>
-										</table>
-										<table>
-										<tr>
-										<td>
-										<a th:href=@{/reve/revenow}>
-										<button class="btn btn-primary">Tính lợi nhuận tháng này</button>
-										</a>
-										
-										</td>
-										</tr>
-										</table>
-										
 								</div>
 
 							</div>
@@ -225,9 +177,6 @@
 					</div>
 					<!-- /.col-lg-12 -->
 				</div>
-				
-				
-				
 			</div>
 
 		</div>
@@ -250,4 +199,3 @@
 
 </body>
 </html>
-
