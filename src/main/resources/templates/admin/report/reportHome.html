@@ -87,7 +87,19 @@
                                  <div class="panel-heading">
                                 <div class="search">
 									<div class="row">
-				                       
+				                        <form th:action="@{/admin/report/search}" method="get">
+				                        		<div class="col-lg-6">
+					                       			<select class="form-control" name="type">
+													    	<th:block th:each="type: ${typelist}">
+																<option th:value="${type}" th:text="${type}"></option>
+															</th:block>
+													</select>
+												</div>
+												<div class="col-lg-6">
+													<button type="submit" class="btn btn-primary pull-center">Tìm kiếm</button>
+												</div>
+												
+				                        </form>
                         				
 												
                    					</div>
@@ -120,7 +132,7 @@
 	                                               		<td th:text="${report.type.name}"></td>
 														<td>
 															
-															<a th:href=@{/admin/report/detail(id=${report.id})}>
+															<a th:href="@{/admin/report/detail(id=${report.id})}">
 																<button class="btn btn-success pull-center">Xem chi tiết</button>
 															</a>
 														
