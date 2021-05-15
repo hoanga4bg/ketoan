@@ -28,8 +28,8 @@
 
             <!-- Navigation -->
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                <div class="navbar-header">
-                    <a class="navbar-brand" th:href="@{/}">Accounting</a>
+               <div class="navbar-header">
+                    <a class="navbar-brand" th:href="@{/admin/info?message}">Admin</a>
                 </div>
 
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -40,20 +40,21 @@
                 </button>
 
                 <ul class="nav navbar-nav navbar-left navbar-top-links">
-                    <li><a th:href="@{/}"><i class="fa fa-home fa-fw"></i>Trang chủ</a></li>
+                    <li><a th:href="@{/admin/info?message}"><i class="fa fa-home fa-fw"></i>Trang chủ</a></li>
                 </ul>
 
                 <ul class="nav navbar-right navbar-top-links">
+            
                     <li th:insert="admin/part/loginInfo"></li>
                 </ul>
-                <!-- /.navbar-top-links -->
+			<!-- /.navbar-top-links -->
 
-                <div class="navbar-default sidebar" role="navigation">
-                    <div class="sidebar-nav navbar-collapse">
-                        <div th:insert="admin/part/sidebar"></div>
-                    </div>
-                    <!-- /.sidebar-collapse -->
-                </div>
+			<div class="navbar-default sidebar" role="navigation">
+				<div class="sidebar-nav navbar-collapse">
+					<div th:insert="admin/part/sidebar"></div>
+				</div>
+				<!-- /.sidebar-collapse -->
+			</div>
                 <!-- /.navbar-static-side -->
             </nav>
 

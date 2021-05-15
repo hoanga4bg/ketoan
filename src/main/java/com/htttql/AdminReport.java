@@ -35,7 +35,7 @@ public class AdminReport {
 		Collections.reverse(list);
 		model.addAttribute("list",list);
 		model.addAttribute("typelist", typelist);
-		return "/admin/report/reportHome";
+		return "admin/report/reportHome";
 	}
 
 	@GetMapping("/detail")
@@ -43,7 +43,7 @@ public class AdminReport {
 		Report report=reportDAO.findOneById(Integer.parseInt(id));
 		
 		model.addAttribute("report",report);
-		return "/admin/report/detail";
+		return "admin/report/detail";
 	}
 	@GetMapping("/delete")
 	public String delete(Model model, @RequestParam("id") String id) {
@@ -59,6 +59,6 @@ public class AdminReport {
 		Collections.reverse(list);
 		model.addAttribute("list",list);
 		model.addAttribute("typelist", typelist);
-		return "/admin/report/reportHome";
+		return "admin/report/reportHome";
 	}
 }
