@@ -12,6 +12,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Type;
+
 import lombok.Data;
 
 @Data
@@ -20,7 +22,8 @@ public class Report {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	@Lob
+
+	
 	private String content;
 	@ManyToOne
 	@JoinColumn(name="type")
