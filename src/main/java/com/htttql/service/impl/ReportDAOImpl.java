@@ -60,7 +60,7 @@ public class ReportDAOImpl implements ReportDAO{
 		
 		List<String> list=new ArrayList<String>();
 		List<SampleReport> slist=new ArrayList<SampleReport>();
-		slist=sampleRepo.findAll();
+		slist=findAllActive();
 		for(SampleReport s:slist) {
 			list.add(s.getName());
 		}
@@ -78,6 +78,13 @@ public class ReportDAOImpl implements ReportDAO{
 	@Override
 	public List<Report> findByType(SampleReport sample) {
 		List<Report> list=reportRepo.findByType(sample);
+		
+		return list;
+	}
+
+	@Override
+	public List<SampleReport> findAllActive() {
+		List<SampleReport> list=sampleRepo.findByStatus(false);
 		
 		return list;
 	}

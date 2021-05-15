@@ -9,4 +9,5 @@ public interface ReportDAO extends GeneralService<Report>{
     public List<String> findAllName();
     public SampleReport findByName(String name);
     public List<Report> findByType(SampleReport sample);
+    public List<SampleReport> findAllActive();
 }
