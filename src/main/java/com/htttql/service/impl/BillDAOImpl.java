@@ -9,14 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.htttql.entity.Bill;
+import com.htttql.entity.Orders;
+import com.htttql.entity.Product;
 import com.htttql.repository.BillRepository;
+import com.htttql.repository.OrdersRepository;
 import com.htttql.service.BillDAO;
 import com.htttql.service.DateDAO;
 @Service
 public class BillDAOImpl implements BillDAO {
 	@Autowired
 	private DateDAO dateDAO;
-	
+	@Autowired
+	private OrdersRepository orderRepo;
 	@Autowired
 	private BillRepository billRepository;
 	public static final String KHONG = "không";    
@@ -221,4 +225,30 @@ public class BillDAOImpl implements BillDAO {
 	}
 		return salePrice;
 }
+
+
+	@Override
+	public double salePriceOfProductByMonthAndYear(int month, int year, Product p) {
+
+		List<Orders> orders=new ArrayList<Orders>();
+		orders=orderRepo.findByProduct(p);
+		List<Bill> bills = new ArrayList<Bill>();
+		bills = billRepository.findAll();
+		List<Orders> os=new ArrayList<Orders>();
+		double salePrice=0;
+		for (Bill bill : bills) {
+			if((bill.getCreateDate().getYear() + 1900 == year)&&(bill.getCreateDate().getMonth()+1 == month)){
+				os.add(bill.getOrders());
+			}
+		}
+
+		for(Orders o:os) {
+			if(orders.indexOf(o)!=0) {
+				salePrice+=(o.getAmount()*(o.getProduct().getSalePrice()-o.getProduct().getImportPrice()));
+			}
+			
+		}
+		return salePrice;
+		
+	}
 }

@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.htttql.entity.Accountant;
 import com.htttql.entity.Bill;
 import com.htttql.entity.Orders;
+import com.htttql.entity.Product;
 
 public interface BillRepository extends JpaRepository<Bill, Integer>{
 	List<Bill> findByCreateBy(Accountant createBy);
@@ -17,5 +18,6 @@ public interface BillRepository extends JpaRepository<Bill, Integer>{
 	
 	
 	List<Bill> findByCreateDateBetween(Date date1,Date date2);
+
 
 }

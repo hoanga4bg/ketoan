@@ -63,5 +63,8 @@ public class ReceiptDAOImpl implements ReceiptDAO{
 		list=receiptRepo.findByCreatedDateBetween(sDate, eDate);
 		return list;
 	}
+	
+	
+	
 
 }

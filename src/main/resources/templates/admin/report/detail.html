@@ -44,7 +44,7 @@
 		<!-- Navigation -->
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="navbar-header">
-				<a class="navbar-brand" th:href="@{/}">Accounting</a>
+				<a class="navbar-brand" th:href="@{/admin}">Accounting</a>
 			</div>
 			
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -55,18 +55,18 @@
 			</button>
 
 			<ul class="nav navbar-nav navbar-left navbar-top-links">
-				<li><a th:href="@{/}"><i class="fa fa-home fa-fw"></i>
+				<li><a th:href="@{/admin}"><i class="fa fa-home fa-fw"></i>
 						Trang chủ</a></li>
 			</ul>
 
 			<ul class="nav navbar-right navbar-top-links">
-				<li th:insert="part/loginInfo"></li>
+				<li th:insert="admin/part/loginInfo"></li>
 			</ul>
 			<!-- /.navbar-top-links -->
 
 			<div class="navbar-default sidebar" role="navigation">
 				<div class="sidebar-nav navbar-collapse">
-					<div th:insert="part/sidebar"></div>
+					<div th:insert="admin/part/sidebar"></div>
 				</div>
 				<!-- /.sidebar-collapse -->
 			</div>
