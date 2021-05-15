@@ -131,13 +131,23 @@
 													<td th:text="${sample.name}"></td>
 													
 													<td>
-												
-													<a th:href=@{/samplereport/detail(id=${sample.id})} >
+															<div th:if="${sample.status}">
+															<a th:href=@{/samplereport/detail(id=${sample.id})} >
 															<button  class="btn btn-primary pull-center">Xem</button></a>
 															<a th:href=@{/samplereport/edit(id=${sample.id})} >
 															<button  class="btn btn-primary pull-center">Sửa</button></a>
-														<a  th:href=@{/samplereport/delete(id=${sample.id})}>
+															<a  th:href=@{/samplereport/kp(id=${sample.id})}>
+															<button class="btn btn-primary pull-center">Khôi phục</button></a>
+															</div>
+															
+															<div th:unless="${sample.status}">
+															<a th:href=@{/samplereport/detail(id=${sample.id})} >
+															<button  class="btn btn-primary pull-center">Xem</button></a>
+															<a th:href=@{/samplereport/edit(id=${sample.id})} >
+															<button  class="btn btn-primary pull-center">Sửa</button></a>
+															<a  th:href=@{/samplereport/delete(id=${sample.id})}>
 															<button class="btn btn-danger pull-center">Xóa</button></a>
+															</div>
 
 													</td>
 													

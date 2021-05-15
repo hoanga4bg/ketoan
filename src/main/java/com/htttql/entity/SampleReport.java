@@ -25,4 +25,8 @@ public class SampleReport {
 	
 	@OneToMany(mappedBy = "type")
 	private List<Report> listReports;
+	
+	public boolean getStatus() {
+		return this.status;
+	}
 }

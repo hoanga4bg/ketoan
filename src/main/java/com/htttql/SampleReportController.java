@@ -22,7 +22,18 @@ public class SampleReportController {
 	public String findAll(Model model) {
 		List<SampleReport> samples = new ArrayList<SampleReport>();
 		samples = samRepository.findAll();
-		model.addAttribute("samples", samples);
+		List<SampleReport> list = new ArrayList<SampleReport>();
+		for (SampleReport sample : samples) {
+			if(!sample.getStatus()) {
+				list.add(sample);
+			}
+		}
+		for (SampleReport sample : samples) {
+			if(sample.getStatus()) {
+				list.add(sample);
+			}
+		}
+		model.addAttribute("samples", list);
 		return "samplereport/display";
 	}
 	
@@ -42,7 +53,19 @@ public class SampleReportController {
 	
 	@RequestMapping(value = "/samplereport/delete",method = RequestMethod.GET)
 	public String deleteSample(@RequestParam("id") String id) {
-		samRepository.delete(samRepository.findOneById(Integer.parseInt(id)));
+		SampleReport sample = samRepository.findOneById(Integer.parseInt(id));
+		sample.setStatus(true);
+		samRepository.save(sample);
+		
+		return "redirect:/samplereport";
+	}
+	
+	@RequestMapping(value = "/samplereport/kp",method = RequestMethod.GET)
+	public String khphSample(@RequestParam("id") String id) {
+		SampleReport sample = samRepository.findOneById(Integer.parseInt(id));
+		sample.setStatus(false);
+		samRepository.save(sample);
+		
 		return "redirect:/samplereport";
 	}
 	
