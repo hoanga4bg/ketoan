@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Startmin - Bootstrap Admin Theme</title>
+        <title>Báo cáo</title>
 
         <!-- Bootstrap Core CSS -->
         <link th:href="@{/css/bootstrap.min.css}" href="../../css/bootstrap.min.css" rel="stylesheet">
@@ -87,19 +87,7 @@
                                  <div class="panel-heading">
                                 <div class="search">
 									<div class="row">
-				                        <form th:action="@{/admin/report/search}" method="get">
-				                        		<div class="col-lg-6">
-					                       			<select class="form-control" name="type">
-													    	<th:block th:each="type: ${typelist}">
-																<option th:value="${type}" th:text="${type}"></option>
-															</th:block>
-													</select>
-												</div>
-												<div class="col-lg-6">
-													<button type="submit" class="btn btn-primary pull-center">Tìm kiếm</button>
-												</div>
-												
-				                        </form>
+				                       
                         				
 												
                    					</div>
