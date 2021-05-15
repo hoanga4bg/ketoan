@@ -19,9 +19,8 @@ import com.htttql.service.AbstractDAO;
 import com.htttql.service.ReportDAO;
 
 @Controller
-@RequestMapping("/report")
-public class ReportController {
-	
+@RequestMapping("/admin/report")
+public class AdminReport {
 	@Autowired
 	private ReportDAO reportDAO;
 	@Autowired
@@ -36,58 +35,20 @@ public class ReportController {
 		Collections.reverse(list);
 		model.addAttribute("list",list);
 		model.addAttribute("typelist", typelist);
-		return "report/reportHome";
+		return "/admin/report/reportHome";
 	}
-	@GetMapping("/add")
-	public String addReport(Model model, @RequestParam("type") String type) {
-		SampleReport s=reportDAO.findByName(type);
-		
-		Report report=new Report();
-		report.setType(s);
-		report.setContent(s.getContent());
-		report.setCategory("");
-		model.addAttribute("report",report);
-		model.addAttribute("status",1);
-		return "report/insert";
-	}
-	
-	@GetMapping("/edit")
-	public String editReport(Model model, @RequestParam("id") String id) {
-		
-		Report report=reportDAO.findOneById(Integer.parseInt(id));
-	
-		model.addAttribute("report",report);
-		model.addAttribute("status",0);
-		return "report/insert";
-	}
-	
-	@PostMapping("/add")
-	public String addReport(Report report) {
-		Date date=new Date();
-		int month=date.getMonth()+1;
-		int year=date.getYear()+1900;
-		
-		report.setCreateBy(abstractDAO.getAccountant());
-		report.setCreateDate(date);
-		report.setMonth(month);
-		report.setYear(year);
-		reportDAO.save(report);
-		
-		return "redirect:/report";
-	}
-	
-	
+
 	@GetMapping("/detail")
 	public String detail(Model model, @RequestParam("id") String id) {
 		Report report=reportDAO.findOneById(Integer.parseInt(id));
 		
 		model.addAttribute("report",report);
-		return "report/detail";
+		return "/admin/report/detail";
 	}
 	@GetMapping("/delete")
 	public String delete(Model model, @RequestParam("id") String id) {
 		reportDAO.delete(Integer.parseInt(id));
-		return "redirect:/report";
+		return "redirect:/admin/report";
 	}
 	@GetMapping("/search")
 	public String search(Model model, @RequestParam("type") String type) {
@@ -98,6 +59,6 @@ public class ReportController {
 		Collections.reverse(list);
 		model.addAttribute("list",list);
 		model.addAttribute("typelist", typelist);
-		return "report/reportHome";
+		return "/admin/report/reportHome";
 	}
 }

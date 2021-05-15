@@ -1,6 +1,8 @@
 package com.htttql.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,24 +23,24 @@ public class ReportDAOImpl implements ReportDAO{
 	private SampleRepository sampleRepo;
 	@Override
 	public List<Report> findAll() {
-		return null;
+		return reportRepo.findAll();
 	}
-
+	
 	@Override
 	public Report save(Report t) {
-		// TODO Auto-generated method stub
-		return null;
+		return reportRepo.save(t);
 	}
 
 	@Override
 	public Report findOneById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Report report= reportRepo.findOneById(id); 
+	
+		return report;
 	}
 
 	@Override
 	public void delete(int id) {
-		// TODO Auto-generated method stub
+		reportRepo.deleteById(id);
 		
 	}
 
@@ -48,20 +50,42 @@ public class ReportDAOImpl implements ReportDAO{
 		return null;
 	}
 
+	
+	/*
+	 * Lấy danh sách thể loại hóa đơn
+	 * 
+	 */
 	@Override
-	public List<Report> findMonthFinance() {
-		SampleReport s=sampleRepo.findByName("TCT").get(0);
-		List<Report> list=reportRepo.findByType(s);
+	public List<String> findAllName() {
+		
+		List<String> list=new ArrayList<String>();
+		List<SampleReport> slist=new ArrayList<SampleReport>();
+		slist=sampleRepo.findAll();
+		for(SampleReport s:slist) {
+			list.add(s.getName());
+		}
 		return list;
 	}
 
 	@Override
-	public List<Report> findYearFinance() {
-		SampleReport s=sampleRepo.findByName("TCN").get(0);
-		List<Report> list=reportRepo.findByType(s);
+	public SampleReport findByName(String name) {
+		List<SampleReport> slist=new ArrayList<SampleReport>();
+		slist=sampleRepo.findByName(name);
+		System.out.print(slist.size());
+		return slist.get(0);
+	}
+
+	@Override
+	public List<Report> findByType(SampleReport sample) {
+		List<Report> list=reportRepo.findByType(sample);
+		
 		return list;
 	}
-	
+
+
+
+
+
 
 
 }

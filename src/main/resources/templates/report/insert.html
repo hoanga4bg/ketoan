@@ -24,18 +24,9 @@
 <!-- Custom Fonts -->
 <link th:href="@{/css/font-awesome.min.css}"
 	href="../../css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<script language="javascript">
-        function printPage(printpage) {
-            var headstr = "<html><head><title></title></head><body>";
-            var footstr = "</body>";
-            var newstr = document.all.item(printpage).innerHTML;
-            var oldstr = document.body.innerHTML;
-            document.body.innerHTML = headstr + newstr + footstr;
-            window.print();
-            document.body.innerHTML = oldstr;
-            return false;
-        }
-   </script>
+<script th:src="@{/ckeditor/ckeditor.js}"></script>
+<!-- jQuery -->
+	<script th:src="@{/js/jquery.min.js}"></script>
 </head>
 <body>
 
@@ -46,7 +37,7 @@
 			<div class="navbar-header">
 				<a class="navbar-brand" th:href="@{/}">Accounting</a>
 			</div>
-			
+
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
 				data-target=".navbar-collapse">
 				<span class="sr-only">Toggle navigation</span> <span
@@ -84,7 +75,7 @@
 					</div>
 					<div th:unless="${status}" class="col-lg-12">
 
-						<h1 class="page-header">Chi tiết báo cáo</h1>
+						<h1 class="page-header">Sửa báo cáo</h1>
 
 					</div>
 					<!-- /.col-lg-12 -->
@@ -93,20 +84,26 @@
 			</div>
 			<!-- /.container-fluid -->
 			<div class="card-body">
-				<input type="image" th:src="@{/img/print.png}" onClick="printPage('content');" title="In hóa đơn" style="height:80px;width:80px"/>
-			
-				<form th:action="@{/save/samplereport}" th:object="${sample}"
-					method="POST">
+				<form th:action="@{/report/add}" th:object="${report}"
+					method="POST"  style="text-align: center;">
+					<button type="submit" class="btn btn-primary pull-center"
+						onclick="alertSuccess()">Hoàn tất</button>
+						<br/>
+					<br/>
+					<input type="hidden" name="id" th:field="*{id}">
+					<input type="hidden" name="type" th:field="*{type.id}">
 					<div class="row" align="center">
 						<div class="col-md-12">
 							<div class="form-group">
-								<div id="content" th:utext="*{content}" style="width: 793px; border:1px solid black; padding-top: 20px">
-								</div>
+								<label for="exampleFormControlTextarea3">Nội dung</label>
+								<textarea style="height: 297mm; width:210mm" th:field="*{content}" class="form-control"
+									id="content" name="content" placeholder="Nội dung"></textarea>
 							</div>
 						</div>
 
 					</div>
 
+					
 				</form>
 			</div>
 		</div>
@@ -114,16 +111,27 @@
 
 	</div>
 	<!-- /#wrapper -->
-
 	<script>
+	    CKEDITOR.replace( 'content', {
+	        height: 1122,
+	        width:793
+	    } );
+    </script>
+	<script>
+		var editor="";
+		$(document).ready(function(){
+			editor=CKEDITOR.replace("content");
+		
+		});
+			
 		
 		function alertSuccess() {
 			alert("Thành công");
 		}
+		
 	</script>
 
-	<!-- jQuery -->
-	<script th:src="@{/js/jquery.min.js}"></script>
+	
 
 	<!-- Bootstrap Core JavaScript -->
 	<script th:src="@{/js/bootstrap.min.js}"></script>
@@ -133,6 +141,6 @@
 
 	<!-- Custom Theme JavaScript -->
 	<script th:src="@{/js/startmin.js}"></script>
-	
+
 </body>
 </html>

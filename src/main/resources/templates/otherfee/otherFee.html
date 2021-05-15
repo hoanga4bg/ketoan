@@ -137,12 +137,11 @@
                                                 </tr>
                                             </thead>
                                             <div th:if="${list}">
-	                                            <tbody th:each="fee,state : ${list}">
+	                                            <tbody >
 	                                                
-	                                                <tr class="gradeU">
+	                                                <tr class="gradeU" th:each="fee,state : ${list}">
 	                                                    <td th:text="${state.index}+1"></td>
 	                                                    <td th:text="${fee.name}"></td>
-	                                             
 	                                                    <td th:text="${#numbers.formatDecimal(fee.total, 0, 'COMMA', 0, 'POINT')}"></td>
 	                                                    <td th:text="${fee.month}"></td>
 	                                                    <td th:text="${fee.year}"></td>
@@ -160,6 +159,15 @@
 																
 															
 														</td>
+													</tr>
+													<tr class="gradeU">
+														<td><b>Tổng</b></td>
+	                                                    <td></td>
+	                                                    <td th:text="${#numbers.formatDecimal(totalFee, 0, 'COMMA', 0, 'POINT')}"></td>
+	                                                    <td ></td>
+	                                                    <td ></td>
+	                         							<td ></td>
+	                                                    <td ></td>
 													</tr>
 	                                            </tbody>
                                             </div>

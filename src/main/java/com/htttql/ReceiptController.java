@@ -51,6 +51,12 @@ public class ReceiptController {
 		list=receiptDAO.findAll();
 	
 		Collections.reverse(list);
+		
+		Double total=0.0;
+		for(Receipt r:list) {
+			total+=r.getTotalPrice();
+		}
+		model.addAttribute("total", total);
 		model.addAttribute("list", list);
 		return "receipt/showReceipt";
 	}
@@ -144,6 +150,11 @@ public class ReceiptController {
 				Date endDate=Date.from(ed.atStartOfDay(ZoneId.systemDefault()).toInstant());
 				List<Receipt> list=new ArrayList<Receipt>();
 				list=receiptDAO.findByCreateDate(startDate, endDate);
+				Double total=0.0;
+				for(Receipt r:list) {
+					total+=r.getTotalPrice();
+				}
+				model.addAttribute("total", total);
 				model.addAttribute("list", list);
 				return "receipt/showReceipt";
 			}

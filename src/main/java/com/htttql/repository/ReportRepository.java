@@ -11,4 +11,6 @@ public interface ReportRepository extends JpaRepository<Report, Integer>{
 
 	public List<Report> findByType(SampleReport s);
 
+	public Report findOneById(int id);
+
 }

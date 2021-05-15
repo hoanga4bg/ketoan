@@ -71,17 +71,62 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1 class="page-header" >Báo cáo tài chính tháng</h1>
+                            <h1 class="page-header" >Danh sách báo cáo</h1>
                         </div>
                         <!-- /.col-lg-12 -->
                     </div>
+                    <div class="row">
+                        <form th:action="@{/report/add}" method="get">
+                        		<div class="col-lg-6">
+	                       			<select class="form-control" name="type">
+									    	<th:block th:each="type: ${typelist}">
+												<option th:value="${type}" th:text="${type}"></option>
+											</th:block>
+									</select>
+								</div>
+								<div class="col-lg-6">
+									<button type="submit" class="btn btn-primary pull-center">Thêm mới</button>
+								</div>
+                        </form>
+                        
+                    </div>
+                    <br/>
                     <!-- /.row -->
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    Danh sách báo cáo theo tháng
+                                    Danh sách báo cáo
                                 </div>
+                                <br/>
+                                <div class="panel-heading">
+                               
+										<a th:href="@{/report}">
+											<button class="btn btn-primary pull-center">Xem tất cả</button>
+										</a>
+								</div>
+												
+                                 <div class="panel-heading">
+                                <div class="search">
+									<div class="row">
+				                        <form th:action="@{/report/search}" method="get">
+				                        		<div class="col-lg-6">
+					                       			<select class="form-control" name="type">
+													    	<th:block th:each="type: ${typelist}">
+																<option th:value="${type}" th:text="${type}"></option>
+															</th:block>
+													</select>
+												</div>
+												<div class="col-lg-6">
+													<button type="submit" class="btn btn-primary pull-center">Tìm kiếm</button>
+												</div>
+												
+				                        </form>
+                        				
+												
+                   					</div>
+
+								</div>
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
                                     <div class="table-responsive">
@@ -93,6 +138,7 @@
                                                     <th>Năm</th>
                                                    	<th>Thời gian tạo</th>
                                                    	<th>Người tạo</th>
+                                                   	<th>Loại báo cáo</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -105,13 +151,18 @@
 	                                                    <td th:text="${report.year}"></td>
 	                                               		<td th:text="${#dates.format(report.createDate, 'dd-MM-yyyy HH:mm')}"></td>
 	                                               		<td th:text="${report.createBy.name}"></td>
+	                                               		<td th:text="${report.type.name}"></td>
 														<td>
-															<a th:href=@{/report/finance/edit(id=${report.id})}>
+															<a th:href=@{/report/edit(id=${report.id})}>
 																<button class="btn btn-primary pull-center">Sửa</button>
 															</a>
-															<a th:href=@{/report/finance/detail(id=${report.id})}>
+															<a th:href=@{/report/detail(id=${report.id})}>
 																<button class="btn btn-success pull-center">Xem chi tiết</button>
 															</a>
+															<form th:action="@{/report/delete}" method="GET" style="display:inline-block;">
+																	<input type="hidden" name="id" th:value="${report.id}">
+																	<button onclick="return confirm('Are you sure?') ? true : false;" type="submit" class="btn btn-danger pull-center" >Xóa</button>
+															</form>
 														</td>
 											</tr>
 	                                            </tbody>

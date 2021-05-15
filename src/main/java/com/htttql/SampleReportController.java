@@ -26,26 +26,27 @@ public class SampleReportController {
 		return "samplereport/display";
 	}
 	
-	@RequestMapping(value = "/create/samplereport",method = RequestMethod.GET)
+	@RequestMapping(value = "/samplereport/create",method = RequestMethod.GET)
 	public String createNewSample(Model model) {
 		model.addAttribute("sample", new SampleReport());
 		model.addAttribute("status", 1);
 		return "samplereport/insert";
 	}
 	
-	@RequestMapping(value = "/save/samplereport",method = RequestMethod.POST)
+	@RequestMapping(value = "/samplereport/save",method = RequestMethod.POST)
 	public String saveNewSample(SampleReport sample) {
+		sample.setStatus(false);
 		samRepository.save(sample);
 		return "redirect:/samplereport";
 	}
 	
-	@RequestMapping(value = "/delete/samplereport",method = RequestMethod.GET)
+	@RequestMapping(value = "/samplereport/delete",method = RequestMethod.GET)
 	public String deleteSample(@RequestParam("id") String id) {
 		samRepository.delete(samRepository.findOneById(Integer.parseInt(id)));
 		return "redirect:/samplereport";
 	}
 	
-	@RequestMapping(value = "/edit/samplereport",method = RequestMethod.GET)
+	@RequestMapping(value = "/samplereport/edit",method = RequestMethod.GET)
 	public String edit(@RequestParam("id") String id, Model model) {
 		SampleReport sample = new SampleReport();
 		sample = samRepository.findOneById(Integer.parseInt(id));
@@ -54,7 +55,7 @@ public class SampleReportController {
 		return "samplereport/insert";
 	}
 	
-	@RequestMapping(value = "/detail/samplereport",method = RequestMethod.GET)
+	@RequestMapping(value = "/samplereport/detail",method = RequestMethod.GET)
 	public String detail(@RequestParam("id") String id, Model model) {
 		SampleReport sample = new SampleReport();
 		sample = samRepository.findOneById(Integer.parseInt(id));

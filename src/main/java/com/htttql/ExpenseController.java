@@ -43,6 +43,11 @@ public class ExpenseController {
 		
 		List<ExpenseStatistic> list=expenseDAO.findAll();
 		Collections.reverse(list);
+		Double total=0.0;
+		for(ExpenseStatistic es:list) {
+			total+=es.getTotal();
+		}
+		model.addAttribute("total", total);
 		model.addAttribute("list",list);
 		return "expense/expense";
 	}

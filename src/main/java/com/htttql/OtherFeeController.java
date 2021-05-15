@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.htttql.service.AbstractDAO;
 import com.htttql.service.OtherFeeDAO;
+import com.htttql.entity.ExpenseStatistic;
 import com.htttql.entity.OtherFee;
 import com.htttql.entity.Receipt;
 
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 @Controller
@@ -32,6 +34,12 @@ public class OtherFeeController {
 	public String listOtherFee(Model model) {
 		List<OtherFee> list=new ArrayList<OtherFee>();
 		list=otherFeeDAO.findAll();
+		Collections.reverse(list);
+		Double total=0.0;
+		for(OtherFee o:list) {
+			total+=o.getTotal();
+		}
+		model.addAttribute("totalFee", total);
 		model.addAttribute("list", list);
 		return "otherfee/otherFee";
 	}
@@ -86,6 +94,12 @@ public class OtherFeeController {
 				Date endDate=Date.from(ed.atStartOfDay(ZoneId.systemDefault()).toInstant());
 				List<OtherFee> list=new ArrayList<OtherFee>();
 				list=otherFeeDAO.findByCreateDate(startDate, endDate);
+				Collections.reverse(list);
+				Double total=0.0;
+				for(OtherFee o:list) {
+					total+=o.getTotal();
+				}
+				model.addAttribute("totalFee", total);
 				model.addAttribute("list", list);
 				return "otherfee/otherFee";
 			}
