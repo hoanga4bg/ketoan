@@ -173,6 +173,12 @@
 															
 																</button>
 													</a>
+													
+													<a th:href=@{/bill/edit(id=${bill.id})}>
+															<button class="btn btn-primary pull-center">Sửa
+															
+																</button>
+													</a>
 													</td>
 													
 												</tr>
@@ -192,6 +198,15 @@
 											</tr>
 										</tbody>
 									</table>
+									<div >
+
+										
+											<a th:href=@{/orders/create/form}>
+												<button class="btn btn-primary pull-center">Thêm
+													yêu cầu</button>
+											</a>
+										
+									</div>
 								</div>
 
 							</div>

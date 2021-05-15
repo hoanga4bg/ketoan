@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
@@ -18,11 +20,13 @@ public class Bill {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createDate;
 	private Double totalPrice;
 	
 	@ManyToOne
 	@JoinColumn(name = "accountant_id")
+	
 	private Accountant createBy;
 	
 	@OneToOne

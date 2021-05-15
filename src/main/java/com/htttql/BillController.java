@@ -22,10 +22,12 @@ import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.htttql.entity.Accountant;
 import com.htttql.entity.Bill;
 import com.htttql.entity.Orders;
+import com.htttql.entity.Product;
 import com.htttql.entity.Store;
 import com.htttql.repository.AccountantRepository;
 import com.htttql.repository.BillRepository;
 import com.htttql.repository.OrdersRepository;
+import com.htttql.repository.ProductRepository;
 import com.htttql.service.AbstractDAO;
 import com.htttql.service.BillDAO;
 import com.htttql.service.StoreDAO;
@@ -49,6 +51,8 @@ public class BillController {
 	
 	@Autowired
 	private StoreDAO storeDAO;
+	@Autowired
+	private ProductRepository productReposity;
 	
 	@RequestMapping(value = "/showbill",method = RequestMethod.GET)
 	public String getAllBill(Model model) {
@@ -157,11 +161,12 @@ public class BillController {
 		return "Bill/detail";
 	}
 	
-	@RequestMapping(value = "/bill/create",method = RequestMethod.GET)
-	public String createNewBill(@RequestParam("id") String id) {
-		Orders orders = new Orders();
-		orders = ordersRepository.findOneById(Integer.parseInt(id));
+	@RequestMapping(value = "/bill/create",method = RequestMethod.POST)
+	public String createNewBill(Orders orders) {
+		Product product = productReposity.findOneById(orders.getProduct().getId());
+		orders.setProduct(product);
 		orders.setStatus(false);
+		ordersRepository.save(orders);
 		Store store = new Store();
 		store = storeDAO.findOneByProduct(orders.getProduct());
 		store.setAmount(store.getAmount()-orders.getAmount());
@@ -177,9 +182,40 @@ public class BillController {
 		bill.setTotalPrice(totalPrice);
 		bill.setOrders(orders);
 		billRepository.save(bill);
-		ordersRepository.save(orders);
-		return "redirect:/orders";
+		return "redirect:/showbill";
 	}
+	
+	@RequestMapping(value = "/bill/edit",method = RequestMethod.GET)
+	public String edit(@RequestParam("id") String id,Model model) {
+		Bill bill = billRepository.findOneById(Integer.parseInt(id));
+		List<Product> products = new ArrayList<Product>();
+		List<Accountant> accs = new ArrayList<Accountant>();
+		accs = accountantRepository.findAll();
+		products = productReposity.findAll();
+		model.addAttribute("bill", bill);
+		model.addAttribute("products", products);
+		model.addAttribute("accs",accs);
+		return "Bill/edit";
+	}
+	@RequestMapping(value = "/bill/save",method = RequestMethod.POST)
+	public String save(Bill bill, @RequestParam("amountold") String oldamount) {
+		Product product = productReposity.findOneById(bill.getOrders().getProduct().getId());
+		bill.getOrders().setProduct(product);
+		ordersRepository.save(bill.getOrders());
+		System.out.print(oldamount);
+		
+		Store store = new Store();
+		store = storeDAO.findOneByProduct(bill.getOrders().getProduct());
+		store.setAmount(store.getAmount() + Integer.parseInt(oldamount) - bill.getOrders().getAmount());
+		storeDAO.save(store);
+		
+		Accountant acc = accountantRepository.findOneById(bill.getCreateBy().getId());
+		bill.setCreateBy(acc);
+		bill.setTotalPrice((bill.getOrders().getAmount() * bill.getOrders().getProduct().getSalePrice()) + (bill.getOrders().getAmount() * bill.getOrders().getProduct().getSalePrice()*0.1));
+		billRepository.save(bill);
+		return "redirect:/showbill";
+	}
+		
 	
 
 	

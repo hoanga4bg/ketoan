@@ -65,7 +65,7 @@
                         <div class="col-lg-12">
                         
                             <h1 th:if="${mode==0}" class="page-header">Tạo yêu cầu mua hàng</h1>
-                            <h1 th:unless="${mode==0}" class="page-header">Sửa yêu cầu mua hàng</h1>
+                            <h1 th:unless="${mode==0}" class="page-header">Sửa yêu hóa đơn mua hàng</h1>
                         </div>
                         <!-- /.col-lg-12 -->
                     </div>
@@ -73,16 +73,16 @@
                 </div>
                 <!-- /.container-fluid -->
                 <div class="card-body" >
-				<form th:action="@{/bill/create}" th:object="${orders}" method="POST">
-				<div th:if="!${mode==0}">
+				<form th:action="@{/bill/save}" th:object="${bill}" method="POST">
 				<input type="hidden" name="id" th:field="*{id}">
-				</div>
+				<input type="hidden" name="id" th:field="*{orders.id}">
+				<input type="hidden" name="amountold" th:value="*{orders.amount}">
 				<div class="row">
 						
 						<div class="col-md-6">
 							<div class="form-group">
 								<label class="bmd-label-floating">Khách Hàng</label> <input
-									type="text" class="form-control" th:field="*{customer}">
+									type="text" class="form-control" th:field="*{orders.customer}">
 							</div>
 						</div>
 					</div>
@@ -93,7 +93,7 @@
 							<div class="form-group">
 								<label class="bmd-label-floating">Sản phẩm</label>
 						
-								<select class="form-control" th:field="*{product.id}">
+								<select class="form-control" th:field="*{orders.product.id}">
 								    	<th:block th:each="pro: ${products}">
 											<option th:value="${pro.id}" th:text="${pro.name}" ></option>
 										</th:block>
@@ -108,11 +108,35 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label class="bmd-label-floating">Số lượng</label> <input
-									type="text" class="form-control" th:field="*{amount}">
+									type="text" class="form-control" th:field="*{orders.amount}">
 							</div>
 						</div>
 					</div>
 					
+					<div class="row">
+						
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="bmd-label-floating">Ngày tạo</label> <input
+									type="date" class="form-control" th:field="*{createDate}">
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">		
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="bmd-label-floating">Người tạo</label>
+						
+								<select class="form-control" th:field="*{createBy.id}">
+								    	<th:block th:each="acc: ${accs}">
+											<option th:value="${acc.id}" th:text="${acc.name}" ></option>
+										</th:block>
+								</select>
+								
+							</div>
+						</div>
+					</div>
 					
 					<button type="submit" class="btn btn-primary pull-center" onclick="alertSuccess()">Xác nhận</button>
 					<div class="clearfix"></div>
