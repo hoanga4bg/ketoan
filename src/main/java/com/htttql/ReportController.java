@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.htttql.entity.Report;
 import com.htttql.entity.SampleReport;
+import com.htttql.repository.ReportRepository;
 import com.htttql.service.AbstractDAO;
 import com.htttql.service.ReportDAO;
 
@@ -26,6 +27,8 @@ public class ReportController {
 	private ReportDAO reportDAO;
 	@Autowired
 	private AbstractDAO abstractDAO;
+	@Autowired
+	private ReportRepository reportRepo;
 	@GetMapping
 	public String homeReport(Model model) {
 		List<Report> list=new ArrayList<Report>();
@@ -79,7 +82,7 @@ public class ReportController {
 	
 	@GetMapping("/detail")
 	public String detail(Model model, @RequestParam("id") String id) {
-		Report report=reportDAO.findOneById(Integer.parseInt(id));
+		Report report=reportRepo.findOneById(Integer.parseInt(id));
 		
 		model.addAttribute("report",report);
 		return "report/detail";
