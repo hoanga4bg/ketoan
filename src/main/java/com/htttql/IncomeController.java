@@ -13,10 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.htttql.dto.DetailInComeDTO;
 import com.htttql.entity.Accountant;
+import com.htttql.entity.Bill;
 import com.htttql.entity.Income;
 import com.htttql.entity.RevenueStatistics;
+import com.htttql.entity.Tax;
 import com.htttql.repository.AccountantRepository;
+import com.htttql.repository.BillRepository;
+import com.htttql.repository.IncomeRepository;
+import com.htttql.repository.TaxRepository;
+import com.htttql.repository.TaxStatisticRepository;
 import com.htttql.service.AbstractDAO;
 import com.htttql.service.BillDAO;
 import com.htttql.service.DateDAO;
@@ -34,6 +41,8 @@ public class IncomeController {
 	private AbstractDAO abDAO;
 	@Autowired 
 	private AccountantRepository accountantRepository;
+	@Autowired
+	private BillRepository billRepo;
 	
 	@RequestMapping(value = "/income",method = RequestMethod.GET)
 	public String findAll(Model model) {
@@ -145,6 +154,43 @@ public class IncomeController {
 			}
 		return "redirect:/income";
 	}
+	
+	//cchi tiet doanh thu theo thang
+	
+	@RequestMapping(value = "/income/detail",method = RequestMethod.GET)
+	public String detailIncome(@RequestParam("id") String id,Model model) {
+		Income income = incomeDAO.findOneById(Integer.parseInt(id));
+		Date today = income.getCreateDate();
+		LocalDate day = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate startDate = day.withDayOfMonth(1);
+		LocalDate endDate = day.withDayOfMonth(day.lengthOfMonth());
+		Date start = Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Date end = Date.from(endDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		
+		List<Bill> bills = new ArrayList<Bill>();
+		bills = billRepo.findByCreateDateBetween(start, end);
+		
+		DetailInComeDTO detail = new DetailInComeDTO();
+		detail.setBill(bills);
+		double total = 0;
+		int amount = 0;
+		for (Bill bill : bills) {
+			total += bill.getTotalPrice();
+			amount += bill.getOrders().getAmount();
+					
+		}
+		double vat = total*0.1;
+		detail.setVat(vat);
+		detail.setAmount(amount);
+		detail.setTotal(total);
+		detail.setMonth(start.getMonth()+1);
+		detail.setYear(start.getYear()+1900);
+		
+		model.addAttribute("detail", detail);
+
+		return "income/detail";
+	}
+	
 
 }
 
