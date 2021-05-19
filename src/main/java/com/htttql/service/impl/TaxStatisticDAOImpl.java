@@ -91,7 +91,7 @@ public class TaxStatisticDAOImpl implements TaxStatisticDAO{
 		
 		Tax t=taxRepo.findByName("TNCN").get(0);
 		Double total=0.0;
-		List<HistorySalary> list=salaryDAO.getAllInMonth();
+		List<HistorySalary> list=salaryDAO.getAllInMonth(month,year);
 		for(HistorySalary h:list) {
 			if(h.getMoney()<=9000000) {
 				total+=0;
