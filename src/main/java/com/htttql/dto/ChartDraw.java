@@ -11,5 +11,5 @@ import lombok.Data;
 public class ChartDraw {
 	private List<String> products;
 	private List<Integer> moneys;
-	
+	private List<PieChart> pieList;
 }

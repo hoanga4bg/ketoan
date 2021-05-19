@@ -232,22 +232,26 @@ public class BillDAOImpl implements BillDAO {
 
 		List<Orders> orders=new ArrayList<Orders>();
 		orders=orderRepo.findByProduct(p);
+		
 		List<Bill> bills = new ArrayList<Bill>();
 		bills = billRepository.findAll();
 		List<Orders> os=new ArrayList<Orders>();
 		double salePrice=0;
 		for (Bill bill : bills) {
-			if((bill.getCreateDate().getYear() + 1900 == year)&&(bill.getCreateDate().getMonth()+1 == month)){
+			if(((bill.getCreateDate().getYear() + 1900) == year)&&((bill.getCreateDate().getMonth()+1) == month)){
 				os.add(bill.getOrders());
 			}
 		}
 
 		for(Orders o:os) {
-			if(orders.indexOf(o)!=0) {
-				salePrice+=(o.getAmount()*(o.getProduct().getSalePrice()-o.getProduct().getImportPrice()));
+			
+			if(orders.indexOf(o)>=0) {
+				System.out.println(orders.indexOf(o));
+				salePrice+=(o.getAmount()*(o.getProduct().getSalePrice()));
 			}
 			
 		}
+	
 		return salePrice;
 		
 	}
