@@ -35,6 +35,7 @@ public class AddAccountController {
 	public String createNewAccount(Model model) {
 		Account account = new Account();
 		model.addAttribute("account", account);
+		model.addAttribute("status", 1);
 		return "admin/account/addform";
 	}
 	
@@ -73,6 +74,14 @@ public class AddAccountController {
 		accounts = accountRepository.findByUserName(name);
 		model.addAttribute("accounts", accounts);
 		return "admin/account/display";
+	}
+	
+	@RequestMapping(value = "/admin/account/edit",method = RequestMethod.GET)
+	public String edit(@RequestParam("id") String id,Model model) {
+		Account account = accountRepository.findOneById(Integer.parseInt(id));
+		model.addAttribute("account", account);
+		model.addAttribute("status", 0);
+		return "admin/account/addform";
 	}
 
 }
