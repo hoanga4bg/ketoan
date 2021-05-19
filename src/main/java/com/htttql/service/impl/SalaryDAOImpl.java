@@ -124,8 +124,12 @@ public class SalaryDAOImpl implements SalaryDAO {
 		return list;
 	}
 	@Override
+<<<<<<< HEAD
 	public List<HistorySalary> getAllInMonth(int month,int year) {
 		Date date=new Date();
+=======
+	public List<HistorySalary> getAllInMonth(int month, int year) {
+>>>>>>> df366623f0da99b8a1dbc4181d6ae435d7e9c6a0
 		String startDate="";
 		String endDate="";
 		if(month<10) {
