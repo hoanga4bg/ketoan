@@ -246,7 +246,6 @@ public class BillDAOImpl implements BillDAO {
 		for(Orders o:os) {
 			
 			if(orders.indexOf(o)>=0) {
-				System.out.println(orders.indexOf(o));
 				salePrice+=(o.getAmount()*(o.getProduct().getSalePrice()));
 			}
 			
