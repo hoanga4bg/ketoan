@@ -70,7 +70,7 @@
                 	
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1 class="page-header">Biểu đồ thống kê doanh thu theo mặt hàng trong tháng</h1>
+                            <h1 class="page-header">Biểu đồ thống kê doanh thu theo sản phẩm trong tháng</h1>
                         </div>
                         <!-- /.col-lg-12 -->
                     </div>
@@ -111,7 +111,7 @@
 		var month=$('#month').val();
 		var year=$('#year').val();
 		var url="/api/chart?month="+month+"&year="+year;
-		var title="Doanh thu bán hàng tháng "+month+" năm "+year;
+		var title="<b>Doanh thu bán hàng tháng "+month+" năm "+year+"<b/>";
 		
 		$.ajax({
 			url: url,
@@ -153,7 +153,7 @@
 			        }
 			    },
 			    title: {
-			       text: "Tỉ lệ doanh thu theo hàng hóa tháng "+month+ " năm "+ year
+			       text: "<b>Tỉ lệ doanh thu theo hàng hóa tháng "+month+ " năm "+ year+"</b>"
 			    },
 			    accessibility: {
 			        point: {
