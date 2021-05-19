@@ -25,6 +25,7 @@ public class AdminSalaryController {
 	public String createNewSalary(Model model) {
 		Salary salary = new Salary();
 		model.addAttribute("salary", salary);
+		model.addAttribute("status", 1);
 		return "admin/salary/add";
 	}
 	
@@ -58,5 +59,14 @@ public class AdminSalaryController {
 		salaryRepository.save(salary);
 		return "redirect:/admin/staff";
 	}
+	
+	@RequestMapping(value = "/admin/staff/edit",method = RequestMethod.GET)
+	public String edit(@RequestParam("id") String id, Model model) {
+		Salary salary = salaryRepository.findOneById(Integer.parseInt(id));
+		model.addAttribute("salary", salary);
+		model.addAttribute("status", 0);
+		return "admin/salary/add";
+	}
+	
 
 }

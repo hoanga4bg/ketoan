@@ -120,11 +120,15 @@
 															<a th:href=@{/admin/staff/on(id=${salary.id})}>
 																<button class="btn btn-danger pull-center">Công tác lại</button>
 															</a>
+															
 														</div>
 														
 														<div th:unless=${salary.status}>
 														<a th:href=@{/admin/staff/off(id=${salary.id})}>
 																<button class="btn btn-primary pull-center">Ngưng công tác</button>
+															</a>
+															<a th:href=@{/admin/staff/edit(id=${salary.id})}>
+																<button class="btn btn-danger pull-center">Sửa</button>
 															</a>
 															</div>
 

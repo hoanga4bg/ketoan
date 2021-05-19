@@ -145,6 +145,8 @@
 													<div th:if="${account.status}">
 														<a  th:href=@{/admin/account/delete(id=${account.id})}>
 															<button class="btn btn-primary pull-center">Vô hiệu hóa</button></a>
+															<a  th:href=@{/admin/account/edit(id=${account.id})}>
+															<button class="btn btn-primary pull-center">Sửa</button></a>
 													</div>
 														
 													<div th:unless="${account.status}">

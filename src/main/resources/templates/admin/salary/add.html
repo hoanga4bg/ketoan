@@ -64,8 +64,15 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
+                        <div th:if= "${status}">
+                         <h1 class="page-header">Thêm nhân viên</h1>
+                        </div>
                         
-                            <h1 class="page-header">Thêm nhân viên</h1>
+                         <div th:unless= "${status}">
+                         <h1 class="page-header">Sửa nhân viên</h1>
+                        </div>
+                        
+                           
                             
                         </div>
                         <!-- /.col-lg-12 -->
@@ -75,6 +82,7 @@
                 <!-- /.container-fluid -->
                 <div class="card-body" >
 				<form th:action="@{/admin/save/salary}" th:object="${salary}" method="POST">
+				<input type="hidden" name="id"  th:field="*{id}">
 				<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
