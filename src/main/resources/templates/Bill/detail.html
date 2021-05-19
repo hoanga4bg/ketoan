@@ -44,7 +44,23 @@ background-color: #ccc;
     -webkit-box-shadow: 3px 3px #666;
     box-shadow: 3px 3px #666;
 }
+
+
 </style>
+
+
+<script language="javascript">
+        function printPage(printpage) {
+            var headstr = "<html><head><title></title></head><body>";
+            var footstr = "</body>";
+            var newstr = document.all.item(printpage).innerHTML;
+            var oldstr = document.body.innerHTML;
+            document.body.innerHTML = headstr + newstr + footstr;
+            window.print();
+            document.body.innerHTML = oldstr;
+            return false;
+        }
+   </script>
 </head>
 <body>
 
@@ -136,13 +152,13 @@ background-color: #ccc;
 						<div class="panel panel-default">
 							<div class="panel-heading">Chi tiết hóa đơn bán hàng</div>
 							
-
+							<input type="image" th:src="@{/img/print.png}" onClick="printPage('detail');" title="In báo cáo" style="height:80px;width:80px"/>
 
 							
 							<!-- /.panel-heading -->
 							<div class="panel-body">
 								<div class="table-responsive">
-									<div class="detail">
+									<div class="detail" id="detail">
 									<p class="text-center">Mã Hóa Đơn # <b th:text="${bill.id}"></b> </p>
 									<h2 class="text-center"><b>HÓA ĐƠN</b></h2>
 									<p style="margin-left: 70px">Ngày tạo hóa đơn : <b th:text="${#dates.format(bill.createDate, 'dd-MM-yyyy')}"></b></p>
@@ -177,9 +193,7 @@ background-color: #ccc;
 									
 									
 									</div>
-									<div class="export">
-									<button>xuất hóa đơn</button>
-									</div>
+								
 								</div>
 
 							</div>

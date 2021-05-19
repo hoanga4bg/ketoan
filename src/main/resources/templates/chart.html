@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -20,15 +21,18 @@
 
         <!-- Custom Fonts -->
         <link th:href="@{/css/font-awesome.min.css}" href="../../css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	
+		<!-- jQuery -->
+        <script th:src="@{/js/jquery.min.js}"></script>
+        <script th:src="@{/js/highcharts.js}"></script>
+        
     </head>
     <body>
-
+		
         <div id="wrapper">
 
             <!-- Navigation -->
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-               <div class="navbar-header">
+                <div class="navbar-header">
                     <a class="navbar-brand" th:href="@{/admin/info?message}">Admin</a>
                 </div>
 
@@ -54,55 +58,144 @@
 					<div th:insert="admin/part/sidebar"></div>
 				</div>
 				<!-- /.sidebar-collapse -->
-			</div>
+			</div> /.sidebar-collapse -->
+                </div>
                 <!-- /.navbar-static-side -->
             </nav>
-
+			
             <!-- Page Content -->
             <div id="page-wrapper">
             	
                 <div class="container-fluid">
+                	
                     <div class="row">
                         <div class="col-lg-12">
-                        
-                            <h1 class="page-header">Thêm nhà cung cấp</h1>
-                           
+                            <h1 class="page-header">Biểu đồ thống kê doanh thu theo sản phẩm trong tháng</h1>
                         </div>
                         <!-- /.col-lg-12 -->
                     </div>
+                    <div class="row">
+                		<div class="col-lg-12">
+                			<tr>
+											
+								<label class="bmd-label-floating">Tháng</label>
+								<td><input type="text" value="" id="month">
+								</td>
+								<label class="bmd-label-floating">Năm</label>
+								<td><input type="text" value="" id="year">
+								</td>
+								<td><input  value="Xem" class="btn btn-primary" id="submit"></td>
+							</tr>
+					
+                		</div>
+                	</div>
                     <!-- /.row -->
                 </div>
                 <!-- /.container-fluid -->
                 <div class="card-body" >
-				<form th:action="@{/admin/product/addsup}" th:object="${supplier}" method="POST">
-					<div class="row">		
-						<div class="col-md-12">
-							<div class="form-group">
-								<label class="bmd-label-floating">Tên nhà cung cấp</label>
-								<input type="text" id="amount" class="form-control" th:field="*{name}">
-							</div>
-						</div>
-					</div>
-					
-					
-					<button type="submit" class="btn btn-primary pull-center" onclick="alertSuccess()">Xác nhận</button>
-					<div class="clearfix"></div>
-				</form>
-			</div>
+                	 <div id="container"> </div>
+                	 
+                	 <div id="piechart"></div>
+				</div>
             </div>
             <!-- /#page-wrapper -->
 
         </div>
         <!-- /#wrapper -->
+
+       
 	
-		<script>
-			function alertSuccess() {
-			  alert("Thành công");
+	
+	<script>
+	$('#submit').click(function(){
+		var month=$('#month').val();
+		var year=$('#year').val();
+		var url="/api/chart?month="+month+"&year="+year;
+		var title="<b>Doanh thu bán hàng tháng "+month+" năm "+year+"<b/>";
+		
+		$.ajax({
+			url: url,
+			type: 'GET',
+			dataType: 'json',
+			
+		})
+		.done(function(data) {
+			var pie=data.pieList;
+			var datas=[];
+			for(var i=0;i<pie.length;i++){
+				var object={};
+				object.name=pie[i].name;
+				object.y=pie[i].percent;
+				datas.push(object);
 			}
-		</script>
+			Highcharts.chart('container',{
+				title:{
+					text:title
+				},
+				xAxis:{
+					categories:data.products
+				},
+				series:[{
+					name:'Tiền',
+					data:data.moneys,
+					type:'column'
+				}]
+			});
+			
+			console.log(pie);
+			Highcharts.chart('piechart', {
+			    chart: {
+			        type: 'pie',
+			        options3d: {
+			            enabled: true,
+			            alpha: 45,
+			            beta: 0
+			        }
+			    },
+			    title: {
+			       text: "<b>Tỉ lệ doanh thu theo hàng hóa tháng "+month+ " năm "+ year+"</b>"
+			    },
+			    accessibility: {
+			        point: {
+			            valueSuffix: '%'
+			        }
+			    },
+			    tooltip: {
+			        pointFormat: '{series.name}: <b>{point.y:.2f}%</b>'
+			    },
+			    plotOptions: {
+			        pie: {
+			            allowPointSelect: true,
+			            cursor: 'pointer',
+			            depth: 35,
+			            dataLabels: {
+			                enabled: true,
+			                format: '<b>{point.name}<b>:{point.y}%'
+			            }
+			        }
+			    },
+			    series: [{
+			        type: 'pie',
+			        name: 'Browser share',
+			        data: datas
+			    }]
+			});
+			console.log(data);
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		
+		
+	});	
 	
-        <!-- jQuery -->
-        <script th:src="@{/js/jquery.min.js}"></script>
+	
+	
+	
+	</script>
 
         <!-- Bootstrap Core JavaScript -->
         <script th:src="@{/js/bootstrap.min.js}"></script>

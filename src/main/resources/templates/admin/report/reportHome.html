@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Báo cáo tài chính</title>
+        <title>Báo cáo</title>
 
         <!-- Bootstrap Core CSS -->
         <link th:href="@{/css/bootstrap.min.css}" href="../../css/bootstrap.min.css" rel="stylesheet">
@@ -20,24 +20,16 @@
 
         <!-- Custom Fonts -->
         <link th:href="@{/css/font-awesome.min.css}" href="../../css/font-awesome.min.css" rel="stylesheet" type="text/css">
-		 <!--  script th:src="@{/ckeditor/ckeditor.js}"></script>-->
-		<style type="text/css">
- 			.logo{
- 				margin:70px;
- 				margin-left: 35%;
- 				height: 300px;
- 				width: 300px;
- 			}
-		</style>
+
     </head>
     <body>
-
+		
         <div id="wrapper">
-
+		
             <!-- Navigation -->
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <div class="navbar-header">
-                    <a class="navbar-brand" th:href="@{/}">Accounting</a>
+                    <a class="navbar-brand" th:href="@{/admin/info?message}">Admin</a>
                 </div>
 
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -48,24 +40,24 @@
                 </button>
 
                 <ul class="nav navbar-nav navbar-left navbar-top-links">
-                    <li><a th:href="@{/}"><i class="fa fa-home fa-fw"></i> Trang chủ</a></li>
+                    <li><a th:href="@{/admin/info?message}"><i class="fa fa-home fa-fw"></i>Trang chủ</a></li>
                 </ul>
 
                 <ul class="nav navbar-right navbar-top-links">
-                   
-                    <li th:insert="/admin/part/loginInfo"></li>
+            
+                    <li th:insert="admin/part/loginInfo"></li>
                 </ul>
-                <!-- /.navbar-top-links -->
+			<!-- /.navbar-top-links -->
 
-                <div class="navbar-default sidebar" role="navigation">
-                    <div class="sidebar-nav navbar-collapse" th:insert="/admin/part/sidebar">
-                        
-                    </div>
-                    <!-- /.sidebar-collapse -->
-                </div>
+			<div class="navbar-default sidebar" role="navigation">
+				<div class="sidebar-nav navbar-collapse">
+					<div th:insert="admin/part/sidebar"></div>
+				</div>
+				<!-- /.sidebar-collapse -->
+			</div>
                 <!-- /.navbar-static-side -->
             </nav>
-
+			-->
             <!-- Page Content -->
             <div id="page-wrapper" >
                 <div class="container-fluid">
@@ -92,26 +84,26 @@
 										</a>
 								</div>
 												
-                                 <div class="panel-heading">
-                                <div class="search">
-									<div class="row">
-				                        <form th:action="@{/admin/report/search}" method="get">
-				                        		<div class="col-lg-6">
-					                       			<select class="form-control" name="type">
-													    	<th:block th:each="type: ${typelist}">
-																<option th:value="${type}" th:text="${type}"></option>
-															</th:block>
-													</select>
-												</div>
-												<div class="col-lg-6">
-													<button type="submit" class="btn btn-primary pull-center">Tìm kiếm</button>
-												</div>
-												
-				                        </form>
-                        				
-												
-                   					</div>
-
+                                <div class="panel-heading">
+	                                <div class="search">
+										<div class="row">
+					                        <form th:action="@{/admin/report/search}" method="get">
+					                        		<div class="col-lg-6">
+						                       			<select class="form-control" name="type">
+														    	<th:block th:each="type: ${typelist}">
+																	<option th:value="${type}" th:text="${type}"></option>
+																</th:block>
+														</select>
+													</div>
+													<div class="col-lg-6">
+														<button type="submit" class="btn btn-primary pull-center">Tìm kiếm</button>
+													</div>
+													
+					                        </form>
+	                        				
+													
+	                   					</div>
+									</div>
 								</div>
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
@@ -140,12 +132,12 @@
 	                                               		<td th:text="${report.type.name}"></td>
 														<td>
 															
-															<a th:href=@{/admin/report/detail(id=${report.id})}>
+															<a th:href="@{/admin/report/detail(id=${report.id})}">
 																<button class="btn btn-success pull-center">Xem chi tiết</button>
 															</a>
 														
 														</td>
-											</tr>
+													</tr>
 	                                            </tbody>
                                             </div>
                                             
