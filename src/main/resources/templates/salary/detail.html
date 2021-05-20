@@ -81,27 +81,6 @@
                                 <div class="panel-heading">
                                     Lịch sử trả lương
                                 </div>
-                                <div class="panel-heading">
-                                <div class="search">
-									<div class="search2">
-										<form th:action="@{/salary/hispay/search}" method="GET">
-											<tr>
-												
-												<td><input type="submit" value="Tìm kiếm" class="btn btn-primary"></td>
-												<label class="bmd-label-floating">Ngày bắt đầu</label>
-												<td><input type="date" value="" name="startdate"
-													title="chọn ngày bắt đầu muốn tìm" maxlength="200">
-												</td>
-												<label class="bmd-label-floating">Ngày kết thúc</label>
-												<td><input type="date" value="" name="enddate"
-													title="chọn ngày kết thúc tìm kiếm" maxlength="200">
-												</td>
-											</tr>
-										</form>
-									</div>
-
-								</div>
-								</div>
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
                                     <div class="table-responsive">
@@ -118,9 +97,9 @@
                                                 </tr>
                                             </thead>
                                             <div th:if="${list}">
-	                                            <tbody >
+	                                            <tbody th:each="hist,state : ${list}">
 	                                                
-	                                                <tr class="gradeU" th:each="hist,state : ${list}">
+	                                                <tr class="gradeU">
 	                                                    <td th:text="${state.index}+1"></td>
 	                                                    <td th:text="${hist.salary.nameStaff}"></td>
 	                                                    <td th:text="${hist.salary.position}"></td>
@@ -136,17 +115,6 @@
 														<td th:text="${#dates.format(hist.receiveDate, 'dd-MM-yyyy')}"></td>
 														<td th:text="${hist.accountant.name}"></td>
 													</tr>
-													 <tr class="gradeU">
-													 		<td><b>Tổng</b></td>
-		                                                    <td ></td>
-		                                                    <td ></td>
-		                                                    <td th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT')} "></td>
-															<td th:text="${#numbers.formatDecimal(totalTax, 0, 'COMMA', 0, 'POINT')} "></td>
-															
-															
-															<td ></td>
-															<td ></td>
-													 </tr>
 	                                            </tbody>
                                             </div>
                                             
