@@ -250,7 +250,7 @@ public class BillDAOImpl implements BillDAO {
 			}
 			
 		}
-	
+		salePrice*=1.1;
 		return salePrice;
 		
 	}
