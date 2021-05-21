@@ -59,7 +59,7 @@ public class AccountController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         authorities = auth.getAuthorities();
         String myRole = authorities.toArray()[0].toString();
-        System.out.println(myRole);
+//        System.out.println(myRole);
 		if(myRole.equals("ROLE_ADMIN")) {
 			return "redirect:/admin/info?message";
 		} 
