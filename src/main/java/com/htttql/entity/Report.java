@@ -23,7 +23,7 @@ public class Report {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	
+	@Lob
 	private String content;
 	@ManyToOne
 	@JoinColumn(name="type")

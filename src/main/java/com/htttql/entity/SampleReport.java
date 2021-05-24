@@ -25,6 +25,7 @@ public class SampleReport {
 	
 	@Lob
 	private String expression;
+	@Lob
 	private String content;
 	
 	@OneToMany(mappedBy = "type")
