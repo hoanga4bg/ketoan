@@ -37,7 +37,9 @@ public class OtherFeeController {
 		Collections.reverse(list);
 		Double total=0.0;
 		for(OtherFee o:list) {
-			total+=o.getTotal();
+			if(o.getTotal()!=null) {
+				total+=o.getTotal();
+			}
 		}
 		model.addAttribute("totalFee", total);
 		model.addAttribute("list", list);
